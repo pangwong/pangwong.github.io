@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+<link rel="preconnect" href="https://fonts.lug.ustc.edu.cn" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
+  <link rel="manifest" href="/images/site.webmanifest">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.lug.ustc.edu.cn/css?family=Noto+Serif+SC:300,300italic,400,400italic,700,700italic%7CSF+Mono+Regular:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"pangwong.github.io","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"right","display":"hide","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Variables &amp; Basic Types">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Reading Note of CppPrimer-chapter2">
+<meta property="og:url" content="https://pangwong.github.io/blog/2022/05/cpp-primer-chapter2/index.html">
+<meta property="og:site_name" content="曰悦鸟">
+<meta property="og:description" content="Variables &amp; Basic Types">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-05-26T07:10:12.000Z">
+<meta property="article:modified_time" content="2022-05-27T11:14:52.309Z">
+<meta property="article:author" content="PangWong">
+<meta property="article:tag" content="scope">
+<meta property="article:tag" content="linkage">
+<meta property="article:tag" content="declaration">
+<meta property="article:tag" content="defination">
+<meta property="article:tag" content="initialization">
+<meta property="article:tag" content="reference">
+<meta property="article:tag" content="const">
+<meta property="article:tag" content="reading notes">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://pangwong.github.io/blog/2022/05/cpp-primer-chapter2/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://pangwong.github.io/blog/2022/05/cpp-primer-chapter2/","path":"/blog/2022/05/cpp-primer-chapter2/","title":"Reading Note of CppPrimer-chapter2"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Reading Note of CppPrimer-chapter2 | 曰悦鸟</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">曰悦鸟</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Variables-amp-Basic-Types"><span class="nav-number">1.</span> <span class="nav-text">Variables &amp; Basic Types</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%86%85%E7%BD%AE%E7%B1%BB%E5%9E%8B-basic-built-in-types"><span class="nav-number">1.1.</span> <span class="nav-text">基本内置类型(basic built-in types)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E5%88%9D%E5%A7%8B%E5%8C%96-variables-initialization"><span class="nav-number">1.2.</span> <span class="nav-text">变量初始化(variables initialization)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%BB%98%E8%AE%A4%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">1.2.1.</span> <span class="nav-text">默认初始化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%80%BC%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">1.2.2.</span> <span class="nav-text">值初始化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9B%B6%E5%88%9D%E5%A7%8B%E5%8C%96%EF%BC%9A"><span class="nav-number">1.2.3.</span> <span class="nav-text">零初始化：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%B4%E6%8E%A5%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">1.2.4.</span> <span class="nav-text">直接初始化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8B%B7%E8%B4%9D%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">1.2.5.</span> <span class="nav-text">拷贝初始化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%97%E8%A1%A8%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">1.2.6.</span> <span class="nav-text">列表初始化</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E5%A3%B0%E6%98%8E%E5%92%8C%E5%AE%9A%E4%B9%89-Variable-Declaration-amp-Definition"><span class="nav-number">1.3.</span> <span class="nav-text">变量声明和定义(Variable Declaration &amp; Definition)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E5%AD%98%E5%82%A8%E9%99%90%E5%AE%9A%E7%AC%A6-Variable-Storage-Class-Specifier"><span class="nav-number">1.4.</span> <span class="nav-text">变量存储限定符(Variable Storage Class Specifier)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E9%93%BE%E6%8E%A5-Variable-Linkage"><span class="nav-number">1.5.</span> <span class="nav-text">变量链接(Variable Linkage)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B-Reference"><span class="nav-number">1.6.</span> <span class="nav-text">引用类型(Reference)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E9%87%8F-Const"><span class="nav-number">1.7.</span> <span class="nav-text">常量(Const)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%8D%E5%90%88%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%88%AB%E5%90%8D-Compound-Type-and-Alias"><span class="nav-number">1.8.</span> <span class="nav-text">复合类型和别名(Compound Type and Alias)</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="PangWong"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">PangWong</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">1</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/pangwong" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;pangwong" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://pangwong.github.io/blog/2022/05/cpp-primer-chapter2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="PangWong">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="曰悦鸟">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Reading Note of CppPrimer-chapter2 | 曰悦鸟">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Reading Note of CppPrimer-chapter2
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-05-26 15:10:12" itemprop="dateCreated datePublished" datetime="2022-05-26T15:10:12+08:00">2022-05-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-05-27 19:14:52" itemprop="dateModified" datetime="2022-05-27T19:14:52+08:00">2022-05-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C++</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>29k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>27 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="Variables-amp-Basic-Types"><a href="#Variables-amp-Basic-Types" class="headerlink" title="Variables &amp; Basic Types"></a>Variables &amp; Basic Types</h2><span id="more"></span>
+
+
+
+<h3 id="基本内置类型-basic-built-in-types"><a href="#基本内置类型-basic-built-in-types" class="headerlink" title="基本内置类型(basic built-in types)"></a>基本内置类型(basic built-in types)</h3><ul>
+<li><p>unsigned和signed在一起算术运算，在某种情况下结果会自动转换为unsigned <a href="chapter4.md">[参见chapter4.14: 无符号类型的隐形转换]</a>，如果运算结果小于0，则得到一个很大的正整数；unsigned的数据类型，越界的时候会自动取模，但是signed的数据类型，数值越界未定义;</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">unsigned</span> u = <span class="number">10</span>;</span><br><span class="line"><span class="type">int</span> i = <span class="number">-42</span>;</span><br><span class="line">std::cout &lt;&lt; i + i &lt;&lt; std::endl;        <span class="comment">// get -84</span></span><br><span class="line">std::cout &lt;&lt; i + u &lt;&lt; std::endl;        <span class="comment">// if int is 32bit, get 4294967264</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>char在不同平台的实现不一样，有可能是unsigned也有可能是signed,所以最好不要将char用于算数运算，非要用的时候要明确signed或者unsigned;</p>
+<blockquote>
+<p>The signedness of char depends on the compiler and the target platform: the defaults for ARM and PowerPC are typically unsigned, the defaults for x86 and x64 are typically signed.</p>
+</blockquote>
+</li>
+<li><p>在代码里面使用float常量的时候(例如std::max(a, 1.0))，避免出现1.0被解析成double但是a却是float，可以将1.0写成1.0f or 1.0F;</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">float</span> var = <span class="number">1.0</span>;</span><br><span class="line">std::<span class="built_in">max</span>(var, <span class="number">2.0</span>);        <span class="comment">// invalid, compare float with double</span></span><br><span class="line">std::<span class="built_in">max</span>(var, <span class="number">2.0f</span>);        <span class="comment">// valid, both float</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>字面值常量(literal)</p>
+<ul>
+<li><p>整形和浮点型常量，包含2、8、10、16进制</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">二进制        <span class="number">0b</span>+       (<span class="number">0</span><span class="number">-1</span>)         <span class="number">0b1010101</span></span><br><span class="line">八进制        o+        (<span class="number">0</span><span class="number">-7</span>)         o125</span><br><span class="line">十进制        ---       (<span class="number">0</span><span class="number">-9</span>)         <span class="number">85</span></span><br><span class="line">十六进制      <span class="number">0</span>x+        (<span class="number">0</span><span class="number">-9</span>，A-F)    <span class="number">0x55</span> #前缀可大写</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>字符和字符串常量</p>
+<ul>
+<li><p><strong>单引号</strong>括起来的是字符，如<code>&#39;A&#39;</code>；<strong>双引号</strong>括起来的是字符串字面常量(string literal)，如<code>&quot;A&quot;</code>；</p>
+</li>
+<li><p>字符串字面常量实际上是<strong>由常量字符构成的数组</strong>，编译器会在每个字符串的结尾处添加 \0；因此字符串字面常量的实际长度要比他的内容多1</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">std::cout &lt;&lt; <span class="built_in">sizeof</span>(<span class="string">&quot;ABC&quot;</span>) &lt;&lt; std::endl;            <span class="comment">// print 4            </span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>很长的字符串常量如果一行写不下的时候，可以换行书写，使得<strong>字符串的两部分都被双引号括起来</strong> </p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">std::cout &lt;&lt; <span class="string">&quot;A very very very very very long string literal&quot;</span></span><br><span class="line">        <span class="string">&quot; that span two lines&quot;</span> &lt;&lt; std::endl;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>转义序列</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;\n&#x27;</span>; <span class="string">&#x27;\r&#x27;</span>; <span class="string">&#x27;\t&#x27;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>布尔字面值和指针字面值</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">true</span>; <span class="literal">false</span>; <span class="literal">nullptr</span>;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>可以通过前缀后缀来制定字面值的类型：</p>
+<blockquote>
+<ol>
+<li>suffix: <code>L</code>, <code>LL</code>, <code>U</code>, <code>F</code>, <code>LF</code>, <code>ULL</code>, <code>UL</code> </li>
+<li>prefix: <code>u8</code>;</li>
+</ol>
+</blockquote>
+</li>
+</ul>
+<h3 id="变量初始化-variables-initialization"><a href="#变量初始化-variables-initialization" class="headerlink" title="变量初始化(variables initialization)"></a>变量初始化(variables initialization)</h3><ul>
+<li><p>初始化不是赋值， 赋值涉及擦除原有数据；</p>
+<blockquote>
+<p>比如对于一个类来说，初始化仅仅执行构造函数，但是赋值会调构造函数和析构函数；</p>
+</blockquote>
+</li>
+<li><p><strong>记住初始化任何一个定义的变量，不管用不用</strong>，可以用最简单的0，nullptr之类的初始化;</p>
+<p><strong>内置类型的初始化变量尽量用</strong><code>&#123;&#125;</code>来实现，有一个<strong>数据丢失的检查</strong>，可以防止无意的bug;</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 涉及到数据类型从大到小的转换的时候，编译器会报错</span></span><br><span class="line"><span class="type">bool</span> is_float = <span class="number">3.4f</span>;</span><br><span class="line"><span class="type">short</span> short_num = <span class="number">10000</span>; </span><br></pre></td></tr></table></figure>
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">bool</span> is_float_&#123;<span class="number">3.4f</span>&#125;;        <span class="comment">// compile error</span></span><br><span class="line"><span class="type">char</span> short_num_&#123;<span class="number">10000</span>&#125;; <span class="comment">// compile error</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">error: type &#x27;float&#x27; cannot be narrowed to &#x27;bool&#x27; in initializer list [-Wc++11-narrowing]</span><br><span class="line">    bool is_float_&#123;3.4f&#125;;</span><br><span class="line">error: constant expression evaluates to 10000 which cannot be narrowed to type &#x27;char&#x27; [-Wc++11-narrowing]</span><br><span class="line">    char short_num_&#123;10000&#125;; </span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>尽量使用nullptr初始化一个指针，而不是NULL；</strong>在C++11里面，<strong>NULL和nullptr不完全一样</strong>；NULL会有重载的歧义（既可以解读为<code>void*</code>，也是<code>int 0</code></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// NULL is a “manifest constant” (a #define of C) that’s actually an integer that can be assigned to a pointer because of an implicit conversion.</span></span><br><span class="line"><span class="comment">// nullptr is a keyword representing a value of self-defined type, that can convert into a pointer, but not into integers.</span></span><br><span class="line"><span class="type">int</span> i = <span class="literal">NULL</span>;         <span class="comment">// ok </span></span><br><span class="line"><span class="type">int</span> i = <span class="literal">nullptr</span>;      <span class="comment">// error - not a integer convertible value </span></span><br><span class="line"><span class="type">int</span>* p = <span class="literal">NULL</span>;        <span class="comment">// ok - int converted into pointer </span></span><br><span class="line"><span class="type">int</span>* p = <span class="literal">nullptr</span>;     <span class="comment">// ok </span></span><br><span class="line"><span class="comment">// nullptr is always a pointer type. 0 (aka. C&#x27;s NULL bridged over into C++) could cause ambiguity in overloaded function resolution, among other things:</span></span><br><span class="line"><span class="built_in">f</span>(<span class="type">int</span>);      <span class="comment">// NULL will call this one, not call f(foo *) because of a int-to-pointer conversion is needed</span></span><br><span class="line">             <span class="comment">// while f(int) is perfectly matched</span></span><br><span class="line"><span class="built_in">f</span>(foo *);    <span class="comment">// nullptr will call the one</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/types/nullptr_t"><code>std::nullptr_t</code></a> is the type of the null pointer literal, <a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/language/nullptr"><code>nullptr</code></a> is the type of the null pointer literal,  <a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/language/nullptr"><code>nullptr</code></a>；<code>sizeof(std::nullptr_t)</code> is equal to <code>sizeof(void *)</code>；</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sizeof</span>(<span class="literal">nullptr</span>) == <span class="built_in">sizeof</span>(<span class="type">void</span> *);            <span class="comment">// true</span></span><br><span class="line"><span class="built_in">sizeof</span>(<span class="type">void</span> *) == <span class="number">8</span>;                                        <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><h4 id="默认初始化"><a href="#默认初始化" class="headerlink" title="默认初始化"></a><strong>默认初始化</strong></h4><blockquote>
+<p>默认初始化是定义对象时，没有使用初始化器(initializer)，也即没有做任何初始化说明时的默认行为；</p>
+<p>有三种情况会执行默认初始化：</p>
+<ul>
+<li><p>有automatic、static、thread_local存储期(storage duration)的变量如果没有给定初始化器，是被默认初始化的；比如一个<strong>块作用域中的局部变量</strong>(内置变量、复合类型变量)，但是默认初始化<strong>全局变量，静态变量、thread_local</strong>变量的时候，会首先被<strong>零初始化</strong>，所以值是合法的；</p>
+</li>
+<li><p>使用<code>new</code>操作符创建一个对象的时候如果没有指定初始化器，也是被<strong>默认初始化</strong>；</p>
+</li>
+<li><p><strong>基类或者类的非静态成员</strong>没有出现<strong>在类的构造函数的初始化列表</strong>也是被<strong>默认初始化</strong>；</p>
+</li>
+</ul>
+<p>默认初始化的方式取决于对象的类型：</p>
+<ul>
+<li>如果默认初始化的对象是类类型，则被调用的默认构造函数为类的成员提供初始值；如果类成员没有初始值，则值未定义</li>
+<li>如果默认初始化的对象是数组，则对数组的每个成员都执行默认初始化；</li>
+<li>其他情况，就不做任何初始化，所有<strong>拥有automatic存储期的对象的值及其包含的对象都是不确定的(indeterminate)<strong>，使用和操作也会带来</strong>不确定</strong>的结果；</li>
+</ul>
+</blockquote>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">T2</span> &#123;</span><br><span class="line">    <span class="type">int</span> mem;</span><br><span class="line">    <span class="built_in">T2</span>() &#123; &#125; <span class="comment">// &quot;mem&quot; is not in the initializer list, default init</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// automatic storage duration</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> n;            <span class="comment">// non-class, the value is indeterminate</span></span><br><span class="line">    <span class="type">int</span> a[<span class="number">2</span>];         <span class="comment">// array, each element of the array is default initialized and is indeterminate</span></span><br><span class="line">    std::string s;    <span class="comment">// class, calls default ctor, the value is &quot;&quot; (empty string)</span></span><br><span class="line">    std::string a[<span class="number">2</span>]; <span class="comment">// array, default-initializes the elements, the value is &#123;&quot;&quot;, &quot;&quot;&#125;</span></span><br><span class="line">    NoInitializer *objptr = <span class="keyword">new</span> NoInitializer;  <span class="comment">// objptr-&gt;mem == 0, for objptr has dynamic storage duration</span></span><br><span class="line">    NoInitializer obj;    <span class="comment">// obj.mem is indeterminate, for obj has automatic storage duration</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>有时候**<code>new</code>一个对象<strong>的时候没有指定初始化器，即使默认</strong>初始化得到的是0，但这也只是巧合<strong>，</strong>并不能得到保证<strong>；所以<code>new</code>的时候记得加上</strong>空的括号<code>()</code>或者花括号<code>&#123;&#125;</code><strong>使得<code>new</code>调用</strong>值初始化**</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// c maybe be always 0</span></span><br><span class="line"><span class="keyword">auto</span> c = <span class="keyword">new</span> <span class="type">int</span>;		</span><br><span class="line"></span><br><span class="line"><span class="comment">// however</span></span><br><span class="line"><span class="type">int</span>* te = <span class="keyword">new</span> <span class="type">int</span>[<span class="number">4</span>]&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>&#125;;		<span class="comment">// te: 1 2 3 4</span></span><br><span class="line"><span class="keyword">delete</span> [] te; </span><br><span class="line">te = <span class="keyword">new</span> <span class="type">int</span>[<span class="number">4</span>];					<span class="comment">// te: 0 0 2043 4  (test on macos and apple clang 13.1.6)</span></span><br><span class="line"><span class="keyword">delete</span> [] te; </span><br><span class="line">te = <span class="keyword">new</span> <span class="type">int</span>[<span class="number">4</span>]();					<span class="comment">// te: 0 0 0 0</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>For most systems, <strong>this(init to zero) is only true when the memory came directly from the OS</strong> (for security reasons). When it came from <strong>memory cached by the allocator, it most likely contains whatever it did before it was freed</strong>. This is also a reason why such bugs sometimes do not arise in testcases&#x2F;unit tests, but only after a while of the “real” program running. Valgrind to the rescue here. <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/7546620/operator-new-initializes-memory-to-zero">stackoverflow</a></p>
+</blockquote>
+</blockquote>
+</li>
+<li><h4 id="值初始化"><a href="#值初始化" class="headerlink" title="值初始化"></a><strong>值初始化</strong></h4><blockquote>
+<p>值初始化是定义对象时，要求初始化，但没有给出初始值的行为，一般给空的<code>()</code> <code>&#123;&#125;</code>作为initializer-list；</p>
+<p>有四种情况会执行零初始化</p>
+<ul>
+<li>当一个对象在创建时指定了空的<code>()</code>或者<code>&#123;&#125;</code>作为初始化器， 如<code>std::vector&lt;int&gt;()</code></li>
+<li>当在<code>new</code>一个对象时指定了空的<code>()</code>或者<code>&#123;&#125;</code>作为初始化器， 如<code>new T&#123;&#125;</code></li>
+<li>当一个类的非静态成员或者基类在初始化列表里面通过空的<code>()</code>或者<code>&#123;&#125;</code>作为初始化器</li>
+<li>有automatic、static、thread_local存储期(storage duration)的变量使用空的<code>()</code>或者<code>&#123;&#125;</code>作为初始化器</li>
+</ul>
+<p>值初始化的行为根据初始化的对象的不同而不同：</p>
+<ul>
+<li>如果是类类型且因为各种原因<strong>没有默认构造函数</strong>(比如定义了别的构造函数或者默认构造函数设为deleted)，则类执行<strong>默认初始化</strong></li>
+<li>如果是类类型且类<strong>有默认构造函数而且这个默认构造函数不是用户定义的</strong>，则类执行<strong>零初始化</strong></li>
+<li>如果对象是数组，则对数组的每个成员执行<strong>值初始化</strong></li>
+<li>其他情况执行<strong>零初始化</strong></li>
+</ul>
+</blockquote>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">T1</span> &#123;</span><br><span class="line">    <span class="type">int</span> mem1;</span><br><span class="line">    std::string mem2;</span><br><span class="line">&#125;; <span class="comment">// implicit default constructor</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">T3</span> &#123;</span><br><span class="line">    <span class="type">int</span> mem1;</span><br><span class="line">    std::string mem2;</span><br><span class="line">    <span class="built_in">T3</span>() &#123;&#125; <span class="comment">// user-provided default constructor</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> n&#123;&#125;;                <span class="comment">// scalar =&gt; zero-initialization, the value is 0</span></span><br><span class="line">    <span class="type">double</span> f = <span class="built_in">double</span>();    <span class="comment">// scalar =&gt; zero-initialization, the value is 0.0</span></span><br><span class="line">    <span class="type">int</span>* a = <span class="keyword">new</span> <span class="type">int</span>[<span class="number">10</span>](); <span class="comment">// array =&gt; value-initialization of each element</span></span><br><span class="line">    T1 t1&#123;&#125;;                <span class="comment">// class with implicit default constructor =&gt;</span></span><br><span class="line">                            <span class="comment">//     t1.mem1 is zero-initialized, the value is 0</span></span><br><span class="line">                            <span class="comment">//     t1.mem2 is default-initialized, the value is &quot;&quot;</span></span><br><span class="line">    T3 t3&#123;&#125;;                <span class="comment">// class with user-provided default constructor =&gt;</span></span><br><span class="line">                            <span class="comment">//     t3.mem1 is default-initialized to indeterminate value</span></span><br><span class="line">                            <span class="comment">//     t3.mem2 is default-initialized, the value is &quot;&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><h4 id="零初始化："><a href="#零初始化：" class="headerlink" title="零初始化："></a><strong>零初始化</strong>：</h4><blockquote>
+<p>有三种情况会使用<strong>零初始化</strong>：</p>
+<ul>
+<li>对于static、thread_local存储期(storage duration)的变量(static duration includes static and global)，<strong>零初始化</strong>将会在<strong>其他类型的初始化之前</strong>先初始化</li>
+<li>在<strong>值初始化</strong>某些<strong>非类类型的对象</strong>以及类类型对象的成员时会执行<strong>零初始化</strong>；</li>
+<li>当使用字符串字面值初始化字符数组的时候，数组中没有<strong>被填满剩余的元素字符</strong>会被<strong>零初始化</strong></li>
+</ul>
+<p>零初始化的行为根据初始化的对象的不同而不同：</p>
+<ul>
+<li>如果对象的类型是<strong>数量类型(scalar type)<strong>，则会被</strong>赋值0</strong>，比如int、float、指针、枚举类型</li>
+<li>如果对象的类型是非union类，基类和数据成员会<strong>零初始化</strong>，所有的padding设为0；类的构造函数会被忽略(一般是合成默认构造函数)；</li>
+<li>如果对象的类型是union类，则<strong>第一个非静态数据成员被零初始化</strong>，所有的padding设为0；</li>
+<li>如果对象的类型是数组，则数组的每一个成员都执行<strong>零初始化</strong></li>
+</ul>
+</blockquote>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">int</span> n;  <span class="comment">// static non-class, a two-phase initialization is done:</span></span><br><span class="line">               <span class="comment">// 1) zero initialization initializes n to zero</span></span><br><span class="line">               <span class="comment">// 2) default initialization does nothing, leaving n being zero</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">T</span>&#123;</span><br><span class="line">    <span class="type">int</span> mem = <span class="number">0</span>;	<span class="comment">// mem: a two-phase initialization is done:</span></span><br><span class="line">    <span class="built_in">T</span>(): <span class="built_in">mem</span>(<span class="number">1</span>)&#123;&#125;	<span class="comment">// 1) zero initialization initializes n to zero</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// global variables have static storage duration</span></span><br><span class="line"><span class="type">double</span> f[<span class="number">3</span>];   <span class="comment">// zero-initialized to three 0.0&#x27;s</span></span><br><span class="line"><span class="type">int</span>* p;        <span class="comment">// zero-initialized to null pointer value</span></span><br><span class="line">               <span class="comment">// (even if the value is not integral 0)</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span>*[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">delete</span> p; <span class="comment">// safe to delete a null pointer </span></span><br><span class="line">    <span class="type">static</span> <span class="type">int</span> n = argc; <span class="comment">// zero-initialized to 0 then copy-initialized to argc</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><h4 id="直接初始化"><a href="#直接初始化" class="headerlink" title="直接初始化"></a><strong>直接初始化</strong></h4><blockquote>
+<p>直接初始化是指通过显式的制定构造参数来初始化一个对象，在以下情况使用直接初始化：</p>
+<ul>
+<li>使用非空的包含若干参数的括号<code>()</code>来初始化对象，比如<code>T t(arg)</code>, <code>T t(arg1, arg2)</code>；</li>
+<li>使用花括号来初始化非类类型的对象，比如<code>T t&#123;arg&#125;</code>；</li>
+<li>使用<code>function_cast</code>(比如强制类型转换int(1.2))或者<code>static_cast</code>来初始化一个纯右值；</li>
+<li>使用<code>new</code>创建对象的时候提供的非空的初始化器；</li>
+<li>通过类的构造函数的初始化列表来初始化类的非静态成员或者基类；</li>
+<li>初始化lambda表达式中通过<code>拷贝捕获(by-copy capture)</code>的对象；</li>
+</ul>
+<p>直接初始化的行为根据初始化的对象的不同而不同：</p>
+<ul>
+<li>如果初始化的对象是类类型，则会在重载的所有解决方案(e.g. ctor)中找到一个最好的匹配，然后使用构造函数初始化对象；</li>
+<li>如果初始化对象不是类类型但是初始值是类类型，则会在这个类及其基类中找到最适合的转换函数去初始化该对象</li>
+<li>如果初始化对象是bool，<code>std::nullptr_t</code>会将搞对象初始化为<code>false</code>；</li>
+<li>其他情况会调用类型转换，将初始值转化为对象的类型</li>
+</ul>
+</blockquote>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">std::string <span class="title">s1</span><span class="params">(<span class="string">&quot;test&quot;</span>)</span></span>; <span class="comment">// constructor from const char*</span></span><br><span class="line"><span class="function">std::string <span class="title">s2</span><span class="params">(<span class="number">10</span>, <span class="string">&#x27;a&#x27;</span>)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> a&#123;<span class="number">10</span>&#125;;</span><br><span class="line"><span class="type">int</span> *iptr = <span class="keyword">new</span> <span class="built_in">int</span>(<span class="number">5</span>);</span><br><span class="line"><span class="keyword">auto</span> lambda_func = [a]()&#123;std::cout &lt;&lt; a &lt;&lt; std::endl;&#125;;		<span class="comment">// copy capture</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">T</span>&#123;</span><br><span class="line">  	<span class="type">int</span> mem = <span class="number">0</span>;	<span class="comment">// init value will be ignored for mem is directly initialized in member init list</span></span><br><span class="line">    <span class="built_in">T</span>():<span class="built_in">mem</span>(<span class="number">1</span>) &#123;&#125;	<span class="comment">// direct initialization of mem</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><h4 id="拷贝初始化"><a href="#拷贝初始化" class="headerlink" title="拷贝初始化"></a><strong>拷贝初始化</strong></h4><blockquote>
+<p>拷贝初始化是指从另一个对象初始化对象，一下情况会使用拷贝初始化：</p>
+<ul>
+<li>当使用等号<code>=</code>把右边表达式赋值给一个左边的非引用对象时</li>
+<li>函数传值调用的时候( passing an argument by value)</li>
+<li>从函数返回一个对象的时候( function that returns by value)</li>
+<li>当通过值来throw或者catch异常的时候</li>
+<li>数组初始化的时候，对于初始化器提供了的值，执行拷贝初始化，剩余的对象执行零初始化；</li>
+</ul>
+<p>拷贝初始化的行为根据初始化的对象的不同而不同：</p>
+<ul>
+<li>对于类类型，只能在非显式(no-explicit)的构造函数中匹配最合适的来初始化该对象</li>
+<li>否则执行标准的类型转换，将初始值转换为对象的类型</li>
+</ul>
+</blockquote>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> n = <span class="number">3.14</span>;     <span class="comment">// floating-integral conversion</span></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> b = n;  <span class="comment">// const doesn&#x27;t matter</span></span><br><span class="line"></span><br><span class="line">std::string s = <span class="string">&quot;test&quot;</span>;        <span class="comment">// OK: constructor is non-explicit</span></span><br><span class="line">std::string s2 = std::<span class="built_in">move</span>(s); <span class="comment">// this copy-initialization performs a move</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">A</span> &#123;</span><br><span class="line">    <span class="function"><span class="keyword">operator</span> <span class="title">int</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> <span class="number">12</span>;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">B</span> &#123;</span><br><span class="line">    <span class="built_in">B</span>(<span class="type">int</span>) &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line">A a;</span><br><span class="line">B b0 = <span class="number">12</span>;		<span class="comment">// implicit ctor B(int)</span></span><br><span class="line">B b2&#123;a&#125;;        <span class="comment">// calling A::operator int(), then B::B(int)</span></span><br><span class="line">B b3 = &#123;a&#125;;     <span class="comment">// identical</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><h4 id="列表初始化"><a href="#列表初始化" class="headerlink" title="列表初始化"></a><strong>列表初始化</strong></h4><blockquote>
+<p>列表初始化是C++11新给出的一种初始化方式，可用于内置类型，也可以用于自定义对象，一般用<code>&#123;&#125;</code>来；</p>
+<p>列表初始化一般分为<strong>直接列表初始化</strong>和<strong>拷贝列表初始化</strong>，分别对应直接初始化和拷贝初始化</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">T object &#123; arg1, arg2, ... &#125;;    <span class="comment">//直接列表初始化</span></span><br><span class="line">T object = &#123;arg1, arg2, ...&#125;;    <span class="comment">//拷贝列表初始化</span></span><br></pre></td></tr></table></figure>
+
+</blockquote>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> n0&#123;&#125;;  <span class="comment">// value-initialization (to zero)</span></span><br><span class="line"><span class="type">int</span> n1&#123;<span class="number">1</span>&#125;; <span class="comment">// direct-list-initialization</span></span><br><span class="line"></span><br><span class="line">std::string s1&#123;<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>, <span class="string">&#x27;d&#x27;</span>&#125;; <span class="comment">// initializer-list constructor call</span></span><br><span class="line">std::string s2&#123;s1, <span class="number">2</span>, <span class="number">2</span>&#125;;           <span class="comment">// regular constructor call</span></span><br><span class="line">std::string s3&#123;<span class="number">0x61</span>, <span class="string">&#x27;a&#x27;</span>&#125;;          <span class="comment">// initializer-list ctor is preferred to (int, char)</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> n2 = &#123;<span class="number">1</span>&#125;;            <span class="comment">// copy-list-initialization</span></span><br><span class="line"><span class="type">double</span> d = <span class="type">double</span>&#123;<span class="number">1.2</span>&#125;;  <span class="comment">// list-initialization of a prvalue, then copy-init</span></span><br><span class="line"><span class="keyword">auto</span> s4 = std::string&#123;<span class="string">&quot;HelloWorld&quot;</span>&#125;; <span class="comment">// same as above, no temporary created since C++17</span></span><br><span class="line"></span><br><span class="line">std::map&lt;<span class="type">int</span>, std::string&gt; m = <span class="comment">// nested list-initialization</span></span><br><span class="line">&#123;</span><br><span class="line">    &#123;<span class="number">1</span>, <span class="string">&quot;a&quot;</span>&#125;,</span><br><span class="line">    &#123;<span class="number">2</span>, &#123;<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>&#125;&#125;,</span><br><span class="line">    &#123;<span class="number">3</span>, s1&#125; </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function">std::pair&lt;std::string, std::string&gt; <span class="title">f</span><span class="params">(std::pair&lt;std::string, std::string&gt; p)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;p.second, p.first&#125;; <span class="comment">// list-initialization in return statement</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">f</span>(&#123;<span class="string">&quot;hello&quot;</span>, <span class="string">&quot;world&quot;</span>&#125;).first; <span class="comment">// list-initialization in function call</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Foo</span> &#123;</span><br><span class="line">    std::vector&lt;<span class="type">int</span>&gt; mem = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;; <span class="comment">// list-initialization of a non-static member</span></span><br><span class="line">    std::vector&lt;<span class="type">int</span>&gt; mem2;</span><br><span class="line">    <span class="built_in">Foo</span>() : mem2&#123;<span class="number">-1</span>, <span class="number">-2</span>, <span class="number">-3</span>&#125; &#123;&#125;       <span class="comment">// list-initialization of a member in constructor</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="变量声明和定义-Variable-Declaration-amp-Definition"><a href="#变量声明和定义-Variable-Declaration-amp-Definition" class="headerlink" title="变量声明和定义(Variable Declaration &amp; Definition)"></a>变量声明和定义(Variable Declaration &amp; Definition)</h3><ul>
+<li><p>区分C++变量的<strong>定义(definition)<strong>和</strong>声明(declaration)</strong></p>
+<blockquote>
+<p>From the C++ standard section 3.1:</p>
+<p>A declaration introduces names into a translation unit or redeclares names introduced by previous declarations. A declaration specifies the interpretation and attributes of these names.</p>
+<p>The next paragraph states (emphasis mine) that a <strong>declaration is a definition unless</strong>…</p>
+</blockquote>
+<ul>
+<li><p>… it declares <strong>a <code>function</code> without specifying the function’s body</strong>:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">sqrt</span><span class="params">(<span class="type">double</span>)</span></span>;  <span class="comment">// declares sqrt but no body</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>… it declares a <strong><code>static</code></strong> member <strong>within a class definition</strong>:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">int</span> c&#123;<span class="number">0</span>&#125;;    <span class="comment">// definitdefines c as a static var outside a class definition</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">X</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> a;         <span class="comment">// defines a</span></span><br><span class="line">    <span class="type">static</span> <span class="type">int</span> b;  <span class="comment">// declares b as a static var within a class definition</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>… it declares a <strong><code>class</code> name</strong>：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Y</span>;        <span class="comment">// declare a class</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>… it contains the <strong><code>extern</code> keyword</strong> without an initializer or function body:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="type">const</span> <span class="type">int</span> i = <span class="number">0</span>;  <span class="comment">// defines i as extern but with init, so it is a defination </span></span><br><span class="line"><span class="keyword">extern</span> <span class="type">int</span> j;  <span class="comment">// declares j as extern but without init</span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">foo</span><span class="params">()</span></span>;  <span class="comment">// declares foo</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>… or is <strong>a <code>typedef</code> or <code>using</code> statement</strong>.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> LONG_32;  <span class="comment">// declares LONG_32</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;   <span class="comment">// declares std</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>类静态变量只是声明，没有定义，否则会出现<code>undefined reference </code>(before c++17)，即<strong>static data members</strong> (const or not)有<strong>external linkage</strong>，参见本章external linkage</p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">foo</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">static</span> <span class="type">int</span> bar; <span class="comment">// declaration of static data member</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// Error: ISO C++ forbids in-class initialization of non-const static member</span></span><br><span class="line">    <span class="type">static</span> <span class="type">int</span> bar &#123;<span class="number">10</span>&#125;;</span><br><span class="line">    <span class="comment">// Valid</span></span><br><span class="line">    <span class="type">static</span> <span class="type">const</span> <span class="type">int</span> bar &#123;<span class="number">10</span>&#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// We have to explicitly define the static variable, otherwise it will result in a</span></span><br><span class="line"><span class="comment">// undefined reference to &#x27;foo::bar&#x27;</span></span><br><span class="line"><span class="type">int</span> foo::bar = <span class="number">0</span>; <span class="comment">// actural definition of data member</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Starting from C++17 you can <strong>declare your static members as <code>inline</code>. This eliminates the need for a separate definition</strong>. By declaring them in that fashion you effectively tell compiler that you don’t care where this member is physically defined and, consequently, don’t care about its initialization order.</p>
+</blockquote>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">  <span class="keyword">class</span> <span class="title class_">foo</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">inline</span> <span class="type">static</span> <span class="type">int</span> bar; <span class="comment">// declaration of static data member</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Error: if bar declare as inline, the line will result in redefinition error</span></span><br><span class="line"><span class="type">int</span> foo::bar = <span class="number">0</span>; </span><br></pre></td></tr></table></figure>
+</li>
+<li><p>理解c++语言中为啥声明和定义需要区分</p>
+<blockquote>
+<p>From the beginning of time C++ language, just like C, was built on the principle of <em><strong>independent translation</strong></em>. Each translation unit is compiled by the <em>compiler proper</em> independently, without any knowledge of other translation units. The whole program only comes together later, at linking stage. Linking stage is the earliest stage at which the <em>entire</em> program is seen by <em>linker</em> (it is seen as collection of object files prepared by the <em>compiler proper</em>).</p>
+<p><strong>In order to support this principle of <em>independent translation</em>, each entity with external linkage has to be defined in one translation unit, and in only one translation unit</strong>. The user is responsible for distributing such entities between different translation units. It is considered a part of <em>user intent</em>, i.e. the user is supposed to decide which translation unit (and object file) will contain each definition.</p>
+<p>The same applies to static members of the class.<strong>Static data members of the class are entities with external linkage</strong>. The compiler expects you to define that entity in some translation unit. The whole purpose of this feature is to give you the opportunity to <em>choose</em> that translation unit. The compiler cannot choose it for you. It is, again, a part of your intent, something you have to <em>tell</em> the compiler.</p>
+<p>This is no longer as critical as it used to be a while ago, since <strong>the language is now designed to deal with (and eliminate) large amount of identical definitions (templates, inline functions, etc.)</strong>, but the <strong>One Definition Rule</strong> is still rooted in the principle of <em>independent translation</em>.</p>
+<p>In addition to the above, in C++ language the point at which you define your variable will determine the order of its initialization with regard to other variables defined in the same translation unit. This is also a part of <em>user intent</em>, i.e. something the compiler cannot decide without your help.</p>
+<p><em>reference missing</em></p>
+</blockquote>
+</li>
+<li><p>申明和定义全局变量可能犯的错</p>
+<ul>
+<li><p>Possibility1</p>
+<blockquote>
+<p>Perhaps you forgot to <em>declare</em> the variable in the other translation unit (TU). Here’s an example:</p>
+</blockquote>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//// a.cpp</span></span><br><span class="line"><span class="type">int</span> x = <span class="number">5</span>; <span class="comment">// declaration and definition of my global variable</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//// b.cpp</span></span><br><span class="line"><span class="comment">// I want to use `x` here, too.</span></span><br><span class="line"><span class="comment">// But I need b.cpp to know that it exists, first:</span></span><br><span class="line"><span class="keyword">extern</span> <span class="type">int</span> x; <span class="comment">// declaration (not definition)</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">foo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">   cout &lt;&lt; x;  <span class="comment">// OK</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Possibility2</p>
+<blockquote>
+<p>Additionally, it’s possible that the variable has <em>internal linkage</em>, meaning that it’s not exposed across translation units. This will be the case by default if the variable is marked <code>const</code> (<code>[C++11: 3.5/3]</code>)</p>
+</blockquote>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//// a.cpp</span></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> x = <span class="number">5</span>; <span class="comment">// file-`static` by default</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//// b.cpp</span></span><br><span class="line"><span class="keyword">extern</span> <span class="type">const</span> <span class="type">int</span> x;    <span class="comment">// says there&#x27;s a `x` that we can use somewhere...</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">foo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">   cout &lt;&lt; x;    <span class="comment">// ... but actually there isn&#x27;t. So, linker error.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>  You could fix this by applying <code>extern</code> to the <em>definition</em>, too:</p>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="type">const</span> <span class="type">int</span> x = <span class="number">5</span>; <span class="comment">// now with extern linkage</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<h3 id="变量存储限定符-Variable-Storage-Class-Specifier"><a href="#变量存储限定符-Variable-Storage-Class-Specifier" class="headerlink" title="变量存储限定符(Variable Storage Class Specifier)"></a>变量存储限定符(Variable Storage Class Specifier)</h3><ul>
+<li><p><strong>Storage class specifiers</strong>: </p>
+<p>  The storage class specifiers are a part of the <em>decl-specifier-seq</em> of a name’s <a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/language/declarations">declaration syntax</a>. Together with the <a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/language/scope">scope</a> of the name, they <strong>control two independent properties</strong> of the name: its <em><strong>storage duration</strong></em> and its <em><strong>linkage</strong></em>.</p>
+<ul>
+<li><p>The <strong>static</strong> storage class is used to declare an identifier that is a <strong>local variable either to a function or a file</strong> and that exists and retains its value <strong>after control passes from where it was declared</strong>. <strong>This storage class has a duration that is permanent</strong>. A variable declared of this class retains its value from one call of the function to the next. <strong>The scope is local</strong>. A variable is known only by the function it is declared within or if declared globally in a file, it is known or seen only by the functions within that file. This storage class guarantees that declaration of the variable also initializes the variable to zero or all bits off.</p>
+<p>  <strong>The storage for the object is allocated when the program begins and deallocated when the program ends. Only one instance of the object exists</strong>. All objects declared at namespace scope (including global namespace) have this storage duration, plus those declared with <code>static</code> or <code>extern</code>.</p>
+<p>  Variables declared at block scope with the specifier <code>static</code> or <code>thread_local</code> (since C++11) have static or thread (since C++11) storage duration <strong>but are initialized the first time control passes through their declaration</strong> (<strong>unless their initialization is <a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/language/zero_initialization">zero-</a> or <a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/language/constant_initialization">constant-initialization</a>, which can be performed before the block is first entered</strong>). </p>
+<p>  <strong>The <code>static</code> specifier is only allowed in the declarations of objects (<em>except in function parameter lists</em>), declarations of functions (<em>except at block scope</em>), and declarations of anonymous unions.</strong> When used in a declaration of a class member, it declares a <a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/language/static">static member</a>. **When used in a declaration of an object, it specifies <strong>static storage duration</strong> (except if accompanied by <code>thread_local</code>). When used in a declaration at namespace scope, it specifies <strong>internal linkage</strong>.</p>
+</li>
+<li><p>The <strong>extern</strong> storage class is used to declare a global variable that will be <strong>known to the functions in a file</strong> and <strong>capable of being known to all functions in a program</strong>. <strong>This storage class has a duration that is permanent</strong>. Any variable of this class retains its value until changed by another assignment. <strong>The scope is global</strong>. A variable can be known or seen by all functions within a program.</p>
+<p>  <strong>The <code>extern</code> specifier is only allowed in the declarations of variables and functions (except class members or function parameters)</strong>. </p>
+<p>  It specifies external linkage, and does not technically affect storage duration, but <strong>it cannot be used in a definition of an automatic storage duration object, so all <code>extern</code> objects have static or thread durations</strong>. In addition, a variable declaration that <strong>uses <code>extern</code> and has no initializer is not a <a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/language/definition">definition</a></strong>.</p>
+</li>
+<li><p>The <strong>thread_local</strong> keyword is only allowed for objects declared at <strong>namespace scope</strong>, objects declared at <strong>block scope</strong>, and <strong>static data members</strong>. </p>
+<p>  It indicates that the <strong>object has thread storage duration</strong>. It <strong>can be combined with <code>static</code> or <code>extern</code> to specify internal or external linkage (except for static data members which always have external linkage)</strong>, respectively, but that additional <code>static</code> doesn’t affect the storage duration. </p>
+<p>  <strong>The storage for the object is allocated when the thread begins and deallocated when the thread ends. Each thread has its own instance of the object</strong>. Only objects declared <code>thread_local</code> have this storage duration. Note that main thread is also a thread, so the main thread starts,  the global thread_local object is allocated.</p>
+<p>  这里有一个很重要的信息，就是 <strong><code>static thread_local</code> 和 <code>thread_local</code> 声明是等价的</strong>，都是指定变量的周期是在线程内部，并且是静态的。下面是一个线程安全的均匀分布随机数生成，例子来源于 <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/21237905/how-do-i-generate-thread-safe-uniform-random-numbers">stackoverflow</a>：</p>
+<blockquote>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">random_uniform_float</span><span class="params">(<span class="type">float</span> *<span class="type">const</span> dst, <span class="type">const</span> <span class="type">int</span> len, <span class="type">const</span> <span class="type">int</span> min=<span class="number">0</span>, <span class="type">const</span> <span class="type">int</span> max=<span class="number">1</span>)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// generator is only created once in per thread, but distribution can be regenerated.</span></span><br><span class="line">    <span class="type">static</span> <span class="keyword">thread_local</span> std::default_random_engine generator;     <span class="comment">// heavy</span></span><br><span class="line">    <span class="function">std::uniform_real_distribution&lt;<span class="type">float</span>&gt; <span class="title">distribution</span><span class="params">(min, max)</span></span>; <span class="comment">// light</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; len; ++i) &#123;</span><br><span class="line">        dst[i] = <span class="built_in">distribution</span>(generator);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>generator</code> 是一个函数的静态变量，理论上这个静态变量在函数的所有调用期间都是同一个的（静态存储期），相反 <code>distribution</code> 是每次调用生成的函数内临时变量。现在 <code>generator</code> 被 thread_local 修饰，表示其存储周期从整个函数调用变为了线程存储期，<strong>也就是在同一个线程内，这个变量表现的就和函数静态变量一样，但是不同线程中是不同的</strong>。可以理解为 thread_local 缩小了变量的存储周期。关于 thread_local 变量自动 static，C++ 标准中也有说明：</p>
+<blockquote>
+<p>When thread_local is applied to a variable of block scope the storage-class-specifier static <strong>is implied</strong> if it does not appear explicitly</p>
+</blockquote>
+</blockquote>
+<p>  thread_local code example 来源<a target="_blank" rel="noopener" href="https://murphypei.github.io/blog/2020/02/thread-local.html">murphype’s Blog</a></p>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">thread_local</span> <span class="type">int</span> x = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">thread_func</span><span class="params">(<span class="type">const</span> std::string&amp; thread_name)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; ++i) &#123;</span><br><span class="line">      	<span class="keyword">thread_local</span> <span class="type">int</span> y = <span class="number">10</span>;</span><br><span class="line">        x++;</span><br><span class="line">      	y++;</span><br><span class="line">        <span class="function">std::lock_guard&lt;std::mutex&gt; <span class="title">lock</span><span class="params">(cout_mutex)</span></span>;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;thread[&quot;</span> &lt;&lt; thread_name &lt;&lt; <span class="string">&quot;]: x = &quot;</span> &lt;&lt; x &lt;&lt; <span class="string">&quot; , y = &quot;</span> &lt;&lt; y &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="function">std::thread <span class="title">t1</span><span class="params">(thread_func, <span class="string">&quot;t1&quot;</span>)</span></span>;</span><br><span class="line">    <span class="function">std::thread <span class="title">t2</span><span class="params">(thread_func, <span class="string">&quot;t2&quot;</span>)</span></span>;</span><br><span class="line">    t1.<span class="built_in">join</span>();</span><br><span class="line">    t2.<span class="built_in">join</span>();</span><br><span class="line">  	std::cout &lt;&lt; <span class="string">&quot;after thread, thread local x: &quot;</span> &lt;&lt; x &lt;&lt; std::endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// output</span></span><br><span class="line">thread[t1]: x = <span class="number">2</span> , y = <span class="number">11</span></span><br><span class="line">thread[t1]: x = <span class="number">3</span> , y = <span class="number">12</span></span><br><span class="line">thread[t1]: x = <span class="number">4</span> , y = <span class="number">13</span></span><br><span class="line">thread[t2]: x = <span class="number">2</span> , y = <span class="number">11</span></span><br><span class="line">thread[t2]: x = <span class="number">3</span> , y = <span class="number">12</span></span><br><span class="line">thread[t2]: x = <span class="number">4</span> , y = <span class="number">13</span></span><br><span class="line">after thread, thread local x: <span class="number">1</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Reference: <a target="_blank" rel="noopener" href="http://wiki.answers.com/Q/What_is_the_difference_between_static_and_extern">What_is_the_difference_between_static_and_extern</a>、<a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/language/storage_duration">cppreference-storage_duration</a>、<a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/language/scope">cppreference-scope</a></p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="变量链接-Variable-Linkage"><a href="#变量链接-Variable-Linkage" class="headerlink" title="变量链接(Variable Linkage)"></a>变量链接(Variable Linkage)</h3><ul>
+<li><p><a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/language/storage_duration">Introduction to Linkage</a></p>
+<p>  A name that denotes object, reference, function, type, template, namespace, or value, may have <em><strong>linkage</strong></em>.</p>
+<p>  If a name has linkage, it refers to the <strong>same entity as the same name</strong> introduced by a declaration in another scope. If a variable, function, or another entity with the same name is declared in several scopes, but does not have sufficient linkage, then several instances of the entity are generated.</p>
+<p>  The following linkages are recognized:</p>
+<ul>
+<li><p><strong>no linkage</strong>: The name can be referred to <strong>only from the scope it is in.</strong></p>
+<blockquote>
+<p>Any of the following names declared at block scope have no linkage:</p>
+<ul>
+<li><strong>variables</strong> that aren’t explicitly declared <strong><code>extern</code></strong> (regardless of the <code>static</code> modifier);</li>
+<li><strong><a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/language/class#Local_classes">local classes</a></strong> and their member functions;</li>
+<li>other names declared at <strong>block scope</strong> such as <strong>typedefs</strong>, <strong>enumerations</strong>, and <strong>enumerators</strong>.</li>
+</ul>
+<p>Names not specified with external, module, (since C++20) or internal linkage also have no linkage, regardless of which scope they are declared in.</p>
+</blockquote>
+</li>
+<li><p><strong>internal linkage</strong>: the name can be referred to from all scopes in the <strong>current translation unit.</strong></p>
+<blockquote>
+<p>Any of the following names declared at <strong>namespace scope</strong> have <strong>internal</strong> linkage:</p>
+<ul>
+<li><strong>variables</strong>, variable <strong>templates</strong> (since C++14), <strong>functions</strong>, or <strong>function templates</strong> declared <strong><code>static</code></strong>;</li>
+<li>non-volatile non-template (since C++14) non-inline (since C++17) non-<a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/language/modules">exported</a> (since C++20) <strong>const-qualified variables (including <a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/language/constexpr">constexpr</a>)</strong> that aren’t declared <code>extern</code> and aren’t previously declared to have external linkage;</li>
+<li>data members of <strong><a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/language/union">anonymous unions</a>.</strong></li>
+<li>In addition, all names declared in <strong><a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/language/namespace">unnamed namespace</a></strong> or a <strong>namespace within an unnamed namespace</strong>, even ones explicitly declared <code>extern</code>, have internal linkage.</li>
+</ul>
+<blockquote>
+<p>Global variables with internal linkage are sometimes called <strong>internal variables</strong>.</p>
+</blockquote>
+</blockquote>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Internal global variables definitions:</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// non-constant globals have external linkage by default, </span></span><br><span class="line"><span class="comment">// but can be given internal linkage via the static keyword</span></span><br><span class="line"><span class="type">static</span> <span class="type">int</span> g_x;          <span class="comment">// defines non-initialized internal global variable (zero initialized by default)</span></span><br><span class="line"><span class="type">static</span> <span class="type">int</span> g_x&#123; <span class="number">1</span> &#125;;     <span class="comment">// defines initialized internal global variable</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// const globals have internal linkage by default</span></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> g_y &#123; <span class="number">2</span> &#125;;     <span class="comment">// defines initialized internal global const variable</span></span><br><span class="line"><span class="keyword">constexpr</span> <span class="type">int</span> g_y &#123; <span class="number">3</span> &#125;; <span class="comment">// defines initialized internal global constexpr variable</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Internal function definitions:</span></span><br><span class="line"><span class="function"><span class="type">static</span> <span class="type">int</span> <span class="title">foo</span><span class="params">()</span> </span>&#123;&#125;;     <span class="comment">// defines internal function</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>external linkage</strong>: the name can be <strong>referred</strong> to <strong>from</strong> the <strong>scopes in the other translation units</strong>. Variables and functions with <strong>external linkage also have <a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/language/language_linkage">language linkage</a></strong>, which makes it possible to link translation units written in different programming languages.</p>
+<blockquote>
+<p>Any of the following names declared at namespace scope have external linkage, unless they are declared in an unnamed namespace or their declarations are attached to a named module and are not exported (since C++20):</p>
+<ul>
+<li><strong>variables</strong> and <strong>functions</strong> not listed above (that is, <strong>functions not declared <code>static</code>,  non-const variables not declared <code>static</code>, and any variables declared <code>extern</code></strong>);</li>
+<li><strong>enumerations</strong>;</li>
+<li>names of classes, their <strong>member functions</strong>, <strong>static data members</strong> (const or not), <strong>nested classes and enumerations,</strong> and <strong>functions</strong> first introduced with <a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/language/friend">friend</a> declarations inside class bodies;</li>
+<li>names of all templates not listed above (that is, <strong>not function templates declared <code>static</code></strong>).</li>
+</ul>
+<p>Any of the following names first declared at block scope have external linkage:</p>
+<ul>
+<li>names of variables declared <code>extern</code>;</li>
+<li>names of functions.</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="引用类型-Reference"><a href="#引用类型-Reference" class="headerlink" title="引用类型(Reference)"></a>引用类型(Reference)</h3><ul>
+<li><p><strong>Introduction to reference</strong></p>
+<ul>
+<li><p>左值引用(<strong>lvalue references</strong>)	</p>
+<blockquote>
+<p>Lvalue references can be used to alias an existing object (optionally with different cv-qualification)</p>
+</blockquote>
+</li>
+<li><p>右值引用(<strong>Rvalue references</strong>)</p>
+<blockquote>
+<p>Rvalue references can be used to <a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/language/reference_initialization#Lifetime_of_a_temporary">extend the lifetimes</a> of temporary objects (note, lvalue references to const can extend the lifetimes of temporary objects too, but they are not modifiable through them):</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">std::string s1 = <span class="string">&quot;Test&quot;</span>;</span><br><span class="line"><span class="comment">// std::string&amp;&amp; r1 = s1;        // error: can&#x27;t bind to lvalue</span></span><br><span class="line"></span><br><span class="line"><span class="type">const</span> std::string&amp; r2 = s1 + s1; <span class="comment">// okay: lvalue reference to const extends lifetime</span></span><br><span class="line"><span class="comment">// r2 += &quot;Test&quot;;                 // error: can&#x27;t modify through reference to const</span></span><br><span class="line"></span><br><span class="line">std::string&amp;&amp; r3 = s1 + s1;      <span class="comment">// okay: rvalue reference extends lifetime</span></span><br><span class="line">r3 += <span class="string">&quot;Test&quot;</span>;                    <span class="comment">// okay: can modify through reference to non-const</span></span><br><span class="line">std::cout &lt;&lt; r3 &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p>转发引用(<strong>Forwarding references</strong>)</p>
+<blockquote>
+<p>forwarding references are a special kind of references that preserve the value category of a function argument, making it possible to <em>forward</em> it by means of <a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/utility/forward">std::forward</a>. Forwarding references are either:</p>
+<ul>
+<li><p>function parameter of a function template declared as rvalue reference to cv-unqualified <a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/language/template_parameters#Type_template_parameter">type template parameter</a> of that same function template:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">f</span><span class="params">(T&amp;&amp; x)</span> </span>&#123;                    <span class="comment">// x is a forwarding reference</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">g</span>(std::forward&lt;T&gt;(x)); <span class="comment">// and so can be forwarded</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> i;</span><br><span class="line"><span class="built_in">f</span>(i); <span class="comment">// argument is lvalue, calls f&lt;int&amp;&gt;(int&amp;), std::forward&lt;int&amp;&gt;(x) is lvalue</span></span><br><span class="line"><span class="built_in">f</span>(<span class="number">0</span>); <span class="comment">// argument is rvalue, calls f&lt;int&gt;(int&amp;&amp;), std::forward&lt;int&gt;(x) is rvalue</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>auto&amp;&amp;</code> except when deduced from a brace-enclosed initializer list:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">auto</span>&amp;&amp; x: <span class="built_in">f</span>()) &#123;</span><br><span class="line">  <span class="comment">// x is a forwarding reference; this is the safest way to use range for loops</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">auto</span>&amp;&amp; z = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;; <span class="comment">// *not* a forwarding reference (special case for initializer lists)</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</blockquote>
+</li>
+<li><p><strong>References are not objects; they do not necessarily occupy storage</strong>, although the compiler may allocate storage if it is necessary to implement the desired semantics (e.g. a <strong>non-static data member of reference type</strong> usually increases the size of the class by the amount necessary to store a memory address).</p>
+<blockquote>
+<p>Because references are not objects, there are <strong>no arrays of references</strong>, <strong>no pointers to references</strong>, and <strong>no references to references</strong>(except reference collapse)</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>&amp; a[<span class="number">3</span>]; <span class="comment">// error</span></span><br><span class="line"><span class="type">int</span>&amp;* p;   <span class="comment">// error</span></span><br><span class="line"><span class="type">int</span>&amp; &amp;r;   <span class="comment">// error</span></span><br></pre></td></tr></table></figure>
+
+<p>but we have reference to pointer:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> * p =<span class="number">0</span>; </span><br><span class="line"><span class="type">int</span>* &amp;q = p; <span class="comment">// q就是指向指针的引用 </span></span><br></pre></td></tr></table></figure></blockquote>
+</li>
+</ul>
+</li>
+<li><p>引用必须在定义的时候初始化，而且引用一经绑定，无法再和其他对象绑定;  c++语法上也不支持切换引用的对象，如<code>auto &amp;b = aa</code>; 引用初始化必须是对象，不能是字面值(literal value)；但是右值引用(rvalue-reference)和常量左值引用(const lvalue reference)除外</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//std::string&amp; b = &quot;1&quot;;        // invalid</span></span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span>&amp; alr = <span class="number">1</span>;            <span class="comment">// valid, but alf can NOT be modified later</span></span><br><span class="line"><span class="type">int</span>&amp;&amp; arf = <span class="number">1</span>;                 <span class="comment">// valid, arf can be modified</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>引用的类型必须与其所引用的对象的类型一致，有两个意外：</p>
+<ul>
+<li>初始化const lvalue reference的时候允许用任意表达式，包阔字面值、变量、常量等，甚至是临时变量</li>
+</ul>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> i = <span class="number">42</span>;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> &amp;r1 = i;                    <span class="comment">// variable</span></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> &amp;r2 = <span class="number">42</span>;                    <span class="comment">// literal</span></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> &amp;r3 = r1 * r2;        <span class="comment">// expression</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>const引用的初始化可以是非const的，const仅仅限定不能通过const的引用本身去更改引用的对象；但是非const的引用不能是const的</li>
+</ul>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a = <span class="number">10</span>;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span>&amp; b = a;        <span class="comment">// valid</span></span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> c = <span class="number">1</span>;</span><br><span class="line"><span class="comment">//int&amp; d = c;                    // invalid  </span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>**可以将一个栈上的临时变量绑定给常量左值引用(const lvalue reference)，但是不可以绑定给非常量左值引用(non const lvalue reference)**；这将延长这个临时变量的生命到这个const lvalue reference的生命结束；这也是类的拷贝构造函数的参数必须是const lvalue reference的原因之一，参见chapter13.6</p>
+<blockquote>
+<p>This is a C++ feature… the code is valid and does exactly what it appears to do.</p>
+<p>Normally, <strong>a temporary object lasts only until the end of the full expression in which it appears</strong>. However, C++ <strong>deliberately specifies that binding a temporary object to a reference <em>to const</em> on the stack lengthens the lifetime of the temporary to the lifetime of the reference itself</strong>, and thus avoids what would otherwise be a common dangling-reference error. In the example above, the temporary returned by f() lives until the closing curly brace. (Note this only applies to stack-based references. It doesn’t work for references that are members of objects.)</p>
+<p><a target="_blank" rel="noopener" href="https://herbsutter.com/2008/01/01/gotw-88-a-candidate-for-the-most-important-const/">GotW #88: A Candidate For the “Most Important const”</a></p>
+</blockquote>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">std::string <span class="title">f</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> <span class="string">&quot;abc&quot;</span>; &#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">g</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">const</span> std::string&amp; s = <span class="built_in">f</span>();   <span class="comment">// temporary object</span></span><br><span class="line">  std::cout &lt;&lt; s &lt;&lt; std::endl;    <span class="comment">// can we still use the &quot;temporary&quot; object?, Yes</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="常量-Const"><a href="#常量-Const" class="headerlink" title="常量(Const)"></a>常量(Const)</h3><ul>
+<li><p>不能把const变量的值赋值给非const的引用，也不能更改const变量，但是可以将const的值赋值给非const变量；</p>
+ <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">int</span> a = <span class="number">0</span>;</span><br><span class="line"><span class="type">int</span> &amp;b = a;               <span class="comment">// invalid </span></span><br><span class="line"><span class="type">int</span> c = a;                <span class="comment">// valid</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>const int * ptr</code> VS <code>int * const ptr</code></p>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">int</span>* ptr;            <span class="comment">// pointer to const int, the underly value pointer point to is const</span></span><br><span class="line"><span class="type">int</span>* <span class="type">const</span> ptr;            <span class="comment">// const pointer to int, the pointer is const, </span></span><br><span class="line">                           <span class="comment">// the the underly value pointer point to is not const</span></span><br><span class="line"><span class="type">int</span> ai = <span class="number">1</span>;</span><br><span class="line"><span class="type">int</span>* <span class="type">const</span> cptr = &amp;ai;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> cai = <span class="number">1</span>;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span>* ptrc = &amp;cai;</span><br><span class="line"><span class="comment">//int* const ptrc = &amp;cai;        // invalid,  cannot initialize a variable of type &#x27;int *const&#x27; with an rvalue of type &#x27;const int *&#x27;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>const对象(const value)的初始化: </p>
+<ul>
+<li>可以是字面值（编译时初始化）</li>
+<li>也可以是表达式（运行时初始化）</li>
+<li>const 初始化可以赋值一个最后<strong>结果可以转换为引用</strong>的表达式</li>
+<li>也可以为一个<strong>非const变量</strong>。非const赋值给const，仅仅是限制了引用的操作，对被引用的不影响；</li>
+</ul>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">char</span> *str = <span class="string">&quot;PangWong&quot;</span>;        <span class="comment">// 编译时初始化</span></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> i = <span class="built_in">get_size</span>();                <span class="comment">// 运行时初始化</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> nci = <span class="number">10</span>;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span>&amp; ncir = nci;                    <span class="comment">// 非const变量</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> a = <span class="number">12</span>;</span><br><span class="line"><span class="function"><span class="type">int</span>&amp; <span class="title">add</span><span class="params">(<span class="type">int</span> v)</span></span>&#123;</span><br><span class="line">    a+=v;</span><br><span class="line">    <span class="keyword">return</span> a;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// expression return an reference</span></span><br><span class="line"><span class="type">int</span> <span class="type">int</span>&amp; b = <span class="built_in">add</span>(<span class="number">12</span>);</span><br><span class="line"><span class="comment">// &amp;a = 0x557a13df8010</span></span><br><span class="line"><span class="comment">// &amp;b = 0x557a13df8010</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>顶层const (<strong>top-level const</strong>)  vs 底层const(<strong>low-level const</strong>)</p>
+<blockquote>
+<p>顶层const表示指针或者引用本身是const</p>
+<p>底层const表示指向的对象是const</p>
+</blockquote>
+<ol>
+<li>指向引用的const都是底层const；</li>
+</ol>
+<ol start="2">
+<li>指向指针的const，在*后的是顶层const，前的是底层const</li>
+<li>指向非复合类型的const全是顶层const;</li>
+<li>执行拷贝操作的时候，底层const和顶层const区别明显，<ul>
+<li>顶层const几乎没啥影响，</li>
+<li>但是对于底层const而言，<strong>拷入拷出必须有相同的底层const，或者类型可以相互转换</strong>（no-const -&gt; const）</li>
+</ul>
+</li>
+</ol>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// case 1</span></span><br><span class="line"><span class="type">int</span> b = <span class="number">10</span>;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> &amp;a = b;                        <span class="comment">// low-level const</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// case 2</span></span><br><span class="line"><span class="type">const</span> <span class="type">int</span>* c = &amp;b;                    <span class="comment">// low-level const</span></span><br><span class="line"><span class="type">int</span>* <span class="type">const</span> c = &amp;b;                    <span class="comment">// top-level const</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// case3</span></span><br><span class="line"><span class="type">const</span> std::string d = <span class="string">&quot;&quot;</span>;        <span class="comment">// top-level const</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>const vs constexpr: </p>
+<ul>
+<li>对于修饰Object来说，const并未区分出编译期常量和运行期常量，而constexpr限定在了编译期常量。</li>
+<li>但是当constexpr中有编译时无法确定的值的时候，constexpr自动退化成runtime const；</li>
+</ul>
+<blockquote>
+<p>Both <code>PI1</code> and <code>PI2</code> are constant, meaning you can not modify them. However <strong>only</strong> <code>PI2</code> is a compile-time constant. It <strong>shall</strong> be initialized at compile time. <code>PI1</code> may be initialized at compile time or run time. Furthermore, <strong>only</strong> <code>PI2</code> can be used in a context that requires a compile-time constant. </p>
+</blockquote>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">const</span>     <span class="type">double</span> PI1 = <span class="number">3.141592653589793</span>;            </span><br><span class="line"><span class="keyword">constexpr</span> <span class="type">double</span> PI2 = <span class="number">3.141592653589793</span>;            <span class="comment">// guarantee to be compile-time constant</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">constexpr</span> <span class="type">double</span> PI3 = PI1;  <span class="comment">// error</span></span><br><span class="line"><span class="keyword">constexpr</span> <span class="type">double</span> PI3 = PI2;  <span class="comment">// ok</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// static_assert detect compile-time error</span></span><br><span class="line"><span class="built_in">static_assert</span>(PI1 == <span class="number">3.141592653589793</span>, <span class="string">&quot;&quot;</span>);  <span class="comment">// error</span></span><br><span class="line"><span class="built_in">static_assert</span>(PI2 == <span class="number">3.141592653589793</span>, <span class="string">&quot;&quot;</span>);  <span class="comment">// ok</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>一个constexpr指针的初始值必须是nullptr、0或者存储与某个固定地址的对象，比如全局变量、静态变量等；</li>
+<li>判断是不是compile time const的办法可以用<code>std::array&lt;int, constexpt&gt;</code>来测试或者数组的维度。通常能写成constexpr的尽量写成constexpr，可以兼容compile time and runtime;</li>
+</ul>
+</li>
+</ul>
+<h3 id="复合类型和别名-Compound-Type-and-Alias"><a href="#复合类型和别名-Compound-Type-and-Alias" class="headerlink" title="复合类型和别名(Compound Type and Alias)"></a>复合类型和别名(Compound Type and Alias)</h3><ul>
+<li><p>(void*)看到内存仅仅是内存地址，但是对于地址里面的类型不清楚。所以(void*)可以像其他指针一样作为参数、赋值、比值，但是不可以对其指向的对象操作；因为(void*)事实上丢失了类型信息；</p>
+</li>
+<li><p>有2种方式定义类型别名:</p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// typedef</span></span><br><span class="line"><span class="keyword">typedef</span> std::vector Vector;</span><br><span class="line"></span><br><span class="line"><span class="comment">// using</span></span><br><span class="line"><span class="keyword">using</span> Vector = std::vector;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>指针和引用是复合类型；<strong>同时定义多个对象的时候，复合类型qualifier只修饰与其绑定的变量</strong>；</p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> *p = <span class="number">0</span>, q = <span class="number">1</span>;            <span class="comment">// p is pointer while q is int </span></span><br><span class="line"><span class="comment">// equal to </span></span><br><span class="line"><span class="type">int</span> *p = <span class="number">0</span>; <span class="type">int</span> q = <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>如果类型别名指代的是复合类型(compound type)，此时认为复合类型是一般类型</strong>，不可以把类型别名替换为它本来的样子以理解该语句的含义。比如:</p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="type">char</span> *pstring;         <span class="comment">// pstring can NOT be recognized as compound type</span></span><br><span class="line"><span class="type">const</span> pstring cstr = <span class="number">0</span>;     <span class="comment">// 这里const是修饰pstring本身，所以这里的指针是const pointer，即指向char的常量指针，</span></span><br><span class="line"><span class="comment">// 不等价于</span></span><br><span class="line"><span class="type">const</span> <span class="type">char</span> *cstr = <span class="number">0</span>;            <span class="comment">// 这样理解出来的是指向常量的char指针</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>copy elision: <code>return</code> a class constructor</p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">A</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">A</span>()&#123;std::cout &lt;&lt; <span class="string">&quot;A ctor\n&quot;</span>;&#125;</span><br><span class="line">    ~<span class="built_in">A</span>()&#123;std::cout &lt;&lt; <span class="string">&quot;A dtor\n&quot;</span>;&#125;</span><br><span class="line">    <span class="built_in">A</span>(<span class="type">const</span> A&amp;)&#123;std::cout &lt;&lt; <span class="string">&quot;A copy ctor\n&quot;</span>;&#125; </span><br><span class="line">    A&amp; <span class="keyword">operator</span>=(<span class="type">const</span> A&amp;)&#123;std::cout &lt;&lt; <span class="string">&quot;A copy-assignment optor\n&quot;</span>;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function">A <span class="title">function1</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">A</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">A <span class="title">function2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  A a;</span><br><span class="line">  <span class="keyword">return</span> a;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">function1</span>();        <span class="comment">// clang++ t.cpp -o test -std=c++17 -fno-elide-constructors</span></span><br><span class="line"><span class="comment">//A ctor</span></span><br><span class="line"><span class="comment">//A dtor</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">function2</span>();        <span class="comment">// clang++ t.cpp -o test -std=c++17 -fno-elide-constructors</span></span><br><span class="line"><span class="comment">//A ctor</span></span><br><span class="line"><span class="comment">//A copy ctor</span></span><br><span class="line"><span class="comment">//A dtor</span></span><br><span class="line"><span class="comment">//A dtor</span></span><br></pre></td></tr></table></figure>
+
+<p>  The statement</p>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> <span class="built_in">A</span>();</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<ol>
+<li>First a temporary object is created. This is what <code>A()</code> does. It creates an object, calling the appropriate constructor.</li>
+<li>The temporary object is returned, by value which means it’s copied (or more likely the copy is <em>elided</em> as part of <em>return value optimizations</em>).</li>
+</ol>
+</blockquote>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>PangWong
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://pangwong.github.io/blog/2022/05/cpp-primer-chapter2/" title="Reading Note of CppPrimer-chapter2">https://pangwong.github.io/blog/2022/05/cpp-primer-chapter2/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/scope/" rel="tag"><i class="fa fa-tag"></i> scope</a>
+              <a href="/tags/linkage/" rel="tag"><i class="fa fa-tag"></i> linkage</a>
+              <a href="/tags/declaration/" rel="tag"><i class="fa fa-tag"></i> declaration</a>
+              <a href="/tags/defination/" rel="tag"><i class="fa fa-tag"></i> defination</a>
+              <a href="/tags/initialization/" rel="tag"><i class="fa fa-tag"></i> initialization</a>
+              <a href="/tags/reference/" rel="tag"><i class="fa fa-tag"></i> reference</a>
+              <a href="/tags/const/" rel="tag"><i class="fa fa-tag"></i> const</a>
+              <a href="/tags/reading-notes/" rel="tag"><i class="fa fa-tag"></i> reading notes</a>
+          </div>
+
+        
+
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">PangWong</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">29k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">27 分钟</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js" integrity="sha256-EdPgYcPk/IIrw7FYeuJQexva49pVRZNmt3LculEr7zM=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>
