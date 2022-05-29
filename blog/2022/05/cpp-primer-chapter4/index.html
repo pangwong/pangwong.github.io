@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://pangwong.github.io/images/blog/chapter4/ch4-precedence-associative.jpg">
 <meta property="og:image" content="https://pangwong.github.io/images/blog/chapter4/ch4-reinterpret_cast.jpg">
 <meta property="article:published_time" content="2022-05-28T07:31:54.000Z">
-<meta property="article:modified_time" content="2022-05-29T16:55:42.981Z">
+<meta property="article:modified_time" content="2022-05-29T16:58:51.287Z">
 <meta property="article:author" content="PangWong">
 <meta property="article:tag" content="reading notes">
 <meta property="article:tag" content="cpp-primer">
@@ -235,7 +235,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-05-30 00:55:42" itemprop="dateModified" datetime="2022-05-30T00:55:42+08:00">2022-05-30</time>
+      <time title="修改时间：2022-05-30 00:58:51" itemprop="dateModified" datetime="2022-05-30T00:58:51+08:00">2022-05-30</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -327,7 +327,8 @@
 <li><strong>副作用</strong>(<em>side effects</em>)：副作用主要涉及到对volatile变量的读写操作、对一般对象的写操作、调用I&#x2F;O库函数、或者是调用了任何执行以上任一操作的函数</li>
 </ul>
 </li>
-<li><p>顺序的定义：“按顺序早于 (sequenced-before)”是同一线程中的求值之间的非对称的、传递的对偶关系；C++定义了几种顺序：</p>
+<li><p>顺序的定义：</p>
+<p>  “按顺序早于 (sequenced-before)”是同一线程中的求值之间的非对称的、传递的对偶关系；C++定义了几种顺序：</p>
 <ul>
 <li>若 A <em><strong>按顺序早于</strong></em>(<em>sequenced before</em>) B，则 A 的求值将在 B 的求值开始前完成</li>
 <li>若 A <em><strong>不按顺序早于</strong></em>(<em>not sequenced before</em>) B 而 B <em><strong>按顺序早于</strong></em>(<em>sequenced before</em>)  A，则 B 的求值将在 A 的求值开始前完成。</li>
