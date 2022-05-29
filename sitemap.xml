@@ -2,6 +2,17 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://pangwong.github.io/blog/2022/05/cpp-primer-chapter4/</loc>
+    
+    <lastmod>2022-05-29T16:25:41.758Z</lastmod>
+    
+    <date>1653723114000</date>
+    <title>Reading Note of CppPrimer-Chapter4 | 曰悦鸟</title>
+    
+    <desc>Expressions</desc>
+  </url>
+  
+  <url>
     <loc>https://pangwong.github.io/blog/2022/05/cpp-primer-chapter2/</loc>
     
     <lastmod>2022-05-28T08:52:32.536Z</lastmod>
