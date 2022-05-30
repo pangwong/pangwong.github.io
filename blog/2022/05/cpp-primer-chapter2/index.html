@@ -30,7 +30,7 @@
 <meta property="og:description" content="Variables &amp; Basic Types">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-05-26T07:10:12.000Z">
-<meta property="article:modified_time" content="2022-05-28T08:52:32.536Z">
+<meta property="article:modified_time" content="2022-05-30T05:08:58.982Z">
 <meta property="article:author" content="PangWong">
 <meta property="article:tag" content="reading notes">
 <meta property="article:tag" content="cpp-primer">
@@ -126,7 +126,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Variables-amp-Basic-Types"><span class="nav-number">1.</span> <span class="nav-text">Variables &amp; Basic Types</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%86%85%E7%BD%AE%E7%B1%BB%E5%9E%8B-basic-built-in-types"><span class="nav-number">1.1.</span> <span class="nav-text">基本内置类型(basic built-in types)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E5%88%9D%E5%A7%8B%E5%8C%96-variables-initialization"><span class="nav-number">1.2.</span> <span class="nav-text">变量初始化(variables initialization)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%BB%98%E8%AE%A4%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">1.2.1.</span> <span class="nav-text">默认初始化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%80%BC%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">1.2.2.</span> <span class="nav-text">值初始化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9B%B6%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">1.2.3.</span> <span class="nav-text">零初始化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%B4%E6%8E%A5%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">1.2.4.</span> <span class="nav-text">直接初始化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8B%B7%E8%B4%9D%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">1.2.5.</span> <span class="nav-text">拷贝初始化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%97%E8%A1%A8%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">1.2.6.</span> <span class="nav-text">列表初始化</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E5%A3%B0%E6%98%8E%E5%92%8C%E5%AE%9A%E4%B9%89-Variable-Declaration-amp-Definition"><span class="nav-number">1.3.</span> <span class="nav-text">变量声明和定义(Variable Declaration &amp; Definition)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E5%AD%98%E5%82%A8%E9%99%90%E5%AE%9A%E7%AC%A6-Variable-Storage-Class-Specifier"><span class="nav-number">1.4.</span> <span class="nav-text">变量存储限定符(Variable Storage Class Specifier)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E9%93%BE%E6%8E%A5-Variable-Linkage"><span class="nav-number">1.5.</span> <span class="nav-text">变量链接(Variable Linkage)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B-Reference"><span class="nav-number">1.6.</span> <span class="nav-text">引用类型(Reference)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E9%87%8F-Const"><span class="nav-number">1.7.</span> <span class="nav-text">常量(Const)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%8D%E5%90%88%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%88%AB%E5%90%8D-Compound-Type-and-Alias"><span class="nav-number">1.8.</span> <span class="nav-text">复合类型和别名(Compound Type and Alias)</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Variables-amp-Basic-Types"><span class="nav-number">1.</span> <span class="nav-text">Variables &amp; Basic Types</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%86%85%E7%BD%AE%E7%B1%BB%E5%9E%8B-basic-built-in-types"><span class="nav-number">1.1.</span> <span class="nav-text">基本内置类型(basic built-in types)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E5%88%9D%E5%A7%8B%E5%8C%96-variables-initialization"><span class="nav-number">1.2.</span> <span class="nav-text">变量初始化(variables initialization)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%BB%98%E8%AE%A4%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">1.2.1.</span> <span class="nav-text">默认初始化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%80%BC%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">1.2.2.</span> <span class="nav-text">值初始化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9B%B6%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">1.2.3.</span> <span class="nav-text">零初始化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%B4%E6%8E%A5%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">1.2.4.</span> <span class="nav-text">直接初始化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8B%B7%E8%B4%9D%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">1.2.5.</span> <span class="nav-text">拷贝初始化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%97%E8%A1%A8%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">1.2.6.</span> <span class="nav-text">列表初始化</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E5%A3%B0%E6%98%8E%E5%92%8C%E5%AE%9A%E4%B9%89-Variable-Declaration-amp-Definition"><span class="nav-number">1.3.</span> <span class="nav-text">变量声明和定义(Variable Declaration &amp; Definition)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E5%AD%98%E5%82%A8%E9%99%90%E5%AE%9A%E7%AC%A6-Variable-Storage-Class-Specifier"><span class="nav-number">1.4.</span> <span class="nav-text">变量存储限定符(Variable Storage Class Specifier)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E9%93%BE%E6%8E%A5-Variable-Linkage"><span class="nav-number">1.5.</span> <span class="nav-text">变量链接(Variable Linkage)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B-Reference"><span class="nav-number">1.6.</span> <span class="nav-text">引用类型(Reference)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E9%87%8F-Const"><span class="nav-number">1.7.</span> <span class="nav-text">常量(Const)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9E%9A%E4%B8%BE%E7%B1%BB%E5%9E%8B-Enumerations"><span class="nav-number">1.8.</span> <span class="nav-text">枚举类型(Enumerations)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%8D%E5%90%88%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%88%AB%E5%90%8D-Compound-Type-and-Alias"><span class="nav-number">1.9.</span> <span class="nav-text">复合类型和别名(Compound Type and Alias)</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -141,7 +141,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-count">4</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -152,7 +152,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-count">29</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -233,7 +233,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-05-28 16:52:32" itemprop="dateModified" datetime="2022-05-28T16:52:32+08:00">2022-05-28</time>
+      <time title="修改时间：2022-05-30 13:08:58" itemprop="dateModified" datetime="2022-05-30T13:08:58+08:00">2022-05-30</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -259,14 +259,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>28k</span>
+      <span>31k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>26 分钟</span>
+      <span>28 分钟</span>
     </span>
 </div>
 
@@ -709,6 +709,60 @@
 </ul>
 </li>
 </ul>
+<h3 id="枚举类型-Enumerations"><a href="#枚举类型-Enumerations" class="headerlink" title="枚举类型(Enumerations)"></a>枚举类型(Enumerations)</h3><ul>
+<li><p>enum是一个单独的限定范围的值组成的类型，成员的默认类型是int，也可以自定义类型；</p>
+</li>
+<li><p>关键字   </p>
+<p>  定义一个enum可以使用三个<code>enum</code>、<code>enum class</code>(<em>since c++11</em>)、<code>enum struct</code>(<em>since c++11</em>)</p>
+<p>  <code>enum</code>: <strong>没有作用域枚举</strong>；每个枚举项都成为该枚举类型（即 名字）的一个<strong>具名常量</strong>，在它的<strong>外围作用域可见</strong>，且可以用于要求<strong>常量</strong>(<em>constexpr</em>)的任何位置。</p>
+<p>  <code>enum class/struct</code>：<strong>有作用域枚举</strong>；它被该枚举的<strong>作用域所包含</strong>，且可用<strong>作用域解析运算符</strong>访问</p>
+</li>
+<li><p>构造</p>
+<blockquote>
+<p><strong>enum</strong> <strong>name</strong>(optional) : <strong>type</strong>(optional) <strong>{ enumerator &#x3D; constexpr , enumerator &#x3D; constexpr , … }</strong>    </p>
+</blockquote>
+<p>  每个枚举项都与一个底层类型的值相关联</p>
+<ul>
+<li>当在 <em>枚举项列表</em> 中提供了<strong>初始化器</strong>时，各枚举项的<strong>值由那些初始化器所定义</strong></li>
+<li>如果<strong>首个枚举项</strong>无初始化器，那么它的<strong>关联值为零</strong></li>
+<li>对于其他任何定义中<strong>无初始化器的枚举项</strong>，它的关联值是<strong>前一枚举项加一</strong></li>
+</ul>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> <span class="title class_">Foo</span> &#123; a, b, c = <span class="number">10</span>, d, e = <span class="number">1</span>, f, g = f + c &#125;;</span><br><span class="line"><span class="comment">//a = 0, b = 1, c = 10, d = 11, e = 1, f = 2, g = 12</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">enum</span> &#123; a, b, c = <span class="number">0</span>, d = a + <span class="number">2</span> &#125;; </span><br><span class="line"><span class="comment">// a = 0, b = 1, c = 0, d = 2</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">enum</span>&#123;d, e, f = e + <span class="number">2</span>&#125;;</span><br><span class="line"><span class="comment">// d = 0，e = 1，f = 3</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 类型默认为int，定义中无初始化器的枚举项，它的关联值是前一枚举项加一</span></span><br><span class="line"><span class="keyword">enum</span> <span class="title class_">color</span> &#123; red, yellow, green = <span class="number">20</span>, blue &#125;;</span><br><span class="line">color col = red;</span><br><span class="line"><span class="type">int</span> n = blue; <span class="comment">// n == 21</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// altitude类型为char，可为 altitude::high 或 altitude::low</span></span><br><span class="line"><span class="keyword">enum class</span> <span class="title class_">altitude</span> : <span class="type">char</span> &#123; </span><br><span class="line">    high=<span class="string">&#x27;h&#x27;</span>,</span><br><span class="line">    low=<span class="string">&#x27;l&#x27;</span>, <span class="comment">// CWG518 允许额外的逗号</span></span><br><span class="line">&#125;; </span><br></pre></td></tr></table></figure>
+</li>
+<li><p>using-enum</p>
+<p>  <code>using enum</code> 声明<strong>引入</strong>它所指名的枚举的<strong>枚举项名字</strong>，如同用对每个枚举项的using 声明</p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">X</span>&#123;</span><br><span class="line">    <span class="keyword">enum</span> <span class="title class_">direction</span> &#123; left = <span class="string">&#x27;l&#x27;</span>, right = <span class="string">&#x27;r&#x27;</span> &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Y</span>&#123;</span><br><span class="line">    <span class="keyword">using</span> <span class="keyword">enum</span> <span class="title class_">X</span>::direction;	<span class="comment">// using enum inside class</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">enum</span> <span class="title class_">fruit</span> &#123; orange, apple &#125;;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">S</span> &#123;</span><br><span class="line">    <span class="keyword">using</span> <span class="keyword">enum</span> <span class="title class_">fruit</span>;          <span class="comment">// OK ：引入 orange 与 apple 到 S 中</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">f</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    S s;</span><br><span class="line">    std::cout &lt;&lt; <span class="built_in">static_cast</span>&lt;<span class="type">int</span>&gt;(s.orange) &lt;&lt; std::endl;  <span class="comment">// OK ：指名 fruit::orange</span></span><br><span class="line">    std::cout &lt;&lt; <span class="built_in">static_cast</span>&lt;<span class="type">int</span>&gt;(S::orange) &lt;&lt; std::endl; <span class="comment">// OK ：指名 fruit::orange</span></span><br><span class="line">      </span><br><span class="line">    <span class="type">int</span> b1 = Y::left;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Y b1: &quot;</span> &lt;&lt; b1 &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>有作用域枚举</strong>(<em>scope enum</em>) vs <strong>无作用域枚举</strong>(<em>unscope enum</em>)：</p>
+<ul>
+<li><p>作用域</p>
+<ul>
+<li><p>没有作用域的枚举在它的外围作用域可见</p>
+</li>
+<li><p>有作用域枚举被该枚举的作用域所包含</p>
+</li>
+</ul>
+</li>
+<li><p>隐式转换</p>
+<ul>
+<li><p><strong>无作用域枚举</strong>类型的值<strong>可隐式转换</strong>到整型类型，整数、浮点和枚举类型的值可用 <code>static_cast</code>或显式转换到任何枚举类型; </p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">X</span>&#123;</span><br><span class="line">    <span class="keyword">enum</span> <span class="title class_">direction</span> &#123; left = <span class="string">&#x27;l&#x27;</span>, right = <span class="string">&#x27;r&#x27;</span> &#125;;</span><br><span class="line">    <span class="keyword">enum class</span> <span class="title class_">color</span> &#123; red= <span class="string">&#x27;r&#x27;</span>, blue= <span class="string">&#x27;b&#x27;</span> &#125;;</span><br><span class="line">&#125;;</span><br><span class="line">X x;</span><br><span class="line">X* p = &amp;x;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> a = X::direction::left; <span class="comment">// allowed only in C++11 and later</span></span><br><span class="line"><span class="type">int</span> b = X::left;</span><br><span class="line"><span class="type">int</span> c = x.left;             <span class="comment">// 当无作用域枚举是类成员时，它的枚举项可以通过类成员访问运算符 . 和 -&gt; 访问：</span></span><br><span class="line"><span class="type">int</span> d = p-&gt;left;</span><br><span class="line"><span class="type">int</span> e = <span class="built_in">static_cast</span>&lt;<span class="type">int</span>&gt;(X::color::red);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>有作用域枚举项<strong>不能隐式转换</strong>到整数类型，尽管 <code>static_cast</code>可以用来获得枚举项的数值。</p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum class</span> <span class="title class_">TEnum</span> : <span class="type">int</span> &#123;ll=<span class="number">1</span>, rr=<span class="number">2</span>, all=<span class="number">0</span>&#125;;</span><br><span class="line">std::cout &lt;&lt; <span class="built_in">static_cast</span>&lt;<span class="type">int</span>&gt;(TEnum::rr) &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line"><span class="comment">// invalid operands to binary expression (&#x27;std::ostream&#x27; (aka &#x27;basic_ostream&lt;char&gt;&#x27;) and &#x27;TEnum&#x27;)</span></span><br><span class="line"><span class="comment">//std::cout &lt;&lt; TEnum::rr &lt;&lt; std::endl;        </span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>名字缺失</p>
+<ul>
+<li><p><strong>无作用域枚举的名字可以忽略</strong>，这种声明只是将各枚举项引入到它的外围作用域中</p>
+</li>
+<li><p><strong>有作用域枚举的名字不可以缺失</strong></p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> <span class="title class_">class</span> : <span class="type">int</span> &#123;ll=<span class="number">1</span>, rr=<span class="number">2</span>, all=<span class="number">0</span>&#125;;</span><br><span class="line"><span class="comment">// error: scoped enumeration requires a name</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 <h3 id="复合类型和别名-Compound-Type-and-Alias"><a href="#复合类型和别名-Compound-Type-and-Alias" class="headerlink" title="复合类型和别名(Compound Type and Alias)"></a>复合类型和别名(Compound Type and Alias)</h3><ul>
 <li><p><code>void*</code>看到内存仅仅是内存地址，但是对于地址里面的类型不清楚。所以<code>void*</code>可以像其他指针一样作为参数、赋值、比值，但是不可以对其指向的对象操作；因为<code>void*</code>事实上丢失了类型信息；</p>
 </li>
@@ -802,14 +856,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">58k</span>
+    <span title="站点总字数">73k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">52 分钟</span>
+    <span title="站点阅读时长">1:06</span>
   </span>
 </div>
 <div class="busuanzi-count">
