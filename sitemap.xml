@@ -2,9 +2,42 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://pangwong.github.io/blog/2022/05/cpp-primer-chapter6/</loc>
+    
+    <lastmod>2022-06-03T05:56:24.399Z</lastmod>
+    
+    <date>1653899852000</date>
+    <title>Reading Note of CppPrimer-Chapter6 | 曰悦鸟</title>
+    
+    <desc>Functions</desc>
+  </url>
+  
+  <url>
+    <loc>https://pangwong.github.io/blog/2022/05/cpp-primer-chapter4/</loc>
+    
+    <lastmod>2022-06-01T13:13:52.156Z</lastmod>
+    
+    <date>1653723114000</date>
+    <title>Reading Note of CppPrimer-Chapter4 | 曰悦鸟</title>
+    
+    <desc>Expressions</desc>
+  </url>
+  
+  <url>
+    <loc>https://pangwong.github.io/blog/2022/05/cpp-primer-chapter3/</loc>
+    
+    <lastmod>2022-06-01T03:31:11.653Z</lastmod>
+    
+    <date>1653621637000</date>
+    <title>Reading Note of CppPrimer-Chapter3 | 曰悦鸟</title>
+    
+    <desc>String &amp; Vector &amp; Array</desc>
+  </url>
+  
+  <url>
     <loc>https://pangwong.github.io/blog/2022/05/cpp-primer-chapter5/</loc>
     
-    <lastmod>2022-05-30T08:06:26.612Z</lastmod>
+    <lastmod>2022-05-30T08:08:37.486Z</lastmod>
     
     <date>1653794597000</date>
     <title>Reading Note of CppPrimer-Chapter5 | 曰悦鸟</title>
@@ -21,28 +54,6 @@
     <title>Reading Note of CppPrimer-Chapter2 | 曰悦鸟</title>
     
     <desc>Variables &amp; Basic Types</desc>
-  </url>
-  
-  <url>
-    <loc>https://pangwong.github.io/blog/2022/05/cpp-primer-chapter4/</loc>
-    
-    <lastmod>2022-05-29T16:58:51.287Z</lastmod>
-    
-    <date>1653723114000</date>
-    <title>Reading Note of CppPrimer-Chapter4 | 曰悦鸟</title>
-    
-    <desc>Expressions</desc>
-  </url>
-  
-  <url>
-    <loc>https://pangwong.github.io/blog/2022/05/cpp-primer-chapter3/</loc>
-    
-    <lastmod>2022-05-28T08:33:28.049Z</lastmod>
-    
-    <date>1653621637000</date>
-    <title>Reading Note of CppPrimer-Chapter3 | 曰悦鸟</title>
-    
-    <desc>String &amp; Vector &amp; Array</desc>
   </url>
   
 </urlset>
