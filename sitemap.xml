@@ -2,6 +2,17 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://pangwong.github.io/blog/2022/06/cpp-primer-chapter8/</loc>
+    
+    <lastmod>2022-06-14T13:13:52.791Z</lastmod>
+    
+    <date>1655176872000</date>
+    <title>Reading Note of CppPrimer-Chapter8 | 曰悦鸟</title>
+    
+    <desc>The IO Library</desc>
+  </url>
+  
+  <url>
     <loc>https://pangwong.github.io/blog/2022/06/cpp-primer-chapter7/</loc>
     
     <lastmod>2022-06-14T12:32:32.032Z</lastmod>
