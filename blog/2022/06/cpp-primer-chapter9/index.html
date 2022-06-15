@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+<link rel="preconnect" href="https://fonts.lug.ustc.edu.cn" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
+  <link rel="manifest" href="/images/site.webmanifest">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.lug.ustc.edu.cn/css?family=Noto+Serif+SC:300,300italic,400,400italic,700,700italic%7CSF+Mono+Regular:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"pangwong.github.io","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Sequential Containers">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Reading Note of CppPrimer-Chapter9">
+<meta property="og:url" content="https://pangwong.github.io/blog/2022/06/cpp-primer-chapter9/index.html">
+<meta property="og:site_name" content="曰悦鸟">
+<meta property="og:description" content="Sequential Containers">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pangwong.github.io/images/blog/chapter9/ch9-stack-interface.png">
+<meta property="og:image" content="https://pangwong.github.io/images/blog/chapter9/ch9-queue-interface.png">
+<meta property="og:image" content="https://pangwong.github.io/images/blog/chapter9/ch9-priority-queue-interface.png">
+<meta property="article:published_time" content="2022-06-15T03:26:54.000Z">
+<meta property="article:modified_time" content="2022-06-15T10:02:09.110Z">
+<meta property="article:author" content="PangWong">
+<meta property="article:tag" content="reading notes">
+<meta property="article:tag" content="cpp-primer">
+<meta property="article:tag" content="string">
+<meta property="article:tag" content="vector">
+<meta property="article:tag" content="array">
+<meta property="article:tag" content="sequential container">
+<meta property="article:tag" content="container iterator">
+<meta property="article:tag" content="list">
+<meta property="article:tag" content="forward_list">
+<meta property="article:tag" content="stack">
+<meta property="article:tag" content="queue">
+<meta property="article:tag" content="priority_queue">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pangwong.github.io/images/blog/chapter9/ch9-stack-interface.png">
+
+
+<link rel="canonical" href="https://pangwong.github.io/blog/2022/06/cpp-primer-chapter9/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://pangwong.github.io/blog/2022/06/cpp-primer-chapter9/","path":"/blog/2022/06/cpp-primer-chapter9/","title":"Reading Note of CppPrimer-Chapter9"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Reading Note of CppPrimer-Chapter9 | 曰悦鸟</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">曰悦鸟</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Sequential-Containers"><span class="nav-number">1.</span> <span class="nav-text">Sequential Containers</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Overview"><span class="nav-number">1.1.</span> <span class="nav-text">Overview</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sequential-Container-Operation"><span class="nav-number">1.2.</span> <span class="nav-text">Sequential Container Operation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Common-Sequential-Containers"><span class="nav-number">1.3.</span> <span class="nav-text">Common Sequential Containers</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#vector"><span class="nav-number">1.3.1.</span> <span class="nav-text">vector</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#string"><span class="nav-number">1.3.2.</span> <span class="nav-text">string</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#array"><span class="nav-number">1.3.3.</span> <span class="nav-text">array</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#container-adaptor"><span class="nav-number">1.3.4.</span> <span class="nav-text">container adaptor</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="PangWong"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">PangWong</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">59</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/pangwong" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;pangwong" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://pangwong.github.io/blog/2022/06/cpp-primer-chapter9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="PangWong">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="曰悦鸟">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Reading Note of CppPrimer-Chapter9 | 曰悦鸟">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Reading Note of CppPrimer-Chapter9
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-06-15 11:26:54 / 修改时间：18:02:09" itemprop="dateCreated datePublished" datetime="2022-06-15T11:26:54+08:00">2022-06-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C++</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>15k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>14 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="Sequential-Containers"><a href="#Sequential-Containers" class="headerlink" title="Sequential Containers"></a>Sequential Containers</h2><span id="more"></span>
+
+
+
+<h3 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h3><ul>
+<li><p>顺序容器：提供控制元素存储和访问顺序的能力，这种<strong>顺序不依赖于元素的数值</strong>，而是与元素加入容器时的位置相对应；</p>
+</li>
+<li><p>不同sequential container的特点:</p>
+<ul>
+<li><p><strong>vector</strong>，<strong>可变大小数组</strong>。支持可变大小，随机访问，但在尾部之外的地方插入删除需要遍历，复杂度为<code>o(n)</code>；</p>
+</li>
+<li><p><strong>deque</strong>，<strong>双端队列</strong>。支持可变大小，随机访问，在头尾插入删除速度快，其他地方需要遍历，复杂度<code>o(n)</code>；</p>
+</li>
+<li><p><strong>list</strong>，<strong>双向链表</strong>。支持可变大小，只支持双向顺序访问，复杂度<code>o(n)</code>。插入和删除的速度很快，复杂度<code>o(1)</code>；</p>
+</li>
+<li><p><strong>forward_list</strong>，<strong>单向链表</strong>。支持可变大小，只支持单向顺序访问，复杂度<code>o(n)</code>。插入和删除的速度很快，复杂度<code>o(1)</code>；</p>
+</li>
+<li><p><strong>array</strong>，<strong>固定大小数组</strong>。只支持随机访问，不支持插入删除操作；</p>
+</li>
+<li><p><strong>string</strong>，类似于vector的容器。只用于保存字符，支持可变大小随机访问，在尾部之外的地方入或删除需要遍历，复杂度为<code>o(n)</code>；</p>
+</li>
+</ul>
+</li>
+<li><p>容器迭代器</p>
+<p>  <code>begin</code>和<code>end</code>迭代器有多个版本，带<code>r</code>的是反向迭代器，带<code>c</code>的是常量迭代器；</p>
+<p>  不以<code>c</code>开头的都是重载过的，即都有<code>const</code>版本和<code>non-const</code>版本；当容器本身为<code>const</code>的时候，返回的迭代器也是<code>const</code>版本；当不需要写访问的时候，如果容器是不是<code>const</code>的，记得使用<code>cbegin</code>和<code>cend</code>;</p>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">std::vector&lt;<span class="type">int</span>&gt; vec;</span><br><span class="line">vec.<span class="built_in">begin</span>();     vec.<span class="built_in">end</span>();</span><br><span class="line">vec.<span class="built_in">rbegin</span>();    vec.<span class="built_in">rend</span>();</span><br><span class="line">vec.<span class="built_in">cbegin</span>();    vec.<span class="built_in">cend</span>();</span><br><span class="line">vec.<span class="built_in">crbegin</span>();   vec.<span class="built_in">crend</span>();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用迭代器指定顺序容器的范围（迭代器范围，<em>iterator range</em>）的话，实际上是一个左闭右开区间(left inclusive interval)；</p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[begin, end)  <span class="comment">// 左闭右开区间</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>如果begin和end相同，则范围为空</li>
+<li>如果begin小于end，则范围了至少有一个元素</li>
+<li>begin可以递增若干次使得<code>begin == end</code></li>
+</ul>
+</li>
+<li><p>容器类型成员</p>
+<ul>
+<li><code>iterator</code>, <code>const_iterator</code>, <code>reverse_iterator</code></li>
+<li><code>size_type</code>, <code>value_type</code></li>
+<li>type alias:  <code>reference</code>, <code>const_reference</code>, <code>pointer</code>, <code>const pointer</code></li>
+</ul>
+</li>
+<li><p>容器的构造</p>
+<ul>
+<li><p>对于<strong>接受另一个容器进行构造</strong>的容器的constructor来说，两个容器的类型和元素的<strong>类型必须相同</strong>(对于array，大小还必须相同)；</p>
+</li>
+<li><p>通过<strong>迭代器</strong>(iterator)进行<strong>拷贝</strong>的构造函数，只需要容器内部的元素<strong>类型可以互相转换</strong>即可；</p>
+</li>
+<li><p>使用<strong>列表初始化</strong>进行初始化的容器，列表中的元素必须可以和容器元素<strong>类型进行转换</strong>，对于array来说，列表中遗漏的元素会进行值初始化；</p>
+</li>
+<li><p>给定容器<strong>大小</strong>和可选的<strong>初始值</strong>(array除外)；如果不提供初始值则进行<strong>值初始化</strong></p>
+</li>
+</ul>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">std::list&lt;std::string&gt; authors = &#123;<span class="string">&quot;Milton&quot;</span>, <span class="string">&quot;ShapeSpeare&quot;</span>, <span class="string">&quot;Austen&quot;</span>&#125;;</span><br><span class="line">std::vector&lt;<span class="type">const</span> <span class="type">char</span>*&gt; articals = &#123;<span class="string">&quot;a&quot;</span>, <span class="string">&quot;an&quot;</span>, <span class="string">&quot;and&quot;</span>&#125;;</span><br><span class="line"><span class="function">std::list&lt;std::string&gt; <span class="title">list1</span><span class="params">(authors)</span></span>;          <span class="comment">// valid，容器类型和元素类型都相同</span></span><br><span class="line"><span class="function">std::deque&lt;std::string&gt; <span class="title">authLists</span><span class="params">(authors)</span></span>;     <span class="comment">// invalid，容器类型不相同</span></span><br><span class="line"><span class="function">std::vector&lt;std::string&gt; <span class="title">words</span><span class="params">(articals)</span></span>;       <span class="comment">// invalid，元素类型不相同</span></span><br><span class="line"><span class="function">std::forward_list&lt;std::string&gt; <span class="title">words</span><span class="params">(articals.begin(), articals.end())</span></span>;<span class="comment">// valid，元素可以只一次转换即可完成转换</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>只有顺序容器的构造函数支持指定大小，包含显式的或者隐式的（不包含array，因为array声明的时候就定义了大小），关联容器就不支持指定大小；</p>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">std::vector&lt;<span class="type">int</span>&gt; <span class="title">vec</span><span class="params">(<span class="number">100</span>)</span></span>;          <span class="comment">// size is 100</span></span><br><span class="line">std::vector&lt;<span class="type">int</span>&gt; vec1 = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>&#125;;  <span class="comment">// size is 4</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>顺序容器的赋值运算符要求左右两边的容器具有相同的类型；除array外，顺序容器还定义了assign运算，允许从不同但是相容的容器类型中拷贝；</p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">std::list&lt;std::string&gt; names;</span><br><span class="line">std::vector&lt;<span class="type">const</span> <span class="type">char</span>*&gt; oldstyles;</span><br><span class="line"></span><br><span class="line">names = oldstyles;                                                                            <span class="comment">// invalid</span></span><br><span class="line">names.<span class="built_in">assign</span>(oldstyles.<span class="built_in">cbegin</span>(), oldstyle.<span class="built_in">cend</span>());            <span class="comment">// valid</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>容器<strong>swap</strong></p>
+<p>  swap要求两个容器的<strong>类型必须相同</strong>;</p>
+<p>  【地址不变，元素不变】<strong>除array外</strong>，可以保证<strong>常数时间o</strong>(<strong>1</strong>)里完成；swap<strong>不进行</strong>任何元素的<strong>拷贝删除或者插入</strong>，只是交换了两个容器的<strong>内部数据结构</strong>；意味着swap后指针、引用、迭代器<strong>属于不同的容器</strong>了，但是他们所绑定的元素不变，仍指向swap之前的那些元素</p>
+<p>  【地址不变，元素变】<strong>array的swap时间复杂度是o</strong>(<strong>n</strong>)，与其他顺序容器不同，因为他会<strong>真正交换两个array的元素</strong>；在swap操作后指针、引用、迭代器还是<strong>指向原来的容器</strong>，但是绑定的值却是交换后的，即另一个容器的了</p>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">std::vector&lt;<span class="type">int</span>&gt; a = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;</span><br><span class="line">std::vector&lt;<span class="type">int</span>&gt; b = &#123;<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>,<span class="number">10</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">auto</span> iter1 = a.<span class="built_in">begin</span>();</span><br><span class="line"><span class="keyword">auto</span> iter2 = b.<span class="built_in">begin</span>();</span><br><span class="line">std::cout &lt;&lt; <span class="string">&quot;a_begin: &quot;</span> &lt;&lt; *iter1 &lt;&lt; <span class="string">&quot;, b_begin(): &quot;</span> &lt;&lt; *iter2 &lt;&lt; std::endl;</span><br><span class="line">a.<span class="built_in">swap</span>(b);</span><br><span class="line">std::cout &lt;&lt; <span class="string">&quot;a_begin: &quot;</span> &lt;&lt; *iter1 &lt;&lt; <span class="string">&quot;, b_begin(): &quot;</span> &lt;&lt; *iter2 &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">std::array&lt;<span class="type">int</span>, 5&gt; c = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;</span><br><span class="line">std::array&lt;<span class="type">int</span>, 5&gt; d = &#123;<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>,<span class="number">10</span>&#125;;</span><br><span class="line"><span class="keyword">auto</span> iter3 = c.<span class="built_in">begin</span>();</span><br><span class="line"><span class="keyword">auto</span> iter4 = d.<span class="built_in">begin</span>();</span><br><span class="line">std::cout &lt;&lt; <span class="string">&quot;c_begin: &quot;</span> &lt;&lt; *iter3 &lt;&lt; <span class="string">&quot;, d_begin(): &quot;</span> &lt;&lt; *iter4 &lt;&lt; std::endl;</span><br><span class="line">c.<span class="built_in">swap</span>(d);</span><br><span class="line">std::cout &lt;&lt; <span class="string">&quot;c_begin: &quot;</span> &lt;&lt; *iter3 &lt;&lt; <span class="string">&quot;, d_begin(): &quot;</span> &lt;&lt; *iter4 &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line"><span class="comment">// a_begin: 1, b_begin(): 6</span></span><br><span class="line"><span class="comment">// a_begin: 1, b_begin(): 6</span></span><br><span class="line"><span class="comment">// c_begin: 1, d_begin(): 6</span></span><br><span class="line"><span class="comment">// c_begin: 6, d_begin(): 1</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>容器关系运算符</p>
+<ol>
+<li><strong>所有容器</strong>都支持相等运算符<code>==</code></li>
+<li><strong>除无序容器</strong>外其他容器都<strong>支持关系运算</strong>符<code>&lt;, &gt;, &lt;=, &gt;=</code></li>
+<li><strong>关系运算符</strong>两边的元素必须有<strong>相同的类型</strong></li>
+<li>比较方式为<strong>字典序</strong></li>
+<li>只有当容器的元素类型定义了相应的比较运算符(<code>==</code> and <code>&lt;</code>)，才可以使用关系运算符比较两个容器</li>
+</ol>
+<blockquote>
+<p>字典序(<em>lexicographical order</em>)</p>
+<p>在英文字典中，排列单词的顺序是先按照第一个字母以升序排列（即a、b、c……z 的顺序）；如果第一个字母一样，那么比较第二个、第三个乃至后面的字母。如果比到最后两个单词不一样长（比如，sigh 和 sight），那么把短者排在前。</p>
+<p>通过这种方法，我们可以给本来不相关的单词强行规定出一个顺序。“单词”可以看作是“字母”的字符串，而把这一点推而广之就可以认为是给对应位置元素所属集合分别相同的各个有序<a target="_blank" rel="noopener" href="https://zh.m.wikipedia.org/wiki/%E5%85%83%E7%BB%84">多元组</a>规定顺序：下面用形式化的语言说明。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;ab&#x27;</span> &lt; <span class="string">&#x27;ac&#x27;</span></span><br><span class="line"><span class="string">&#x27;abc&#x27;</span> &lt; <span class="string">&#x27;ac&#x27;</span></span><br><span class="line"><span class="string">&#x27;abc&#x27;</span> &lt; <span class="string">&#x27;abcd&#x27;</span></span><br></pre></td></tr></table></figure></blockquote>
+</li>
+</ul>
+<h3 id="Sequential-Container-Operation"><a href="#Sequential-Container-Operation" class="headerlink" title="Sequential Container Operation"></a>Sequential Container Operation</h3><ul>
+<li><p><strong>push_back</strong>: 除了<code>array</code>和<code>forward_list</code>不支持<code>push_back</code>，其他顺序容器都支持</p>
+</li>
+<li><p><strong>push_front</strong>: <code>list</code>, <code>forward_list</code>, <code>deque</code>支持<code>push_front</code></p>
+</li>
+<li><p><strong>insert</strong>是在指定的iterator前面插入元素，返回指向插入元素的iterator；可以利用这样的特性，在一个位置一直插入；不过如果已知要插入的个数，可以考虑使用插入一段数据的insert的重载函数；</p>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">vec.<span class="built_in">insert</span>(iter, item);                 <span class="comment">// insert item before iter and return iterator point to newly </span></span><br><span class="line">                                        <span class="comment">// add item</span></span><br><span class="line">vec.<span class="built_in">insert</span>(iter, num, item);            <span class="comment">// insert item before iter for num times and return iterator </span></span><br><span class="line">                                        <span class="comment">// point to the first added item</span></span><br><span class="line">vec.<span class="built_in">insert</span>(iter, iter_begin, iter_end); <span class="comment">// insert the range from iter_begin to iter_end before iter </span></span><br><span class="line">                                        <span class="comment">// and return iterator point to the first added item</span></span><br><span class="line">vec.<span class="built_in">insert</span>(iter, initializer_list);     <span class="comment">// insert an initializer-list before iter and return iterator </span></span><br><span class="line">                                        <span class="comment">// point to the first item in initializer-list</span></span><br></pre></td></tr></table></figure>
+
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// vector iterator遍历过程中insert元素矫正迭代器示例：</span></span><br><span class="line"><span class="comment">// 在iterator的过程中，删除或者插入元素，可能会使得iterator失效，所以我们需要手动矫正；</span></span><br><span class="line">vector&lt;<span class="type">int</span>&gt;::iterator iter = iv.<span class="built_in">begin</span>(), mid = iv.<span class="built_in">begin</span>() + iv.<span class="built_in">size</span>() / <span class="number">2</span>;</span><br><span class="line"><span class="keyword">while</span> (iter != mid &#123;</span><br><span class="line">    <span class="keyword">if</span> (*iter == some_val) &#123;</span><br><span class="line">        iter = v.<span class="built_in">insert</span>(iter, <span class="number">2</span> * some_val);</span><br><span class="line">        ++iter;   <span class="comment">// 手动矫正</span></span><br><span class="line">    &#125;</span><br><span class="line">    ++iter;       <span class="comment">// 对于insert, 事实上iter加了2，因为要略过当前插入的元素，略过当前元素</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>emplace</strong>函数是<strong>直接在容器中初始化构造元素</strong>；传递给<code>emplace</code>函数的参数必须和元素的构造函数的参数列表匹配;</p>
+<blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt; <span class="keyword">class</span>... Args &gt;</span></span><br><span class="line"><span class="function">iterator <span class="title">emplace</span><span class="params">( const_iterator pos, Args&amp;&amp;... args )</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>Inserts a new element into the container directly before <code>pos</code>.</p>
+<p>The element is constructed through <a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/memory/allocator_traits/construct">std::allocator_traits::construct</a>, which typically uses <strong>placement-new</strong> to construct the element in-place at a location provided by the container. However, <strong>if the required location has been occupied by an existing element, the inserted element is constructed at another location at first, and then move assigned into the required location.</strong></p>
+<p>The arguments <code>args...</code> are forwarded to the constructor as <a target="_blank" rel="noopener" href="http://en.cppreference.com/w/cpp/utility/forward">std::forward</a><Args>(args)…. <code>args...</code> may directly or indirectly refer to a value in the container.</p>
+<p>If the new <a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/container/vector/size">size()</a> is greater than <a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/container/vector/capacity">capacity()</a>, all iterators and references are <strong>invalidated</strong>. Otherwise, only the iterators and references <strong>before the insertion point remain valid.</strong> The <strong>past-the-end iterator is also invalidated.</strong></p>
+</blockquote>
+</li>
+<li><p>在容器中访问元素的成员函数(<code>front</code>, <code>back</code>, <code>operator []</code>，<code>at</code>)返回的都是<strong>元素的引用</strong>；<code>at</code>会检查是否越界，<code>operator []</code>不会；</p>
+<p>  调用<code>front</code>和<code>back</code>之前要<strong>确保容器不为空</strong>，否则<strong>UB</strong></p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">std::vector&lt;<span class="type">int</span>&gt; vec = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;</span><br><span class="line"><span class="keyword">auto</span>&amp; v1 = vec.<span class="built_in">back</span>();</span><br><span class="line"><span class="keyword">auto</span>&amp; v2 = vec[<span class="number">1</span>];</span><br><span class="line"><span class="keyword">auto</span>&amp; v3 = vec.<span class="built_in">at</span>(<span class="number">10</span>);            <span class="comment">// throw out of range exception</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>pop_front</strong>: 和<code>push_front</code>类似，<code>list</code>，<code>deque</code>，<code>forward_list</code>支持<code>pop_front</code>；</p>
+</li>
+<li><p><strong>pop_back</strong>: 和<code>push_back</code>类似，除了<code>array</code>和<code>forward_list</code>不支持<code>push_back</code>，其他顺序容器都支持</p>
+</li>
+<li><p><strong>erase</strong>，删除容器迭代器指向的元素，返回指向被删元素之后的元素的迭代器；vector iterator遍历过程中erase元素矫正迭代器示例</p>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vec.<span class="built_in">erase</span>(iter);                 <span class="comment">// erase the item at iterator iter and return the iterator point to </span></span><br><span class="line">                                 <span class="comment">// the one next to deleted item</span></span><br><span class="line">vec.<span class="built_in">erase</span>(iter_begin, iter_end); <span class="comment">// erase the items between [iter_begin, iter_end) and return the </span></span><br><span class="line">                                 <span class="comment">// iterator point to the one next to deleted item</span></span><br></pre></td></tr></table></figure>
+
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">std::list&lt;<span class="type">int</span>&gt; lst = &#123;<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>&#125;;</span><br><span class="line"><span class="keyword">auto</span> it = lst.<span class="built_in">begin</span>();</span><br><span class="line"><span class="keyword">while</span> (it != lst.<span class="built_in">end</span>())&#123;</span><br><span class="line">    <span class="keyword">if</span> (*it &amp; <span class="number">0x01</span>)&#123;</span><br><span class="line">        it = lst.<span class="built_in">erase</span>(it);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        ++it;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>resize</strong>:可以使用resize来扩大或缩小容器；不适用于<code>array</code></p>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vec.<span class="built_in">resize</span>(n);  <span class="comment">// resize the container size to n, n&gt;vec.size mean enlarging, n&lt;vec.size means truncation</span></span><br><span class="line">vec.<span class="built_in">resize</span>(n, t); <span class="comment">// resize the container size to n and using t to initialize the newly add item</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>forward_list</strong>的<strong>特殊操作</strong></p>
+<p>  对于单向链表forward_list，删除一个元素需要改变这个元素前面的那个元素(前驱)指向的下一个元素；但是因为是单向链表，所有没有简单的办法直接获取当前元素的前驱；出于这个原因，<strong>在一个forward_list中添加或者删除元素，是通过操作给定元素的之后的元素来完成的</strong>；于是不同与其他顺序容器的<code>insert</code>, <code>erase</code>，forward_list对应的是<code>insert_after</code>和<code>erase_after</code>;也引出了一个新的不存在的位置：<code>before_begin</code>;</p>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">std::forward_list&lt;<span class="type">int</span>&gt; flist;</span><br><span class="line">flist.<span class="built_in">before_begin</span>();</span><br><span class="line">flist.<span class="built_in">cbefore_begin</span>();</span><br><span class="line">flist.<span class="built_in">insert_after</span>(iter, item);</span><br><span class="line">flist.<span class="built_in">insert_after</span>(iter, num, item);</span><br><span class="line">flist.<span class="built_in">insert_after</span>(iter, iter_begin, iter_end);</span><br><span class="line">flist.<span class="built_in">insert_after</span>(iter, initializer-list);</span><br><span class="line">flist.<span class="built_in">emplace_after</span>(iter, args);</span><br><span class="line">flist.<span class="built_in">erase_after</span>(iter);</span><br><span class="line">flist.<span class="built_in">erase_after</span>(iter_begin, iter_end);</span><br></pre></td></tr></table></figure>
+
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">std::forward_list&lt;<span class="type">int</span>&gt; flst = &#123;<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>&#125;;</span><br><span class="line"><span class="keyword">auto</span> prev = flst.<span class="built_in">before_begin</span>();</span><br><span class="line"><span class="keyword">auto</span> curr = flst.<span class="built_in">begin</span>();</span><br><span class="line"><span class="keyword">while</span> (curr != flst.end)&#123;</span><br><span class="line">    <span class="keyword">if</span> (*curr &amp; <span class="number">0x01</span>)&#123;</span><br><span class="line">        curr = flst.<span class="built_in">erase_after</span>(curr);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        prev = curr;</span><br><span class="line">        ++curr;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>容器操作可能使得迭代器失效(<em>iterator invalidate</em>)</p>
+<ol>
+<li><p>记得使用erase和insert返回的值更新iterator</p>
+</li>
+<li><p><strong>不要在循环开始前缓存end iterator</strong>，每次都显式调用end来做判断，否则是未定义的，可能陷入死循环；</p>
+ <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// invaild: undefined behavior</span></span><br><span class="line">std::vector&lt;<span class="type">int</span>&gt; v = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>&#125;;</span><br><span class="line"><span class="keyword">auto</span> begin = v.<span class="built_in">begin</span>();</span><br><span class="line"><span class="keyword">auto</span> end = v.<span class="built_in">end</span>();                   <span class="comment">// cache end iterator, results in undefined behavior</span></span><br><span class="line"><span class="keyword">while</span> (begin != end )&#123;</span><br><span class="line">    <span class="comment">// do somethine</span></span><br><span class="line">    ++begin;                          <span class="comment">// iterator operation</span></span><br><span class="line">    begin = v.<span class="built_in">insert</span>(begin, <span class="number">43</span>);</span><br><span class="line">    ++begin;                          <span class="comment">// iterator operation</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><p>迭代器失效(<em>iterator invalidate</em>)</p>
+<ul>
+<li><p><strong>array</strong></p>
+<blockquote>
+<p>As a rule, iterators to an array are <strong>never invalidated</strong> throughout the lifetime of the array. One should take note, however, that during <a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/container/array/swap">swap</a>, the <strong>iterator will continue to point to the same array element</strong>, and will <strong>thus change its value.</strong></p>
+</blockquote>
+</li>
+<li><p><strong>list</strong></p>
+<blockquote>
+<p>Adding, <strong>removing</strong> and <strong>moving</strong> the elements within the list or across several lists <strong>does not invalidate the iterators or references</strong>. An iterator is <strong>invalidated</strong> only when the corresponding element is <strong>deleted</strong>.</p>
+</blockquote>
+</li>
+<li><p><strong>forward_list</strong></p>
+<blockquote>
+<p>Adding, <strong>removing</strong> and <strong>moving</strong> the elements within the list, or across several lists, <strong>does not invalidate the iterators</strong> currently referring to other elements in the list. However, an iterator or reference referring to an element is <strong>invalidated</strong> when the <strong>corresponding element is removed</strong> (via <a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/container/forward_list/erase_after">erase_after</a>) from the list.</p>
+</blockquote>
+</li>
+<li><p><strong>vector</strong></p>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Invalidated</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>All read only operations</td>
+<td><strong>Never</strong></td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/container/vector/swap">swap</a>, <a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/algorithm/swap">std::swap</a></td>
+<td><strong>past-the-end iterator</strong> <a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/container/vector/end"><strong>end()</strong></a>. Every iterator referring to an element in one container before the swap shall refer to the same element in the other container after the swap. <strong>The <code>end()</code> iterator does not refer to any element, so it may be invalidated</strong>. ref: <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/4124989/does-stdvectorswap-invalidate-iterators">stackoverflow</a></td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/container/vector/clear">clear</a>, <a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/container/vector/operator%3D">operator&#x3D;</a>, <a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/container/vector/assign">assign</a></td>
+<td><strong>All iterators, pointers and references</strong> to the elements of the container are <strong>invalidated</strong>. The <strong>past-the-end</strong> iterator is also <strong>invalidated</strong>.</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/container/vector/reserve">reserve</a>, <a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/container/vector/shrink_to_fit">shrink_to_fit</a></td>
+<td>If the vector <strong>changed capacity</strong>, <strong>all</strong> of them. If not, none.</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/container/vector/erase">erase</a></td>
+<td><strong>Erased elements</strong> and all <strong>elements after them</strong> (including <a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/container/vector/end">end()</a>)</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/container/vector/push_back">push_back</a>, <a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/container/vector/emplace_back">emplace_back</a></td>
+<td>If the vector <strong>changed capacity</strong>, <strong>all</strong> of them. <strong>If not</strong>, only <strong>end()</strong>.</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/container/vector/insert">insert</a>, <a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/container/vector/emplace">emplace</a></td>
+<td>If the vector <strong>changed capacity</strong>, <strong>all</strong> of them. <strong>If not</strong>, only those at or <strong>after the insertion point</strong> (including end()).</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/container/vector/resize">resize</a></td>
+<td>If the vector <strong>changed capacity</strong>, <strong>all</strong> of them. <strong>If not</strong>, only <strong>end()</strong> and any <strong>elements erased</strong>.</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/container/vector/pop_back">pop_back</a></td>
+<td>The <strong>element erased</strong> and <a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/container/vector/end"><strong>end()</strong></a>.</td>
+</tr>
+</tbody></table>
+</li>
+<li><p><strong>deque</strong>  </p>
+<blockquote>
+<p><code>push_back()</code> and <code>push_front()</code> are defined in terms of <code>insert()</code>. Similarly, <code>pop_back()</code> and <code>pop_front()</code> are defined in terms of <code>erase()</code>.</p>
+</blockquote>
+<p>   <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/10373985/c-deque-when-iterators-are-invalidated">stackoverflow</a>, <a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/container/deque">cppreference</a></p>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Invalidated</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>All read only operations</td>
+<td>Never</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/container/deque/swap">swap</a>, <a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/algorithm/swap">std::swap</a></td>
+<td>Only <strong>past-the-end iterator</strong> <a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/container/vector/end"><strong>end()</strong></a>.  Every iterator referring to an element in one container before the swap shall refer to the same element in the other container after the swap. <strong>The <code>end()</code> iterator does not refer to any element, so it may be invalidated</strong>.<br />Ref: <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/10373985/c-deque-when-iterators-are-invalidated">stackoverflow</a></td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/container/deque/shrink_to_fit">shrink_to_fit</a>, <a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/container/deque/clear">clear</a>,</td>
+<td>All <strong>iterators</strong> and <strong>references</strong> are <strong>invalidated</strong>. <strong>Past-the-end iterator is also invalidated.</strong></td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/container/deque/erase">erase</a>, <br /><a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/container/deque/pop_front">pop_front</a>, <br /><a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/container/deque/pop_back">pop_back</a></td>
+<td>If erasing at <strong>begin</strong> - <strong>only erased elements</strong>, does <strong>not invalidate any references</strong> to non-erased elements<br />If erasing at <strong>end</strong> - <strong>only erased elements</strong> and the <strong>past-the-end iterator</strong>, does <strong>not invalidate any references</strong> to non-erased elements<br />Otherwise - <strong>all iterators and reference are invalidated</strong> (including the <strong>past-the-end iterator</strong>).</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/container/deque/resize">resize</a></td>
+<td>If the new size is <strong>smaller</strong> than the old one : only <strong>erased elements</strong> and <strong>the past-the-end iterator</strong>, does <strong>not invalidate any references</strong> to non-erased elements;  <br />If the new size is <strong>bigger</strong> than the old one : <strong>all iterators are invalidated</strong>, does <strong>not invalidate any references</strong> to elements of the deque.; <br />Otherwise,  <strong>none iterators and no references are invalidated</strong>.</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/container/deque/insert">insert</a>, <a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/container/deque/emplace">emplace</a>, <a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/container/deque/push_front">push_front</a>,  <a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/container/deque/emplace_front">emplace_front</a>, <a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/container/deque/push_back">push_back</a>, <a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/container/deque/emplace_back">emplace_back</a></td>
+<td>An insert in the <strong>middle</strong> of the deque <strong>invalidates all the iterators and references</strong> to elements of the deque. <br />An insert at <strong>either end</strong> of the deque <strong>invalidates all the iterators</strong> to the deque, <strong>but</strong> has <strong>no effect on the validity of references</strong> to elements of the deque.&lt;br &#x2F;<br /></td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Common-Sequential-Containers"><a href="#Common-Sequential-Containers" class="headerlink" title="Common Sequential Containers"></a>Common Sequential Containers</h3><h4 id="vector"><a href="#vector" class="headerlink" title="vector"></a>vector</h4><ul>
+<li><p><strong>vector</strong>容器(包含string)重新分配内存：</p>
+<p>  因为容器是连续存储的，当添加新的元素导致超出现有的容器的大小的时候，容器需要新分配连续内存存储所有元素；容器不能简单的将新的元素分配到新的内存，可见每次重新分配，代价很大；此时容器会：</p>
+<ul>
+<li><p>分配新的内存空间，存储现有的元素以及新添加的元素；</p>
+</li>
+<li><p>释放旧空间；</p>
+</li>
+</ul>
+</li>
+<li><p><strong>vector</strong>的<code>reserver</code>函数、<code>capacity</code>函数、<code>size</code>函数、<code>resize</code>函数；</p>
+<ul>
+<li><p><code>size</code> vs <code>capacity</code>：<code>size</code>是指<strong>容器里面元素的数量</strong>，<code>capacity</code>是指在不分配新空间的情况下容器<strong>最大可以存的元素的数量</strong>；</p>
+</li>
+<li><p><code>reserve</code>(<code>int n</code>)：分配至少可以容纳n个元素的内存空间；不改变容器的<code>size</code>，只增加容器的<code>capacity</code>；只有在n大于当前容器的<code>capacity</code>的时候，<code>reserver</code>才会起作用；否则什么也不做；同时<code>reserve</code>永远不会减小容器的<code>capacity</code>;</p>
+</li>
+<li><p><code>resize</code>只是改变容器元素的<code>size</code>，如果<code>resize</code>的<code>size</code>大于当前的<code>size</code>，则<strong>添加元素</strong>，值初始化；如果<code>resize</code>的<code>size</code>小于<code>size</code>，则容器被<strong>截断</strong>；</p>
+</li>
+<li><p><code>shrink_to_fit</code>：收回大于<code>size</code>但是小于<code>capacity</code>的空间；</p>
+</li>
+<li><p>不同的实现会有不同的分配策略，但是有一个原则是一致的：<strong>只有迫不得已的时候开多分配空间</strong></p>
+</li>
+</ul>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">std::vector&lt;<span class="type">int</span>&gt; vec;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">0</span>; i&lt;<span class="number">20</span>; i++)&#123;</span><br><span class="line">    vec.<span class="built_in">push_back</span>(<span class="number">1</span>);</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;vec size: &quot;</span> &lt;&lt; vec.<span class="built_in">size</span>() &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; <span class="string">&quot;vec capacity: &quot;</span> &lt;&lt; vec.<span class="built_in">capacity</span>() &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">vec size: 1 vec capacity: 1</span><br><span class="line">vec size: 2 vec capacity: 2</span><br><span class="line">vec size: 3 vec capacity: 4</span><br><span class="line">vec size: 4 vec capacity: 4</span><br><span class="line">vec size: 5 vec capacity: 8</span><br><span class="line">vec size: 6 vec capacity: 8</span><br><span class="line">vec size: 7 vec capacity: 8</span><br><span class="line">vec size: 8 vec capacity: 8</span><br><span class="line">vec size: 9 vec capacity: 16</span><br><span class="line">vec size: 10 vec capacity: 16</span><br><span class="line">vec size: 11 vec capacity: 16</span><br><span class="line">vec size: 12 vec capacity: 16</span><br><span class="line">vec size: 13 vec capacity: 16</span><br><span class="line">vec size: 14 vec capacity: 16</span><br><span class="line">vec size: 15 vec capacity: 16</span><br><span class="line">vec size: 16 vec capacity: 16</span><br><span class="line">vec size: 17 vec capacity: 32</span><br><span class="line">vec size: 18 vec capacity: 32</span><br><span class="line">vec size: 19 vec capacity: 32</span><br><span class="line">vec size: 20 vec capacity: 32</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="string"><a href="#string" class="headerlink" title="string"></a>string</h4><ul>
+<li><p>从一个<code>const char*</code>的数组创建一个string的时候，指针指向的<strong>数组必须以空字符结尾</strong>，拷贝操作到空字符结尾；<strong>如果传递了长度</strong>，且长度小于等于数组的尺寸，则<strong>不需要数组以空字符结束</strong>；</p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">string <span class="title">s</span><span class="params">(cp, n)</span></span>;          <span class="comment">// s指向cp指向的数组中前n个字符</span></span><br><span class="line"><span class="function">string <span class="title">s</span><span class="params">(s1, pos1)</span></span>;       <span class="comment">// s指向string s1从pos1开始的所有字符，到\0结束</span></span><br><span class="line"><span class="function">string <span class="title">s</span><span class="params">(s2, pos2, n)</span></span>;    <span class="comment">// s指向string s2从pos2开始的n个字符</span></span><br><span class="line"></span><br><span class="line">s.<span class="built_in">substr</span>(pos, n);         <span class="comment">// 从pos开始的n个字符</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>string常见接口</p>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">s.<span class="built_in">substr</span>(pos, n);    <span class="comment">// slice n chars from pos and return a sliced string</span></span><br><span class="line">s.<span class="built_in">insert</span>(pos, args); <span class="comment">// args can only be char, not be string</span></span><br><span class="line">s.<span class="built_in">erase</span>(pos, len);   <span class="comment">// erase len chars from pos</span></span><br><span class="line">s.<span class="built_in">append</span>(pos, args); <span class="comment">// args can only be string, not be char</span></span><br><span class="line">s.<span class="built_in">replace</span>(iter_begin, iter_end, args);  <span class="comment">// args can only be string, not be char</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>find_first_of(args</code>) 和 <code>find_last_of(args</code>) 返回字符串里<code>args</code>中<strong>任何一个字符第一次&#x2F;最后一次出现的位置</strong>，而<strong>不是整个args字符串出现的第一个位置</strong>；</p>
+<p>  <code>find(args)</code>和<code>rfind(args)</code>才是在字符串里寻找<code>args</code>字符串<strong>第一次&#x2F;最后一次</strong>出现的位置</p>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">s.<span class="built_in">find</span>(args);</span><br><span class="line">s.<span class="built_in">rfind</span>(args);</span><br><span class="line">s.<span class="built_in">find_first_of</span>(args);</span><br><span class="line">s.<span class="built_in">find_last_of</span>(args);</span><br><span class="line">s.<span class="built_in">find_first_not_of</span>(args);</span><br><span class="line">s.<span class="built_in">find_last_not_of</span>(args);</span><br><span class="line"></span><br><span class="line">std::string str = <span class="string">&quot;0abc567890bc&quot;</span>;</span><br><span class="line">str.<span class="built_in">find_first_of</span>(<span class="string">&quot;0&quot;</span>);      <span class="comment">// 0</span></span><br><span class="line">str.<span class="built_in">find_first_of</span>(<span class="string">&#x27;0&#x27;</span>);      <span class="comment">// 0</span></span><br><span class="line">str.<span class="built_in">find_first_of</span>(<span class="string">&#x27;0&#x27;</span>, <span class="number">3</span>);   <span class="comment">// 9</span></span><br><span class="line">str.<span class="built_in">find_first_of</span>(<span class="string">&quot;56c&quot;</span>, <span class="number">3</span>); <span class="comment">// 3</span></span><br><span class="line"></span><br><span class="line">str.<span class="built_in">find</span>(<span class="string">&quot;56c&quot;</span>, <span class="number">0</span>);  <span class="comment">// 18446744073709551615, equal to static_cast&lt;unsigned long&gt;(-1)</span></span><br><span class="line">str.<span class="built_in">find</span>(<span class="string">&quot;c56&quot;</span>, <span class="number">0</span>);  <span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>string找不到的时候返回的是<code>string::npos</code>，定义为<code>signed long</code> <strong>-1</strong>，转换为<code>unsigned long</code>的时候是个最大的<code>unsigned long</code>；</p>
+</li>
+</ul>
+<h4 id="array"><a href="#array" class="headerlink" title="array"></a>array</h4><ul>
+<li><p>与内置数组一样，<code>std::array</code>的<strong>大小也是类型的一部分</strong>；</p>
+<p>  内置数组是不允许拷贝或者对象赋值的，但是std::array并没有这个限制；</p>
+<p>  和内置数组一样，但和其他顺序容器不同，默认构造的array的元素是非空的，会执行<strong>默认初始化</strong>；</p>
+<p>  当使用初始化列表的时候，前面的部分使用初始化列表来初始化，剩余的元素执行值初始化；</p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">std::array&lt;<span class="type">int</span>, 42&gt; arr;           <span class="comment">// 大小为42的int数组</span></span><br><span class="line">std::array&lt;<span class="type">int</span>, 42&gt;::size_type i;  <span class="comment">// valid</span></span><br><span class="line">std::array&lt;<span class="type">int</span>&gt;::size_type j;      <span class="comment">// invalid</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// built-in array copy and assignment</span></span><br><span class="line"><span class="type">int</span> digs[<span class="number">6</span>] = &#123;<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>&#125;;</span><br><span class="line"><span class="type">int</span> cpy[<span class="number">6</span>] = digs;                 <span class="comment">// invalid</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// std::array copy and assignment</span></span><br><span class="line">std::array&lt;<span class="type">int</span>,6&gt; digs = &#123;<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>&#125;;</span><br><span class="line">std::array&lt;<span class="type">int</span>,6&gt; cpys = digs;     <span class="comment">// valid</span></span><br><span class="line"></span><br><span class="line">std::array&lt;<span class="type">int</span>, 10&gt; ia1;           <span class="comment">// 默认初始化，元素非空</span></span><br><span class="line"><span class="function">std::vector&lt;<span class="type">int</span>&gt; <span class="title">vec1</span><span class="params">(<span class="number">10</span>)</span></span>;         <span class="comment">// 元素为空</span></span><br><span class="line">std::array&lt;<span class="type">int</span>, 10&gt; ia2 = &#123;<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>&#125;;    <span class="comment">// 列表初始化</span></span><br><span class="line">std::array&lt;<span class="type">int</span>, 10&gt; = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;;     <span class="comment">// 1,2,3,0,0,0,0,0,0,0</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="container-adaptor"><a href="#container-adaptor" class="headerlink" title="container adaptor"></a>container adaptor</h4><ul>
+<li><p>容器适配器(<em>container adaptor</em>)是标准库中的通用概念；本质上，一个适配器是一种机制，能使某种事物的行为看起来像是另一种事物一样；本质是在底层顺序容器的接口的基础上提供了一部分接口的类型；    </p>
+<blockquote>
+<p>The class template acts as a wrapper to the underlying container - only a specific set of functions is provided.           </p>
+</blockquote>
+</li>
+<li><p><code>stack</code>可以使用<strong>除了</strong><code>array</code>和<code>forward_list</code>之外的容器来构造；</p>
+<p>  <code>queue</code>可以基于<code>list</code>和<code>deque</code>构造；<code>priority_queue</code>可以基于<code>vector</code>和<code>deque</code>构造；</p>
+<p>  默认情况下<code>stack</code>和<code>queue</code>是基于<code>deque</code>的，<code>priority_queue</code>是在<code>vector</code>上实现的；</p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用默认container</span></span><br><span class="line">std::stack&lt;<span class="type">int</span>&gt; stack;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 指定container和comparer</span></span><br><span class="line">std::priority_queue&lt;<span class="type">int</span>, std::vector&lt;<span class="type">int</span>&gt;, std::greater&lt;<span class="type">int</span>&gt;&gt; queue;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 指定container和comparer using lambda</span></span><br><span class="line"><span class="keyword">using</span> value_type = <span class="type">int</span>;</span><br><span class="line"><span class="keyword">using</span> container_type = std::deque&lt;value_type&gt;;</span><br><span class="line"><span class="keyword">auto</span> cmp_func = [](<span class="type">const</span> value_type &amp;a, <span class="type">const</span> value_type &amp;b)&#123;<span class="keyword">return</span> a &lt; b;&#125;;</span><br><span class="line"><span class="function">std::queue&lt;value_type, container_type, <span class="title">decltype</span><span class="params">(cmp_func)</span>&gt; <span class="title">mannul_queue</span><span class="params">(cmp_func)</span></span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>std::stack</strong>接口</p>
+  <img data-src="/images/blog/chapter9/ch9-stack-interface.png" alt="ch9-stack-interface" style="zoom:50%;" />
+</li>
+<li><p><strong>std::queue</strong>接口</p>
+  <img data-src="/images/blog/chapter9/ch9-queue-interface.png" alt="ch9-queue-interface" style="zoom:50%;" />
+</li>
+<li><p><strong>std::priority_queue</strong> 接口</p>
+  <img data-src="/images/blog/chapter9/ch9-priority-queue-interface.png" alt="ch9-priority-queue-interface" style="zoom:50%;" /></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>PangWong
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://pangwong.github.io/blog/2022/06/cpp-primer-chapter9/" title="Reading Note of CppPrimer-Chapter9">https://pangwong.github.io/blog/2022/06/cpp-primer-chapter9/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/reading-notes/" rel="tag"><i class="fa fa-tag"></i> reading notes</a>
+              <a href="/tags/cpp-primer/" rel="tag"><i class="fa fa-tag"></i> cpp-primer</a>
+              <a href="/tags/string/" rel="tag"><i class="fa fa-tag"></i> string</a>
+              <a href="/tags/vector/" rel="tag"><i class="fa fa-tag"></i> vector</a>
+              <a href="/tags/array/" rel="tag"><i class="fa fa-tag"></i> array</a>
+              <a href="/tags/sequential-container/" rel="tag"><i class="fa fa-tag"></i> sequential container</a>
+              <a href="/tags/container-iterator/" rel="tag"><i class="fa fa-tag"></i> container iterator</a>
+              <a href="/tags/list/" rel="tag"><i class="fa fa-tag"></i> list</a>
+              <a href="/tags/forward-list/" rel="tag"><i class="fa fa-tag"></i> forward_list</a>
+              <a href="/tags/stack/" rel="tag"><i class="fa fa-tag"></i> stack</a>
+              <a href="/tags/queue/" rel="tag"><i class="fa fa-tag"></i> queue</a>
+              <a href="/tags/priority-queue/" rel="tag"><i class="fa fa-tag"></i> priority_queue</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+            </div>
+            <div class="post-nav-item">
+                <a href="/blog/2022/06/cpp-primer-chapter8/" rel="next" title="Reading Note of CppPrimer-Chapter8">
+                  Reading Note of CppPrimer-Chapter8 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">PangWong</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">126k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">1:55</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js" integrity="sha256-EdPgYcPk/IIrw7FYeuJQexva49pVRZNmt3LculEr7zM=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"pangwong","repo":"pangwong.github.io","client_id":"c3a7ca3ecf4f08f74acb","client_secret":"db3623e99a388c18ba10413186f9051a35cb6627","admin_user":"pangwong","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"b5d1334e25b3cf52034a1a5424f18a83"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>
