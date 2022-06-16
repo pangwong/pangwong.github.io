@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+<link rel="preconnect" href="https://fonts.lug.ustc.edu.cn" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
+  <link rel="manifest" href="/images/site.webmanifest">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.lug.ustc.edu.cn/css?family=Noto+Serif+SC:300,300italic,400,400italic,700,700italic%7CSF+Mono+Regular:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"pangwong.github.io","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Dynamic Memory">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Reading Note of CppPrimer-Chapter12">
+<meta property="og:url" content="https://pangwong.github.io/blog/2022/06/cpp-primer-chapter12/index.html">
+<meta property="og:site_name" content="曰悦鸟">
+<meta property="og:description" content="Dynamic Memory">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-06-16T09:00:19.000Z">
+<meta property="article:modified_time" content="2022-06-16T12:32:05.155Z">
+<meta property="article:author" content="PangWong">
+<meta property="article:tag" content="reading notes">
+<meta property="article:tag" content="cpp-primer">
+<meta property="article:tag" content="new">
+<meta property="article:tag" content="delete">
+<meta property="article:tag" content="placement new">
+<meta property="article:tag" content="shared_ptr">
+<meta property="article:tag" content="unique_ptr">
+<meta property="article:tag" content="weak_ptr">
+<meta property="article:tag" content="new array">
+<meta property="article:tag" content="delete array">
+<meta property="article:tag" content="allocator">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://pangwong.github.io/blog/2022/06/cpp-primer-chapter12/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://pangwong.github.io/blog/2022/06/cpp-primer-chapter12/","path":"/blog/2022/06/cpp-primer-chapter12/","title":"Reading Note of CppPrimer-Chapter12"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Reading Note of CppPrimer-Chapter12 | 曰悦鸟</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">曰悦鸟</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Dynamic-Memory"><span class="nav-number">1.</span> <span class="nav-text">Dynamic Memory</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Dynamic-Memory-1"><span class="nav-number">1.1.</span> <span class="nav-text">Dynamic Memory</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Smart-Pointer"><span class="nav-number">1.2.</span> <span class="nav-text">Smart Pointer</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#shared-ptr"><span class="nav-number">1.2.1.</span> <span class="nav-text">shared_ptr</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#unique-ptr"><span class="nav-number">1.2.2.</span> <span class="nav-text">unique_ptr</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#weak-ptr"><span class="nav-number">1.2.3.</span> <span class="nav-text">weak_ptr</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dynamic-Array"><span class="nav-number">1.3.</span> <span class="nav-text">Dynamic Array</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Question"><span class="nav-number">1.3.1.</span> <span class="nav-text">Question</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Answer"><span class="nav-number">1.3.2.</span> <span class="nav-text">Answer</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="PangWong"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">PangWong</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">83</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/pangwong" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;pangwong" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://pangwong.github.io/blog/2022/06/cpp-primer-chapter12/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="PangWong">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="曰悦鸟">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Reading Note of CppPrimer-Chapter12 | 曰悦鸟">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Reading Note of CppPrimer-Chapter12
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-06-16 17:00:19 / 修改时间：20:32:05" itemprop="dateCreated datePublished" datetime="2022-06-16T17:00:19+08:00">2022-06-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C++</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>19k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>17 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="Dynamic-Memory"><a href="#Dynamic-Memory" class="headerlink" title="Dynamic Memory"></a>Dynamic Memory</h2><span id="more"></span>
+
+
+
+<h3 id="Dynamic-Memory-1"><a href="#Dynamic-Memory-1" class="headerlink" title="Dynamic Memory"></a>Dynamic Memory</h3><ul>
+<li><p>使用动态内存的一个很常见的原因是<strong>允许对象共享相同的数据和状态</strong>；</p>
+</li>
+<li><p>动态分配的内存是<strong>无名</strong>的，因此new无法为其分配的对象命名，<strong>只能返回</strong>指向该对象的<strong>指针</strong>；</p>
+</li>
+<li><p><strong>new</strong>的初始化</p>
+<p>  <strong>默认情况下</strong>，动态分配的对象是<strong>默认初始化</strong>的，这意味着内置类型或者组合类型将会是<strong>未定义的</strong>；类类型是执行默认构造函数，类内的内置类型也是<strong>未定义的</strong>；当然，可以<strong>直接初始化</strong>，也可以<strong>列表初始化</strong></p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 默认初始化</span></span><br><span class="line"><span class="type">int</span> *pi = <span class="keyword">new</span> <span class="type">int</span>;                           <span class="comment">// 未定义</span></span><br><span class="line">std::string *str = <span class="keyword">new</span> std::string;          <span class="comment">// 默认构造为&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 直接初始化</span></span><br><span class="line"><span class="type">int</span> *pi = <span class="keyword">new</span> <span class="built_in">int</span>(<span class="number">1024</span>);                     <span class="comment">// pi指向1024</span></span><br><span class="line">std::string *str = <span class="keyword">new</span> std::<span class="built_in">string</span>(<span class="number">10</span>, <span class="string">&#x27;9&#x27;</span>); <span class="comment">// str指向&quot;9999999999&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 值初始化</span></span><br><span class="line"><span class="type">int</span> *pi = <span class="keyword">new</span> <span class="built_in">int</span>();                         <span class="comment">// 指向0</span></span><br><span class="line">std::string *str = <span class="keyword">new</span> std::<span class="built_in">string</span>();        <span class="comment">// 指向&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 列表初始化</span></span><br><span class="line">std::vector&lt;<span class="type">int</span>&gt; *vec = <span class="keyword">new</span> vector&lt;<span class="type">int</span>&gt;&#123;<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>动态分配<strong>const</strong>对象</p>
+<p>  用new分配const对象是合法的；类似于其他const对象，一个动态分配的const对象<strong>必须初始化</strong>；</p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">int</span> *pci = <span class="keyword">new</span> <span class="type">const</span> <span class="built_in">int</span>(<span class="number">1024</span>);</span><br><span class="line"><span class="type">const</span> std::string *psc = <span class="keyword">new</span> <span class="type">const</span> string;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>内存耗尽分配失败的处理</p>
+<p>  内存耗尽new表达式会失败，并抛出一个<code>std::bad_alloc</code>的异常；也可以使用<code>nothrow</code>让new不抛出异常</p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># <span class="keyword">include</span> <span class="string">&lt;new&gt;</span></span></span><br><span class="line"><span class="type">int</span> *p1 = <span class="keyword">new</span> <span class="type">int</span>;              <span class="comment">// 分配失败会throw std::bad_alloc exception</span></span><br><span class="line"><span class="type">int</span> *p2 = <span class="built_in">new</span> (nothrow) <span class="type">int</span>;    <span class="comment">// 分配失败会返回空指针</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>placement new</strong></p>
+<blockquote>
+<p>Placement new allows you to <strong>construct an object in memory that’s already allocated</strong>.</p>
+<p>You may want to do this for optimization when you need to <strong>construct multiple instances</strong> of an object, and it is faster <strong>not to re-allocate memory each time you need a new instance</strong>. Instead, it might be more efficient to <strong>perform a single allocation for a chunk of memory that can hold multiple objects</strong>, even though you don’t want to use all of it at once.</p>
+<blockquote>
+<p>Standard C++ also supports <strong>placement new operator</strong>, which constructs an object on a pre-allocated buffer. This is useful when building a memory pool, a garbage collector or simply when performance and exception safety are paramount (there’s <strong>no danger of allocation failure</strong> since the memory has already been allocated, and constructing an object on a pre-allocated buffer takes less time):</p>
+</blockquote>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;new&gt;</span>   <span class="comment">// using placement new should include the header</span></span></span><br><span class="line"><span class="type">char</span> *buf  = <span class="keyword">new</span> <span class="type">char</span>[<span class="built_in">sizeof</span>(string)]; <span class="comment">// pre-allocated buffer</span></span><br><span class="line">string *p = <span class="built_in">new</span> (buf) <span class="built_in">string</span>(<span class="string">&quot;hi&quot;</span>);    <span class="comment">// placement new</span></span><br><span class="line">string *q = <span class="keyword">new</span> <span class="built_in">string</span>(<span class="string">&quot;hi&quot;</span>);          <span class="comment">// ordinary heap allocation</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>If a <strong>non-throwing allocation</strong> function (e.g. the one selected by new(<a target="_blank" rel="noopener" href="http://en.cppreference.com/w/cpp/memory/new/nothrow">std::nothrow</a>) T) returns a <strong>null pointer</strong> because of an allocation failure, then the new-expression returns immediately, <strong>it does not attempt to initialize an object or to call a deallocation function.</strong></p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> *p2 = <span class="built_in">new</span> (nothrow) <span class="type">int</span>;</span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p><strong>delete</strong></p>
+<p>  释放分配的内存可以用delete；传递给<code>delete</code>的指针<strong>必须为动态分配的内存</strong>，<strong>或者是一个空指针</strong>；释放非<code>new</code>分配的内存或者将相同的指针释放多次，都是不合法的；delete一个不是new分配的内存，很多编译器会通过，但是错误的；</p>
+<p>  虽然const本身不能被修改，但是动态分配的const的内存是可以销毁的；</p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> i, *pi=&amp;i, *pi2=<span class="literal">nullptr</span>;</span><br><span class="line"><span class="type">double</span> *pd = <span class="keyword">new</span> <span class="built_in">double</span>(<span class="number">0.0</span>);</span><br><span class="line"><span class="keyword">delete</span> i;         <span class="comment">// invalid</span></span><br><span class="line"><span class="keyword">delete</span> pi;        <span class="comment">// invalid</span></span><br><span class="line"><span class="keyword">delete</span> pi2;       <span class="comment">// valid</span></span><br><span class="line"><span class="keyword">delete</span> pd;        <span class="comment">// valid</span></span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> *pci = <span class="keyword">new</span> <span class="type">const</span> <span class="built_in">int</span>(<span class="number">1024</span>);</span><br><span class="line"><span class="keyword">delete</span> pci;       <span class="comment">// valid</span></span><br></pre></td></tr></table></figure>
+
+<p>  当我们delete一个指针之后，指针值就<strong>无效</strong>了。虽然指针无效，但是很多机器上<strong>还保存着指针原来指向的地址</strong>，变成<strong>悬空指针</strong>(<em>dangling pointer</em>)；未初始化的指针的缺点<em>dangling pointer</em>也有，<strong>delete指针后应该习惯性的把指针置为nullptr</strong>，这样就清楚指针不指向任何对象；</p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> *<span class="title">p</span><span class="params">(<span class="keyword">new</span> <span class="type">int</span>(<span class="number">42</span>))</span></span>;</span><br><span class="line"><span class="keyword">delete</span> p;</span><br><span class="line"><span class="keyword">auto</span> q = p;</span><br><span class="line">p = <span class="literal">nullptr</span>;      <span class="comment">// now p is nullptr, but q is a dangling pointer</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>difference</strong> between <code>new/delete</code> vs <code>malloc/free</code> </p>
+<ul>
+<li><strong>malloc():</strong> It is a <strong>C library function</strong> that can also be used in C++, while the <strong>“new”</strong> operator is specific for C++ only. </li>
+<li>both <strong>malloc()</strong> and <strong>new</strong> are used to allocate the memory dynamically in heap. But <strong>“new”</strong> does <strong>call the constructor</strong> of a class whereas <strong>“malloc()”</strong> does not.</li>
+<li><strong>free()</strong> is a <strong>C library function</strong> that can also be used in C++, while <strong>“delete”</strong>is a C++ <strong>keyword</strong>.</li>
+<li><strong>free()</strong> frees memory but doesn’t call <strong>Destructor of a class</strong>whereas <strong>“delete”</strong> frees the memory and also <strong>calls the destructor</strong> of the class.</li>
+</ul>
+<blockquote>
+<p>Technically, memory allocated by <code>new</code> comes from the <strong>Free Store</strong> while memory allocated by <code>malloc</code> comes from the <strong>Heap</strong>. <strong>Whether these two areas are the same is an implementation detail</strong>, which is another reason that <code>malloc</code> and <code>new</code> cannot be mixed.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center">Feature</th>
+<th align="center"><code>new</code> &#x2F; <code>delete</code></th>
+<th align="center"><code>malloc</code> &#x2F; <code>free</code></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Memory allocated from</td>
+<td align="center">Free Store</td>
+<td align="center">Heap</td>
+</tr>
+<tr>
+<td align="center">Returns</td>
+<td align="center"><strong>Fully typed pointer</strong></td>
+<td align="center"><code>void*</code></td>
+</tr>
+<tr>
+<td align="center">On failure</td>
+<td align="center">Throws (never returns <code>NULL</code> except nothrow)</td>
+<td align="center">Returns <code>NULL</code></td>
+</tr>
+<tr>
+<td align="center">Required size</td>
+<td align="center">Calculated by compiler</td>
+<td align="center">Must be specified in bytes</td>
+</tr>
+<tr>
+<td align="center">Handling arrays</td>
+<td align="center">Has an explicit version</td>
+<td align="center">Requires manual calculations</td>
+</tr>
+<tr>
+<td align="center">Reallocating</td>
+<td align="center">Not handled intuitively</td>
+<td align="center">Simple (no copy constructor)</td>
+</tr>
+<tr>
+<td align="center">Call of reverse</td>
+<td align="center">Implementation defined</td>
+<td align="center">No</td>
+</tr>
+<tr>
+<td align="center">Low memory cases</td>
+<td align="center">Can add a new memory allocator</td>
+<td align="center">Not handled by user code</td>
+</tr>
+<tr>
+<td align="center">Overridable</td>
+<td align="center">Yes</td>
+<td align="center">No</td>
+</tr>
+<tr>
+<td align="center">Use of constructor &#x2F; destructor</td>
+<td align="center">Yes</td>
+<td align="center">No</td>
+</tr>
+</tbody></table>
+</li>
+<li><p><strong>C++ Memory Areas</strong></p>
+<p>  The following summarizes a C++ program’s major distinct memory areas. Note that some of the names (e.g., “heap”) do not appear as such in the draft <em><strong>[standard]</strong></em>.</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line">Memory Area     Characteristics and Object Lifetimes</span><br><span class="line">--------------  ------------------------------------------------</span><br><span class="line"></span><br><span class="line"> Const Data      The const data area stores string literals and</span><br><span class="line">                 other data whose values are known at compile</span><br><span class="line">                 time.  No objects of class type can exist in</span><br><span class="line">                 this area.  All data in this area is available</span><br><span class="line">                 during the entire lifetime of the program.</span><br><span class="line"></span><br><span class="line">                 Further, all of this data is read-only, and the</span><br><span class="line">                 results of trying to modify it are undefined.</span><br><span class="line">                 This is in part because even the underlying</span><br><span class="line">                 storage format is subject to arbitrary</span><br><span class="line">                 optimization by the implementation.  For</span><br><span class="line">                 example, a particular compiler may store string</span><br><span class="line">                 literals in overlapping objects if it wants to.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> Stack           The stack stores automatic variables. Typically</span><br><span class="line">                 allocation is much faster than for dynamic</span><br><span class="line">                 storage (heap or free store) because a memory</span><br><span class="line">                 allocation involves only pointer increment</span><br><span class="line">                 rather than more complex management.  Objects</span><br><span class="line">                 are constructed immediately after memory is</span><br><span class="line">                 allocated and destroyed immediately before</span><br><span class="line">                 memory is deallocated, so there is no</span><br><span class="line">                 opportunity for programmers to directly</span><br><span class="line">                 manipulate allocated but uninitialized stack</span><br><span class="line">                 space (barring willful tampering using explicit</span><br><span class="line">                 dtors and placement new).</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> Free Store      The free store is one of the two dynamic memory</span><br><span class="line">                 areas, allocated/freed by new/delete.  Object</span><br><span class="line">                 lifetime can be less than the time the storage</span><br><span class="line">                 is allocated; that is, free store objects can</span><br><span class="line">                 have memory allocated without being immediately</span><br><span class="line">                 initialized, and can be destroyed without the</span><br><span class="line">                 memory being immediately deallocated.  During</span><br><span class="line">                 the period when the storage is allocated but</span><br><span class="line">                 outside the object&#x27;s lifetime, the storage may</span><br><span class="line">                 be accessed and manipulated through a void* but</span><br><span class="line">                 none of the proto-object&#x27;s nonstatic members or</span><br><span class="line">                 member functions may be accessed, have their</span><br><span class="line">                 addresses taken, or be otherwise manipulated.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> Heap            The heap is the other dynamic memory area,</span><br><span class="line">                 allocated/freed by malloc/free and their</span><br><span class="line">                 variants.  Note that while the default global</span><br><span class="line">                 new and delete might be implemented in terms of</span><br><span class="line">                 malloc and free by a particular compiler, the</span><br><span class="line">                 heap is not the same as free store and memory</span><br><span class="line">                 allocated in one area cannot be safely</span><br><span class="line">                 deallocated in the other. Memory allocated from</span><br><span class="line">                 the heap can be used for objects of class type</span><br><span class="line">                 by placement-new construction and explicit</span><br><span class="line">                 destruction.  If so used, the notes about free</span><br><span class="line">                 store object lifetime apply similarly here.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> Global/Static   Global or static variables and objects have</span><br><span class="line">                 their storage allocated at program startup, but</span><br><span class="line">                 may not be initialized until after the program</span><br><span class="line">                 has begun executing.  For instance, a static</span><br><span class="line">                 variable in a function is initialized only the</span><br><span class="line">                 first time program execution passes through its</span><br><span class="line">                 definition.  The order of initialization of</span><br><span class="line">                 global variables across translation units is not</span><br><span class="line">                 defined, and special care is needed to manage</span><br><span class="line">                 dependencies between global objects (including</span><br><span class="line">                 class statics).  As always, uninitialized proto-</span><br><span class="line">                 objects&#x27; storage may be accessed and manipulated</span><br><span class="line">                 through a void* but no nonstatic members or</span><br><span class="line">                 member functions may be used or referenced</span><br><span class="line">                 outside the object&#x27;s actual lifetime.</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="Smart-Pointer"><a href="#Smart-Pointer" class="headerlink" title="Smart Pointer"></a>Smart Pointer</h3><ul>
+<li><p>智能指针的使用方式和普通指针类似，重载了<code>-&gt;</code>,  <code>*</code>等运算符：</p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;memory&gt;</span></span></span><br><span class="line">std::shared_ptr&lt;<span class="type">int</span>&gt; p1;</span><br><span class="line"><span class="keyword">if</span> (p1 &amp;&amp; p1-&gt;<span class="built_in">empty</span>())&#123;</span><br><span class="line">    <span class="comment">// do something here</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>shared_ptr</code>可以多个指针指向同一个对象；<code>unique_ptr</code>仅可以最多一个指针指向同一个对象；<code>weak_ptr</code>是一种弱引用，指向<code>shared_ptr</code>指向的对象；</p>
+</li>
+</ul>
+<h4 id="shared-ptr"><a href="#shared-ptr" class="headerlink" title="shared_ptr"></a>shared_ptr</h4><ul>
+<li><p>智能指针<code>shared_ptr</code>的<strong>引用计数机制</strong></p>
+<p>  无论何时对<code>shared_ptr</code>进行拷贝，计数器都会递增：</p>
+<ul>
+<li>比如拷贝初始化另一个<code>shared_ptr</code></li>
+<li>函数参数的值传递的拷贝</li>
+<li>作为函数返回值返回等涉及到拷贝的地方</li>
+</ul>
+<p>  当我们对一个<code>shared_ptr</code>进行以下操作的时候，计数器会递减；一旦计数器变为0，他就会自动释放自己管理的对象：</p>
+<ul>
+<li>被赋值</li>
+<li>离开作用域的时候shared_ptr被销毁的时候</li>
+</ul>
+</li>
+<li><p><strong>shared_ptr</strong>构造</p>
+<p>  <code>shared_ptr</code>可以接受一个<strong>内置指针</strong>作为初始化参数；</p>
+<p>  因为<code>shared_ptr</code>的这个构造函数是<strong>explicit</strong>的，所有<strong>不可以</strong>将内置指针<strong>隐式的转换</strong>为一个智能指针；同样的，返回值为智能指针的函数也不可以直接返回一个内置指针；</p>
+<p>  <strong>用来初始化智能指针的内置指针必须是指向动态分配的内存的指针</strong>，因为默认使用<code>delete</code>来释放关联的对象；</p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">std::shared_ptr&lt;<span class="type">int</span>&gt; p1 = <span class="keyword">new</span> <span class="built_in">int</span>(<span class="number">42</span>);          <span class="comment">// invalid</span></span><br><span class="line"><span class="function">std::shared_ptr&lt;<span class="type">int</span>&gt; <span class="title">p2</span><span class="params">(<span class="keyword">new</span> <span class="type">int</span>(<span class="number">42</span>))</span></span>;           <span class="comment">// valid</span></span><br><span class="line"><span class="function">std::shared_ptr&lt;<span class="type">int</span>&gt; <span class="title">clone</span><span class="params">(<span class="type">int</span> p)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">int</span>(p);                          <span class="comment">// invalid</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function">std::shared_ptr&lt;<span class="type">int</span>&gt; <span class="title">clone</span><span class="params">(<span class="type">int</span> p)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> std::<span class="built_in">shared_ptr</span>&lt;<span class="type">int</span>&gt;(<span class="keyword">new</span> <span class="built_in">int</span>(p));    <span class="comment">// valid</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>  <strong>最安全的</strong>使用动态内存构建<code>shared_ptr</code>的方法是使用<code>make_shared</code>，他直接初始化一个对象，返回指向这个对象的<code>shared_ptr</code>；<strong>不推荐new和std::shared_ptr混着用</strong>，可以<strong>避免将同一块内存绑定到多个独立创建的智能指针上面</strong>；</p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> p6 = make_shared&lt;vector&lt;string&gt;&gt;();</span><br></pre></td></tr></table></figure>
+
+<p>  当我们将一个<code>shared_ptr</code>绑定到一个普通指针的时候，我们就将内存管理的权限转移给了<code>shared_ptr</code>；一旦这样做了，我们就不应该再使用内置指针来访问<code>shared_ptr</code>所指向的内存了；</p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> *<span class="title">x</span><span class="params">(<span class="keyword">new</span> <span class="type">int</span>(<span class="number">1024</span>))</span></span>;</span><br><span class="line"><span class="built_in">process</span>(std::<span class="built_in">shared_ptr</span>&lt;<span class="type">int</span>&gt;(x)); <span class="comment">// bind x to a tmp shared pointer, when func call finish, x is freed.</span></span><br><span class="line"><span class="type">int</span> j = *x;                       <span class="comment">// invalid, x now becomes a dangling pointer</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>shared_ptr::get</strong></p>
+<p>  返回这个智能指针指向的<strong>内置指针</strong>；</p>
+<p>  这样设计的使用场景是：我们需要向不能使用智能指针的代码传递一个内置指针；使用这个get返回的内置指针的代码不能delete这个指针；<strong>永远不要使用get初始化另一个智能指针或者为另一个智能指针赋值；</strong></p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">std::shared_ptr&lt;<span class="type">int</span>&gt; <span class="title">p</span><span class="params">(<span class="keyword">new</span> <span class="type">int</span>(<span class="number">42</span>))</span></span>;</span><br><span class="line"><span class="type">int</span> *q = p.<span class="built_in">get</span>();</span><br><span class="line">&#123;    </span><br><span class="line">    <span class="function">std::shared_ptr&lt;<span class="type">int</span>&gt; <span class="title">tmp_ptr</span><span class="params">(q)</span></span>;</span><br><span class="line">    <span class="comment">// when leaved the block, the ptr managed by p had be freed by tmp_ptr; </span></span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> foo = *p; <span class="comment">// dangling pointer</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>shared_ptr::reset</strong></p>
+<p>  如果参数为空，则相当于<code>std::shared_ptr().swap(ptr)</code>；</p>
+<p>  如果参数不为空，则使<strong>用参数来绑定指针使指针指向的新地址</strong>；旧的管理的对象绑定的shared_ptr计数器会减1，如果计数器为0也会自动释放旧的管理的对象；</p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> *ptr = <span class="keyword">new</span> <span class="built_in">int</span>(<span class="number">10</span>), *ptr1 = <span class="keyword">new</span> <span class="built_in">int</span>(<span class="number">11</span>);</span><br><span class="line"><span class="function">std::shared_ptr&lt;<span class="type">int</span>&gt; <span class="title">p</span><span class="params">(ptr)</span></span>;</span><br><span class="line">p.<span class="built_in">reset</span>(ptr1);  <span class="comment">// now, ptr1 is managed by p, ptr will be freed automatically</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>指定deleter</strong></p>
+<p>  使用智能指针，即使程序遇到异常，也可以<strong>正常释放分配的资源</strong>：<code>shared_ptr</code>自动销毁所管理的内存的时候，是通过调用对象的析构函数(destructor)；</p>
+<p>  如果智能指针指向的对象是<strong>new分配的</strong>或者<strong>有析构函数</strong>，则智能指针可以调用<strong>默认的deleter</strong>；</p>
+<p>  如果<strong>不是new分配的且没有自己的析构函数</strong>，则可以在创建智能指针的时候<strong>手动指定deleter</strong>；</p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">connection</span>;  <span class="comment">// a class has no destructor, 使用完需要手动关闭</span></span><br><span class="line"><span class="comment">// self-defined deleter</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">end_connection</span><span class="params">(connection *p)</span></span>&#123;</span><br><span class="line">    <span class="built_in">disconnect</span>(*p);       <span class="comment">// 手动关闭</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">f</span><span class="params">(dest_address &amp;d)</span></span>&#123;</span><br><span class="line">    connection x = <span class="built_in">connect</span>(&amp;address);</span><br><span class="line">    <span class="function">std::shared_ptr&lt;connection&gt; <span class="title">p</span><span class="params">(&amp;x, end_connection)</span></span>;    <span class="comment">// create smart pointer and specify deleter</span></span><br><span class="line">    <span class="comment">// do something ...</span></span><br><span class="line">    <span class="comment">// 当f正常退出或者异常退出，connection都会被正常关闭</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>智能指针<code>shared_ptr</code>使用基本规范：</p>
+<ol>
+<li>不使用相同的内置指针初始化或者reset多个智能指针；</li>
+<li>不使用get返回的指针初始化或者reset其他智能指针；</li>
+<li>不delete get返回的指针；</li>
+<li>如果管理的对象不是new分配的，要手动指定一个删除器；</li>
+</ol>
+</li>
+<li><p>如果将<code>shared_ptr</code>放在一个容器里面，而后不需要全部元素，而只使用其中的一部分，这个时候需要手动erase掉不用的元素以便释放管理的内存；</p>
+</li>
+</ul>
+<h4 id="unique-ptr"><a href="#unique-ptr" class="headerlink" title="unique_ptr"></a>unique_ptr</h4><ul>
+<li><p><strong>uniptr_ptr</strong>所有权转移</p>
+<p>  <code>unique_ptr</code>要求，每时每刻只能有一个<code>unique_ptr</code>指向同一个对象；</p>
+<p>  当<code>unique_ptr</code>被销毁的时候，指向的对象也被销毁了；</p>
+<p>  <code>unique_ptr</code><strong>不支持拷贝和赋值</strong>，但是可以通过<code>release</code>和<code>reset</code>将指针的所有权从一个<code>unique_ptr</code>转移到另一个<code>unique_ptr</code>上面；</p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">std::unique_ptr&lt;<span class="type">int</span>&gt; <span class="title">p1</span><span class="params">(<span class="keyword">new</span> <span class="type">int</span>(<span class="number">42</span>))</span></span>;</span><br><span class="line"><span class="function">std::unique_ptr&lt;<span class="type">int</span>&gt; <span class="title">p2</span><span class="params">(p1.release())</span></span>;   <span class="comment">//调用release切断了unique_ptr和他管理的对象间的联系</span></span><br><span class="line"><span class="function">std::unique_ptr&lt;<span class="type">int</span>&gt; <span class="title">p3</span><span class="params">(<span class="keyword">new</span> <span class="type">int</span>(<span class="number">1024</span>))</span></span>;</span><br><span class="line">p2.<span class="built_in">reset</span>(p3.<span class="built_in">release</span>());</span><br></pre></td></tr></table></figure>
+
+<p>  不能拷贝<code>unique_ptr</code>的规则<strong>有一个例外</strong>，即可以<strong>拷贝或者赋值</strong>一个<strong>即将被销毁</strong>的<code>unique_ptr</code>，最常见的是返回一个<code>unique_ptr</code></p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">std::unique_ptr&lt;<span class="type">int</span>&gt; <span class="title">clone</span><span class="params">(<span class="type">int</span> p)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> std::<span class="built_in">unique_ptr</span>&lt;<span class="type">int</span>&gt;(<span class="keyword">new</span> <span class="built_in">int</span>(p));    </span><br><span class="line">&#125;    </span><br><span class="line"><span class="function">std::unique_ptr&lt;<span class="type">int</span>&gt; <span class="title">clone</span><span class="params">(<span class="type">int</span> p)</span></span>&#123;</span><br><span class="line">    <span class="function">std::unique_ptr&lt;<span class="type">int</span>&gt; <span class="title">q</span><span class="params">(<span class="keyword">new</span> <span class="type">int</span>(p))</span></span></span><br><span class="line"><span class="function">    <span class="keyword">return</span> q</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>向unique_ptr传递deleter：</p>
+<p>  <strong>deleter会影响到unique_ptr的类型以及如何构造该类型的对象</strong></p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">f</span><span class="params">(dest_address &amp;d)</span></span>&#123;</span><br><span class="line">    connection x = <span class="built_in">connect</span>(&amp;address);</span><br><span class="line">    <span class="comment">// create smart pointer and specify deleter</span></span><br><span class="line">    <span class="function">std::unique_ptr&lt;connection, <span class="title">decltype</span><span class="params">(end_connection)</span>*&gt; <span class="title">p</span><span class="params">(&amp;x, end_connection)</span></span>;  </span><br><span class="line">    <span class="comment">// do something ...</span></span><br><span class="line">    <span class="comment">// 当f正常退出或者异常退出，connection都会被正常关闭</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="weak-ptr"><a href="#weak-ptr" class="headerlink" title="weak_ptr"></a>weak_ptr</h4><ul>
+<li><p><code>weak_ptr</code>指向一个<code>shared_ptr</code>，但是<strong>不控制指向对象的生命周期</strong>，即不影响<code>shared_ptr</code>的引用次数；一旦最后一个指向对象的<code>shared_ptr</code>被销毁，对象就被销毁释放了；<code>weak_ptr</code>可以用于<strong>伴随指针类</strong>，当你想<strong>使用对象，但是并不管理对象</strong>，并且在需要时可以返回对象的<code>shared_ptr</code>的时候就可以用<code>weak_ptr</code></p>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">weak_ptr&lt;T&gt; w;</span><br><span class="line">w.<span class="built_in">reset</span>();       <span class="comment">// set w to nullptr</span></span><br><span class="line">w.<span class="built_in">use_count</span>();   <span class="comment">// use_count of shared_ptr</span></span><br><span class="line">w.<span class="built_in">expired</span>();     <span class="comment">// whether w.use_count() == 0</span></span><br><span class="line">w.<span class="built_in">lock</span>();        <span class="comment">// get shared_ptr</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>访问<strong>weak_ptr</strong></p>
+<p>  要访问<code>weak_ptr</code>指向的对象，必须把<code>weak_ptr</code>转换为<code>shared_ptr</code>，不能直接使用<code>weak_ptr</code>，因为<code>weak_ptr</code>指向的对象可能不存在；<code>weak_ptr.lock()</code>返回一个指向一个对象的<code>shared_ptr</code>，引用计数会+1</p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// init weak_ptr from shared_ptr</span></span><br><span class="line"><span class="keyword">auto</span> sp = std::<span class="built_in">make_shared</span>&lt;<span class="type">int</span>&gt;(<span class="number">42</span>);</span><br><span class="line"><span class="function">std::weak_ptr&lt;<span class="type">int</span>&gt; <span class="title">wp</span><span class="params">(sp)</span></span>;    <span class="comment">// wp弱共享sp，sp引用次数不变</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// access weak_ptr</span></span><br><span class="line"><span class="keyword">if</span> (std::shared_ptr&lt;<span class="type">int</span>&gt; np == wp.<span class="built_in">lock</span>())&#123;</span><br><span class="line">    <span class="comment">// weak_ptr is converted to std::shared_ptr to assume temporary ownership.</span></span><br><span class="line">    <span class="comment">// If the original std::shared_ptr is destroyed at this time, the object&#x27;s </span></span><br><span class="line">    <span class="comment">// lifetime is extended until the temporary std::shared_ptr is destroyed as well.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// weak_ptr lock() return a shared_ptr</span></span><br><span class="line"><span class="function">std::shared_ptr&lt;<span class="type">int</span>&gt; <span class="title">p</span><span class="params">(<span class="keyword">new</span> <span class="type">int</span>(<span class="number">10</span>))</span></span>;</span><br><span class="line">std::cout &lt;&lt; *p &lt;&lt; <span class="string">&quot;, &quot;</span> &lt;&lt; p.<span class="built_in">use_count</span>() &lt;&lt; <span class="string">&quot;, unique: &quot;</span> &lt;&lt; p.<span class="built_in">unique</span>() &lt;&lt; std::endl;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="function">std::weak_ptr&lt;<span class="type">int</span>&gt; <span class="title">q</span><span class="params">(p)</span></span>;</span><br><span class="line">    <span class="keyword">auto</span> qq = q.<span class="built_in">lock</span>();</span><br><span class="line">    std::cout &lt;&lt; *p &lt;&lt; <span class="string">&quot;, &quot;</span> &lt;&lt; p.<span class="built_in">use_count</span>() &lt;&lt; <span class="string">&quot;, unique: &quot;</span> &lt;&lt; p.<span class="built_in">unique</span>() &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line">std::cout &lt;&lt; *p &lt;&lt; <span class="string">&quot;, &quot;</span> &lt;&lt; p.<span class="built_in">use_count</span>() &lt;&lt; <span class="string">&quot;, unique: &quot;</span> &lt;&lt; p.<span class="built_in">unique</span>() &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 10, 1, unique: 1</span></span><br><span class="line"><span class="comment">// 10, 2, unique: 0</span></span><br><span class="line"><span class="comment">// 10, 1, unique: 1</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>shared_ptr</code>的<strong>循环引用</strong>问题可以用<code>weak_ptr</code>来解决</p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Node</span> &#123;</span><br><span class="line">    <span class="type">int</span> _data;</span><br><span class="line">    std::shared_ptr&lt;Node&gt; _next;</span><br><span class="line">    std::shared_ptr&lt;Node&gt; _prev;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="function">std::shared_ptr&lt;Node&gt; <span class="title">sp1</span><span class="params">(<span class="keyword">new</span> Node)</span></span>;</span><br><span class="line"><span class="function">std::shared_ptr&lt;Node&gt; <span class="title">sp2</span><span class="params">(<span class="keyword">new</span> Node)</span></span>;</span><br><span class="line"><span class="comment">// sp1 refer to sp2, sp2 refer to sp1, when exit, </span></span><br><span class="line"><span class="comment">// both memory cannot be release, result in memory leak</span></span><br><span class="line">sp1-&gt;_next = sp2;</span><br><span class="line">sp2-&gt;_prev = sp1;</span><br><span class="line"><span class="built_in">system</span>(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line"><span class="comment">// if we are going to delete sp2, then we must erase sp2-&gt;prev; </span></span><br><span class="line"><span class="comment">// if we must delete sp2-&gt;prev, we must delete sp1;</span></span><br><span class="line"><span class="comment">// if we must delete sp1, we must delete sp1-&gt;next; </span></span><br><span class="line"><span class="comment">// if we must delete sp1-&gt;next, we must delete sp2, going back to the start point</span></span><br></pre></td></tr></table></figure>
+
+<p>  solution: define <code>Node</code> using <code>weak_ptr</code></p>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Node</span> &#123;</span><br><span class="line">    <span class="type">int</span> _data;</span><br><span class="line">    std::weak_ptr&lt;Node&gt; _next;</span><br><span class="line">    std::weak_ptr&lt;Node&gt; _prev;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="Dynamic-Array"><a href="#Dynamic-Array" class="headerlink" title="Dynamic Array"></a>Dynamic Array</h3><ul>
+<li><p><strong>new</strong>分配数组</p>
+<p>  类型名之后紧跟一对方括号<code>[num]</code>，<code>new</code>分配<strong>给定数量(num)的对象</strong>并返回<strong>指向第一个对象的指针</strong>；与数组不同，指定的分配数量的数目不一定需要常量constexpr</p>
+<p>  注意：<strong>分配得到的类型并不是数组类型</strong>，所有stl里面array的相关方法都不能使用；可以使用<strong>指针的算术运算</strong>来进行<strong>动态数组的遍历</strong>；</p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> *pia = <span class="keyword">new</span> <span class="type">int</span>[<span class="built_in">get_size</span>()];</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">int</span> arr[<span class="number">10</span>];</span><br><span class="line"><span class="type">int</span> *pib = <span class="keyword">new</span> arr;        <span class="comment">// 编译器执行的时候还是用new []</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 初始化</span></span><br><span class="line"><span class="type">int</span> *pic = <span class="keyword">new</span> <span class="type">int</span>[<span class="number">10</span>];    <span class="comment">// 默认初始化</span></span><br><span class="line"><span class="type">int</span> *pid = <span class="keyword">new</span> <span class="type">int</span>[<span class="number">10</span>]();  <span class="comment">// 值初始化</span></span><br><span class="line">std::string *pie = <span class="keyword">new</span> string[<span class="number">10</span>]&#123;<span class="string">&quot;a&quot;</span>, <span class="string">&quot;an&quot;</span>, <span class="string">&quot;and&quot;</span>&#125;;  <span class="comment">// 列表初始化，剩余的值初始化</span></span><br><span class="line">std::string *pie = <span class="keyword">new</span> string[<span class="number">1</span>]&#123;<span class="string">&quot;a&quot;</span>, <span class="string">&quot;an&quot;</span>, <span class="string">&quot;and&quot;</span>&#125;;   <span class="comment">// 列表初始化，new表达式失败，不会分配任何内存, error</span></span><br></pre></td></tr></table></figure>
+
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">error: excess elements in array initializer</span><br><span class="line">    std::string *pie = new std::string[1]&#123;&quot;a&quot;, &quot;an&quot;, &quot;and&quot;&#125;;</span><br><span class="line">                                               ^~~~</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>相对于数组不可以分配0个元素，<strong>new动态分配0个元素是合法的</strong>；</p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a[<span class="number">0</span>];                   <span class="comment">// invalid</span></span><br><span class="line"><span class="type">int</span>* p = <span class="keyword">new</span> <span class="type">int</span>[<span class="number">0</span>];        <span class="comment">// valid, p = nullptr</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>delete</strong>释放数组</p>
+<p>  当我们释放一个动态数组的时候，空方括号对<code>[]</code>是必须的；如果在delete一个指向动态数组的指针时忽略了方括号<code>[]</code>，则行为是<strong>UB</strong></p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">delete</span> pa;        <span class="comment">// pa指向一个动态分配的对象或者为空</span></span><br><span class="line"><span class="keyword">delete</span> [] pia;    <span class="comment">// pia指向动态分配数组或者为空</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>智能指针管理动态数组</p>
+<p>  <code>unique_ptr</code><strong>可以原生支持</strong>管理动态数组；可以直接使用unique_ptr下标访问数组元素；</p>
+<p>  <code>shared_ptr</code><strong>不能原生支持</strong>管理动态数组，但是可以通过指定<code>deleter</code>的方式来管理；<strong>C++17开始</strong>，<code>shared_ptr</code>可以原生支持了</p>
+<p>  这两种情况<code>unique_ptr</code>和<code>shared_ptr</code>都没有点运算符<code>.</code>和箭头运算符<code>-&gt;</code>了，<strong>遍历动态数组</strong>可以通过<strong>内置指针解引用</strong>与<strong>算数运算</strong>；</p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// unique_ptr</span></span><br><span class="line"><span class="function">std::unique_ptr&lt;<span class="type">int</span>[]&gt; <span class="title">up</span><span class="params">(<span class="keyword">new</span> <span class="type">int</span>[<span class="number">10</span>])</span></span>;        </span><br><span class="line">up.<span class="built_in">release</span>();   <span class="comment">// equivalent to delete[]</span></span><br><span class="line"><span class="keyword">for</span> (<span class="type">size_t</span> i=<span class="number">0</span>; i&lt;<span class="number">10</span>; i++)&#123;</span><br><span class="line">    <span class="comment">// if up.release() is called, the access is invalid</span></span><br><span class="line">    std::cout &lt;&lt; up[i] &lt;&lt; std::endl;   <span class="comment">// 直接使用unique_ptr下标访问数组元素    </span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// shared_ptr manager dynamic array c++11 version</span></span><br><span class="line"><span class="function">shared_ptr&lt;<span class="type">int</span>&gt; <span class="title">sp</span><span class="params">(<span class="keyword">new</span> <span class="type">int</span>[<span class="number">10</span>], [](<span class="type">int</span> *p)&#123;<span class="keyword">delete</span> [] p;&#125;)</span></span>;  <span class="comment">// 指定deleter</span></span><br><span class="line">sp.<span class="built_in">reset</span>();   <span class="comment">// 使用指定的deleter释放数组</span></span><br><span class="line"><span class="keyword">for</span> (<span class="type">size_t</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>; i++)&#123;</span><br><span class="line">    <span class="comment">// if sp.reset() is called, the access is invalid</span></span><br><span class="line">    std::cout &lt;&lt; *(sp.<span class="built_in">get</span>()+i) &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// shared_ptr manager dynamic array c++17 version</span></span><br><span class="line"><span class="function">shared_ptr&lt;<span class="type">int</span>[]&gt; <span class="title">sp</span><span class="params">(<span class="keyword">new</span> <span class="type">int</span>[<span class="number">10</span>])</span></span>;    </span><br><span class="line">sp.<span class="built_in">reset</span>();  <span class="comment">// equivalent to delete[]</span></span><br><span class="line"><span class="keyword">for</span> (<span class="type">size_t</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>; i++)&#123;</span><br><span class="line">    std::cout &lt;&lt; sp[i] &lt;&lt; std::endl;   <span class="comment">// 直接使用shared_ptr下标访问数组元素</span></span><br><span class="line">&#125;      </span><br></pre></td></tr></table></figure>
+
+<p>  如果<code>shared_ptr</code>管理动态数组但没有指定<code>deleter</code>(before C++17)，valgrind可以检查出问题</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">==29081== Mismatched free() / delete / delete []</span><br><span class="line">==29081==    at 0x4C33E09: operator delete(void*) (vg_replace_malloc.c:802)</span><br><span class="line">==29081==    by 0x109FD5: std::_Sp_counted_ptr&lt;int*, (__gnu_cxx::_Lock_policy)2&gt;::_M_dispose() (in /home/pangwong/test)</span><br><span class="line">==29081==    by 0x109907: std::_Sp_counted_base&lt;(__gnu_cxx::_Lock_policy)2&gt;::_M_release() (in /home/pangwong/test)</span><br><span class="line">==29081==    by 0x1096BA: std::__shared_count&lt;(__gnu_cxx::_Lock_policy)2&gt;::~__shared_count() (in /home/pangwong/test)</span><br><span class="line">==29081==    by 0x1095FB: std::__shared_ptr&lt;int, (__gnu_cxx::_Lock_policy)2&gt;::~__shared_ptr() (in /home/pangwong/test)</span><br><span class="line">==29081==    by 0x109617: std::shared_ptr&lt;int&gt;::~shared_ptr() (in /home/pangwong/test)</span><br><span class="line">==29081==    by 0x10946E: main (in /home/pangwong/test)</span><br><span class="line">==29081==  Address 0x5b841e0 is 0 bytes inside a block of size 40 alloc&#x27;d</span><br><span class="line">==29081==    at 0x4C3299F: operator new[](unsigned long) (vg_replace_malloc.c:579)</span><br><span class="line">==29081==    by 0x1093F6: main (in /home/pangwong/test)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>动态new数组的缺点：</p>
+<ul>
+<li><p><strong>内存分配</strong>和<strong>对象构造</strong>没有分离，导致在内存分配的时候就做了默认初始化，创建了我们可能永远用不上的对象；</p>
+</li>
+<li><p>对于我们需要使用的对象，我们在初始化之后立即对他们赋值，这样<strong>每个元素被赋值了两次</strong>；</p>
+</li>
+<li><p>对于<strong>没有默认构造函数的类，不能动态分配数组</strong>；</p>
+</li>
+</ul>
+</li>
+<li><p><strong>std::allocator</strong></p>
+<p>  <code>allocator</code>分配的内存是未构造的(<em>unconstructed</em>)，我们<strong>按需要在此内存中构造对象</strong>；不能直接使用未构造的内存；</p>
+<p>  构造对象使用<code>construct</code>函数，释放对象使用<code>destroy</code>函数；我们只能对真正构造了的元素进行<code>destroy</code>操作；</p>
+<p>  归还内存给系统使用<code>deallocate</code>函数；</p>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// interface</span></span><br><span class="line">std::allocator&lt;T&gt; a;</span><br><span class="line">a.<span class="built_in">allocate</span>(n);          <span class="comment">// allocate raw, unconstructed memeory</span></span><br><span class="line">a.<span class="built_in">deallocate</span>(p, n);     <span class="comment">// deallocate n object from p</span></span><br><span class="line">a.<span class="built_in">construct</span>(p, args);   <span class="comment">// construct obj using args at p, call constructor</span></span><br><span class="line">a.<span class="built_in">destroy</span>(p);           <span class="comment">// call descructor of object at p</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">uninitialized_copy</span>(iter_begin, iter_end, p);   <span class="comment">// copy objs to unconstructed memory from begin to end</span></span><br><span class="line"><span class="built_in">uninitialized_full</span>(iter_begin, iter_end, obj); <span class="comment">// fill unconstructed memory using obj from begin to end</span></span><br></pre></td></tr></table></figure>
+
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;memory&gt;</span></span></span><br><span class="line">std::allocator&lt;std::string&gt; alloc;</span><br><span class="line"><span class="keyword">auto</span> <span class="type">const</span> p = alloc.<span class="built_in">allocate</span>(n); <span class="comment">// 分配了n个未构造的string</span></span><br><span class="line"><span class="keyword">auto</span> q = p;                       <span class="comment">// q point to unconstructed memory</span></span><br><span class="line">alloc.<span class="built_in">construct</span>(q++);             <span class="comment">// empty string</span></span><br><span class="line">alloc.<span class="built_in">construct</span>(q++, <span class="number">10</span>, <span class="string">&#x27;c&#x27;</span>);    <span class="comment">// &quot;cccccccccc&quot;</span></span><br><span class="line"></span><br><span class="line">std::cout &lt;&lt; *p &lt;&lt; std::endl;     <span class="comment">// valid</span></span><br><span class="line">std::cout &lt;&lt; *q &lt;&lt; std::endl;     <span class="comment">// invalid, q not construct yet</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> (q!=p)&#123;</span><br><span class="line">    alloc.<span class="built_in">destroy</span>(--q);</span><br><span class="line">&#125;</span><br><span class="line">alloc.<span class="built_in">deallocate</span>(p, n);           <span class="comment">// deallocate的时候释放的大小必须和分配的时候的大小一致；</span></span><br><span class="line"></span><br><span class="line">std::vector&lt;std::string&gt; vec = &#123;<span class="string">&quot;1&quot;</span>, <span class="string">&quot;2&quot;</span>, <span class="string">&quot;3&quot;</span>&#125;;</span><br><span class="line"><span class="keyword">auto</span> p = alloc.<span class="built_in">allocate</span>(vec.<span class="built_in">size</span>() * <span class="number">2</span>);</span><br><span class="line"><span class="comment">// copy from constructed memory to unconstructed memory</span></span><br><span class="line"><span class="keyword">auto</span> q = <span class="built_in">uninitialized_copy</span>(vec.<span class="built_in">begin</span>(), vec.<span class="built_in">end</span>(), p);</span><br><span class="line"><span class="comment">// fill unconstructed memory</span></span><br><span class="line"><span class="built_in">uninitialized_fill</span>(q, vec.<span class="built_in">size</span>(), <span class="string">&quot;&quot;</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>What’s the <strong>advantage</strong> of using <code>std::allocator</code> instead of <code>new array</code> in C++?</p>
+<h4 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h4><blockquote>
+<p>I’ve just read about <code>std::allocator</code>. In my opinion, it is more <strong>complicated</strong> to use it instead of using <code>new</code> and <code>delete</code>.</p>
+<p>With <code>allocator</code> we must explicitly allocate heap memory, construct it, destroy it, and then finally deallocate the memory. So why was it created?</p>
+<p>In which cases can it be used and when should it be used instead of new and delete ?</p>
+</blockquote>
+<h4 id="Answer"><a href="#Answer" class="headerlink" title="Answer"></a>Answer</h4><blockquote>
+<blockquote>
+<p>In my opinion, it is more complicated to use it instead of using new and delete.</p>
+</blockquote>
+<p>Yes, but it is not meant to replace <code>new</code> and <code>delete</code>, it <strong>serves a different purpose</strong>.</p>
+<blockquote>
+<p>With allocator we must explicitly allocate heap memory, construct it, destroy it, and then finally deallocate the memory.</p>
+<p>So why was it created?</p>
+</blockquote>
+<p>Because sometimes you want to <strong>separate allocation and construction</strong> into two steps (and similarly to separate destruction and deallocation into two steps). If you don’t want to do that, don’t use an allocator, use <code>new</code> instead.</p>
+<blockquote>
+<p>In which cases can it be used and when should it be used instead of new and delete?</p>
+</blockquote>
+<p>When you need the behaviour of an allocator, not the behaviour of <code>new</code> and <code>delete</code>, obviously! <strong>The typical case is when implementing a container</strong>.</p>
+<p>Consider the following code:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">std::vector&lt;X&gt; v;</span><br><span class="line">v.<span class="built_in">reserve</span>(<span class="number">4</span>);        <span class="comment">// (1)</span></span><br><span class="line">v.<span class="built_in">push_back</span>( X&#123;&#125; );  <span class="comment">// (2)</span></span><br><span class="line">v.<span class="built_in">push_back</span>( X&#123;&#125; );  <span class="comment">// (3)</span></span><br><span class="line">v.<span class="built_in">clear</span>();           <span class="comment">// (4)</span></span><br></pre></td></tr></table></figure>
+
+<p>Here line (1) must allocate enough memory for four objects, but not construct them yet.</p>
+<p>Then lines (2) and (3) must construct objects into the allocated memory. </p>
+<p>Then line (4) must destroy those objects, but not deallocate the memory. </p>
+<p>Finally, in the vector’s destructor, all the memory can be deallocated.</p>
+<p>So the vector cannot just use <code>new X()</code> or <code>delete &amp;m_data[1]</code> to create and destroy the objects, <strong>it must perform allocation&#x2F;deallocation separately from construction&#x2F;destruction</strong>. A container’s allocator template argument defines the policy that should be used for (de)allocating memory and constructing&#x2F;destructing objects, allowing the container’s use of memory to be customised. The default policy is the <code>std::allocator</code> type.</p>
+<p>So you use an allocator when an allocator is required (such as when using a container) and you use <code>std::allocator</code> when you don’t want to provide a custom allocator and just want the standard one.</p>
+<p><strong>You don’t use an allocator as a replacement for <code>new</code> and <code>delete</code>.</strong></p>
+</blockquote>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>PangWong
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://pangwong.github.io/blog/2022/06/cpp-primer-chapter12/" title="Reading Note of CppPrimer-Chapter12">https://pangwong.github.io/blog/2022/06/cpp-primer-chapter12/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/reading-notes/" rel="tag"><i class="fa fa-tag"></i> reading notes</a>
+              <a href="/tags/cpp-primer/" rel="tag"><i class="fa fa-tag"></i> cpp-primer</a>
+              <a href="/tags/new/" rel="tag"><i class="fa fa-tag"></i> new</a>
+              <a href="/tags/delete/" rel="tag"><i class="fa fa-tag"></i> delete</a>
+              <a href="/tags/placement-new/" rel="tag"><i class="fa fa-tag"></i> placement new</a>
+              <a href="/tags/shared-ptr/" rel="tag"><i class="fa fa-tag"></i> shared_ptr</a>
+              <a href="/tags/unique-ptr/" rel="tag"><i class="fa fa-tag"></i> unique_ptr</a>
+              <a href="/tags/weak-ptr/" rel="tag"><i class="fa fa-tag"></i> weak_ptr</a>
+              <a href="/tags/new-array/" rel="tag"><i class="fa fa-tag"></i> new array</a>
+              <a href="/tags/delete-array/" rel="tag"><i class="fa fa-tag"></i> delete array</a>
+              <a href="/tags/allocator/" rel="tag"><i class="fa fa-tag"></i> allocator</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+            </div>
+            <div class="post-nav-item">
+                <a href="/blog/2022/06/cpp-primer-chapter11/" rel="next" title="Reading Note of CppPrimer-Chapter11">
+                  Reading Note of CppPrimer-Chapter11 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">PangWong</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">174k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">2:38</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js" integrity="sha256-EdPgYcPk/IIrw7FYeuJQexva49pVRZNmt3LculEr7zM=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"pangwong","repo":"pangwong.github.io","client_id":"c3a7ca3ecf4f08f74acb","client_secret":"db3623e99a388c18ba10413186f9051a35cb6627","admin_user":"pangwong","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"f6658a26fc7f12f0f2fa9782e850ce02"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

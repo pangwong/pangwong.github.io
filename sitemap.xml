@@ -2,6 +2,17 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://pangwong.github.io/blog/2022/06/cpp-primer-chapter12/</loc>
+    
+    <lastmod>2022-06-16T12:32:05.155Z</lastmod>
+    
+    <date>1655370019000</date>
+    <title>Reading Note of CppPrimer-Chapter12 | 曰悦鸟</title>
+    
+    <desc>Dynamic Memory</desc>
+  </url>
+  
+  <url>
     <loc>https://pangwong.github.io/blog/2022/06/cpp-primer-chapter11/</loc>
     
     <lastmod>2022-06-16T08:53:28.705Z</lastmod>
