@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+<link rel="preconnect" href="https://fonts.lug.ustc.edu.cn" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
+  <link rel="manifest" href="/images/site.webmanifest">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.lug.ustc.edu.cn/css?family=Noto+Serif+SC:300,300italic,400,400italic,700,700italic%7CSF+Mono+Regular:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"pangwong.github.io","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Associative Containers">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Reading Note of CppPrimer-Chapter11">
+<meta property="og:url" content="https://pangwong.github.io/blog/2022/06/cpp-primer-chapter11/index.html">
+<meta property="og:site_name" content="曰悦鸟">
+<meta property="og:description" content="Associative Containers">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pangwong.github.io/images/blog/chapter11/ch11-unordered_map-data-structure.png">
+<meta property="article:published_time" content="2022-06-16T06:21:52.000Z">
+<meta property="article:modified_time" content="2022-06-16T08:53:28.705Z">
+<meta property="article:author" content="PangWong">
+<meta property="article:tag" content="reading notes">
+<meta property="article:tag" content="cpp-primer">
+<meta property="article:tag" content="associative container">
+<meta property="article:tag" content="map">
+<meta property="article:tag" content="set">
+<meta property="article:tag" content="unordered_map">
+<meta property="article:tag" content="pair">
+<meta property="article:tag" content="lower_bound">
+<meta property="article:tag" content="upper_bound">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pangwong.github.io/images/blog/chapter11/ch11-unordered_map-data-structure.png">
+
+
+<link rel="canonical" href="https://pangwong.github.io/blog/2022/06/cpp-primer-chapter11/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://pangwong.github.io/blog/2022/06/cpp-primer-chapter11/","path":"/blog/2022/06/cpp-primer-chapter11/","title":"Reading Note of CppPrimer-Chapter11"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Reading Note of CppPrimer-Chapter11 | 曰悦鸟</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">曰悦鸟</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Associative-Containers"><span class="nav-number">1.</span> <span class="nav-text">Associative Containers</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Overview"><span class="nav-number">1.1.</span> <span class="nav-text">Overview</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Associative-Container-Operation"><span class="nav-number">1.2.</span> <span class="nav-text">Associative Container Operation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Unordered-Container"><span class="nav-number">1.3.</span> <span class="nav-text">Unordered Container</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="PangWong"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">PangWong</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">74</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/pangwong" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;pangwong" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://pangwong.github.io/blog/2022/06/cpp-primer-chapter11/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="PangWong">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="曰悦鸟">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Reading Note of CppPrimer-Chapter11 | 曰悦鸟">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Reading Note of CppPrimer-Chapter11
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-06-16 14:21:52 / 修改时间：16:53:28" itemprop="dateCreated datePublished" datetime="2022-06-16T14:21:52+08:00">2022-06-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C++</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>13k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>12 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="Associative-Containers"><a href="#Associative-Containers" class="headerlink" title="Associative Containers"></a>Associative Containers</h2><span id="more"></span>
+
+
+
+<h3 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h3><ul>
+<li><p>标准库提供了8个关联容器(<em>associative container</em>)，每个容器：</p>
+<ol>
+<li>要么是一个<strong>map</strong>，要么是一个<strong>set</strong>；</li>
+<li>要么<strong>允许相同的关键字</strong>，要么<strong>允许不同的关键字</strong>；区分看名字中是否有<strong>multi</strong></li>
+<li>要么<strong>按顺序存储</strong>，要么<strong>按无序存储</strong>，无序使用哈希函数来组织元素；区分看名字中是否有<strong>unordered</strong></li>
+</ol>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">std::map;                   <span class="comment">// 有序，不允许相同关键字的map</span></span><br><span class="line">std::set;                   <span class="comment">// 有序，不允许相同关键字的set</span></span><br><span class="line">std::multimap;              <span class="comment">// 有序，允许相同关键字的map</span></span><br><span class="line">std::multiset;              <span class="comment">// 有序，允许相同关键字的set</span></span><br><span class="line">std::unordered_map;         <span class="comment">// 无序、不允许相同关键字的map</span></span><br><span class="line">std::unordered_set;         <span class="comment">// 无序、不允许相同关键字的set</span></span><br><span class="line">std::unordered_multimap;    <span class="comment">// 无序、允许相同关键字的map</span></span><br><span class="line">std::unordered_multiset;    <span class="comment">// 无序、允许相同关键字的set</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>关联容器的初始化</p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">std::map&lt;std::string, <span class="type">int</span>&gt; si_map;        <span class="comment">//默认初始化</span></span><br><span class="line">std::set&lt;std::string&gt;    s;</span><br><span class="line"></span><br><span class="line"><span class="comment">// initial list</span></span><br><span class="line">std::set&lt;<span class="type">int</span>&gt; s1 = &#123;<span class="string">&quot;A&quot;</span>, <span class="string">&quot;B&quot;</span>, <span class="string">&quot;A&quot;</span>, <span class="string">&quot;C&quot;</span>&#125;;                 <span class="comment">// 列表初始化</span></span><br><span class="line">std::map&lt;std::string, <span class="type">size_t</span>&gt; m = &#123;&#123;<span class="string">&quot;Key1&quot;</span>, <span class="string">&quot;Value1&quot;</span>&#125;,   </span><br><span class="line">                                   &#123;<span class="string">&quot;Key2&quot;</span>, <span class="string">&quot;Value2&quot;</span>&#125;&#125;;  <span class="comment">// 双层花括号列表初始化        </span></span><br><span class="line"><span class="comment">// custom compare func</span></span><br><span class="line"><span class="keyword">using</span> value_type = <span class="type">int</span>;</span><br><span class="line"><span class="keyword">auto</span> compare_func = [](value_type a, value_type b)&#123;<span class="keyword">return</span> a&gt;b;&#125;;</span><br><span class="line"><span class="function">std::map&lt;<span class="type">int</span>, value_type, <span class="title">decltype</span><span class="params">(compare_func)</span>&gt; <span class="title">m</span><span class="params">(compare_func)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// copy from vector</span></span><br><span class="line">std::vector&lt;std::pair&lt;std::string, <span class="type">int</span>&gt;&gt; vec = &#123;&#123;<span class="string">&quot;1&quot;</span>,<span class="number">2</span>&#125;, &#123;<span class="string">&quot;2&quot;</span>,<span class="number">3</span>&#125;&#125;;</span><br><span class="line">std::vector&lt;std::pair&lt;std::string, <span class="type">int</span>&gt;&gt; vec2 = &#123;std::<span class="built_in">make_pair</span>(<span class="string">&quot;1&quot;</span>,<span class="number">2</span>), std::<span class="built_in">make_pair</span>(<span class="string">&quot;2&quot;</span>,<span class="number">3</span>)&#125;;</span><br><span class="line">std::vector&lt;std::pair&lt;std::string, <span class="type">int</span>&gt;&gt; <span class="built_in">vec3</span>(<span class="number">1</span>, std::<span class="built_in">make_pair</span>(<span class="string">&quot;1&quot;</span>,<span class="number">2</span>));</span><br><span class="line"><span class="function">std::map&lt;std::string, <span class="type">int</span>&gt; <span class="title">m1</span><span class="params">(vec.begin(), vec.end())</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// copy to vector </span></span><br><span class="line">std::vector&lt;std::pair&lt;std::string, <span class="type">int</span>&gt;&gt; <span class="built_in">vec1</span>(m1.<span class="built_in">begin</span>(),m1.<span class="built_in">end</span>());</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>关联容器对于关键字有限制：</p>
+<ul>
+<li>对于<strong>set</strong>，关键字就是容器类型；对于<strong>map</strong>，关键字是key；</li>
+<li>对于<strong>有序关联容器</strong>，关键字必须定义元素的满足严格弱序 (<code>strict weak ordering</code>，见chapter10) 的比较方法；</li>
+<li>对于<strong>无序关联容器</strong>，他们是用 <code>==</code> 来比较元素，同时他们还使用一个<code>hash&lt;key_type&gt;</code>类型的对象去生成每个元素的hash值；我们可以定义内置类型(包含指针)、string、智能指针的无序容器；</li>
+</ul>
+</li>
+<li><p>关键字的比较函数(<em>comparer</em>)也是关联容器的一部分，可以在声明的时候指定，当我们创建一个对象的时候，以构造函数参数的形式传入容器作为关键字比较的函数；</p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// init compare function from struct with overload operator()</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Point</span> &#123; <span class="type">double</span> x, y; &#125;;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">PointCmp</span> &#123;</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="type">const</span> Point&amp; lhs, <span class="type">const</span> Point&amp; rhs)</span> <span class="type">const</span> </span>&#123; </span><br><span class="line">        <span class="keyword">return</span> lhs.x &lt; rhs.x; <span class="comment">// NB. intentionally ignores y</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">std::map&lt;Point, <span class="type">double</span>, PointCmp&gt; mag = &#123;</span><br><span class="line">    &#123; &#123;<span class="number">5</span>, <span class="number">-12</span>&#125;, <span class="number">13</span> &#125;,</span><br><span class="line">    &#123; &#123;<span class="number">3</span>, <span class="number">4</span>&#125;,   <span class="number">5</span> &#125;,</span><br><span class="line">    &#123; &#123;<span class="number">-8</span>, <span class="number">-15</span>&#125;, <span class="number">17</span> &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// init compare function from function</span></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">comparation</span><span class="params">(<span class="type">const</span> std::string&amp; lhs, <span class="type">const</span> std::string&amp; rhs)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> lhs.<span class="built_in">size</span>() &gt; rhs.<span class="built_in">size</span>()</span><br><span class="line">&#125;</span><br><span class="line">std::map&lt;std::string, <span class="type">int</span>, <span class="keyword">decltype</span>(comparation)*&gt; <span class="built_in">str_order_by_size</span>(comparation);</span><br><span class="line"></span><br><span class="line"><span class="comment">// init from lambda</span></span><br><span class="line"><span class="keyword">auto</span> cmpLambda = [&amp;mag](<span class="type">const</span> Point &amp;lhs, <span class="type">const</span> Point &amp;rhs) &#123; <span class="keyword">return</span> mag[lhs] &lt; mag[rhs]; &#125;;</span><br><span class="line"><span class="comment">//You could also use a lambda that is not dependent on local variables, like this:</span></span><br><span class="line"><span class="comment">//auto cmpLambda = [](const Point &amp;lhs, const Point &amp;rhs) &#123; return lhs.y &lt; rhs.y; &#125;;</span></span><br><span class="line"><span class="function">std::map&lt;Point, <span class="type">double</span>, <span class="title">decltype</span><span class="params">(cmpLambda)</span>&gt; <span class="title">magy</span><span class="params">(cmpLambda)</span></span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>std::pair</strong></p>
+<p>  类似于vector，<strong>pair</strong>的默认构造函数对数据成员进行<strong>值初始化</strong>；map的<code>value_type</code>是一个<strong>pair</strong></p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// pair constructor</span></span><br><span class="line">std::pair&lt;std::string, std::string&gt; anon;                    <span class="comment">//默认初始化</span></span><br><span class="line">std::pair&lt;std::string, std::string&gt; author&#123;<span class="string">&quot;Pang&quot;</span>, <span class="string">&quot;Wong&quot;</span>&#125;;  <span class="comment">//列表初始化, 亦可作为返回值</span></span><br><span class="line">std::pair&lt;std::string, std::string&gt; func&#123;</span><br><span class="line">    <span class="comment">// do something</span></span><br><span class="line">    <span class="keyword">return</span> &#123;<span class="string">&quot;Pang&quot;</span>, <span class="string">&quot;Wong&quot;</span>&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// make_pair</span></span><br><span class="line"><span class="keyword">auto</span> p = std::<span class="built_in">make_pair</span>(<span class="string">&quot;Pang&quot;</span>, <span class="string">&quot;Wong&quot;</span>);</span><br><span class="line"><span class="comment">// for range loop</span></span><br><span class="line">std::map&lt;std::string, <span class="type">size_t</span>&gt; m = &#123;&#123;<span class="string">&quot;Key1&quot;</span>, <span class="string">&quot;Value1&quot;</span>&#125;, &#123;<span class="string">&quot;Key2&quot;</span>, <span class="string">&quot;Value2&quot;</span>&#125;&#125;; <span class="comment">// 双层花括号</span></span><br><span class="line"><span class="keyword">for</span> (<span class="type">const</span> <span class="keyword">auto</span> &amp;pair : m)&#123;</span><br><span class="line">    std::cout &lt;&lt; m.first &lt;&lt; <span class="string">&quot;, &quot;</span> &lt;&lt; m.second &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>value_type</strong> and <strong>key_type</strong> and <strong>mapped_type</strong>. </p>
+<ul>
+<li><p><strong>set</strong>的<code>key_type</code>和<code>value_type</code>都是<strong>关键字Key本身的类型</strong>；</p>
+</li>
+<li><p><strong>map</strong>的<code>key_type</code>是<strong>key的类型</strong>，<code>mapped_type</code>是map<strong>模版的第二个参数</strong>，<code>value_type</code>是一个first元素为 const Key 的<strong>pair</strong>: <code>std::pair&lt;const Key, T&gt;</code>；</p>
+</li>
+<li><p>其他的关联容器的<code>type alias</code>和对应的<code>map</code>、<code>set</code>一致</p>
+</li>
+<li><p>解引用一个关联容器的迭代器的时候，会得到一个类型为<code>value_type</code>的<strong>引用</strong>；set的迭代器都是const的；</p>
+</li>
+</ul>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> map_it = word_count,<span class="built_in">begin</span>();</span><br><span class="line">std::cout &lt;&lt; map_it-&gt;first;    <span class="comment">// valid</span></span><br><span class="line">map_it-&gt;first = <span class="string">&quot;123&quot;</span>;         <span class="comment">// invalid, const</span></span><br><span class="line">map_it-&gt;second = <span class="number">12</span>;           <span class="comment">// valid</span></span><br><span class="line"></span><br><span class="line">std::set&lt;std::string&gt; sset = &#123;<span class="string">&quot;1&quot;</span>, <span class="string">&quot;2&quot;</span>, <span class="string">&quot;3&quot;</span>&#125;;</span><br><span class="line"><span class="keyword">auto</span> set_it = sset.<span class="built_in">begin</span>();</span><br><span class="line"><span class="keyword">if</span> (set_it != sset.<span class="built_in">end</span>())&#123;</span><br><span class="line">    *set_it = <span class="string">&quot;abc&quot;</span>;           <span class="comment">// invalid, const</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>当遍历一个<strong>有序容器</strong>的时候，迭代器是按照关键字<code>Comparer</code>定义的顺序来遍历的，而<strong>不是插入容器的顺序</strong>；默认就是从小到大；这就是为什么称为<strong>有序容器</strong></p>
+</li>
+</ul>
+<h3 id="Associative-Container-Operation"><a href="#Associative-Container-Operation" class="headerlink" title="Associative Container Operation"></a>Associative Container Operation</h3><ul>
+<li><p><strong>find</strong> and <strong>count</strong></p>
+<p>  对于<strong>不允许关键字重复</strong>的关联容器，搜索某个关键字用<code>find()</code>就可以；但是对于<strong>允许重复</strong>的关键字，<code>count()</code>能找出重复的次数；</p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">std::multimap&lt;std::string, std::string&gt; authors;</span><br><span class="line"><span class="keyword">auto</span> entries = authors.<span class="built_in">count</span>(<span class="string">&quot;PangWong&quot;</span>);</span><br><span class="line"><span class="keyword">auto</span> iter = authers.<span class="built_in">find</span>(<span class="string">&quot;PangWong&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> (entries)&#123;</span><br><span class="line">    std::cout &lt;&lt; iter-&gt;second &lt;&lt; std::endl;</span><br><span class="line">    iter++;</span><br><span class="line">    entries--;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>container <strong>access</strong></p>
+<p>  std::map可以用<code>operator []</code>和<code>at</code>来获取以一个关键字相关联的值；复杂度为<code>o(logn)</code></p>
+<p>  与其他下标运算不同的是，如果<strong>关键字不在map里面，会为他创建一个这个关键字的元素并插入map</strong>，关键值进行值初始化；由于<code>operator[]</code>可能插入下一个元素，所以只可以对<code>non-const map</code>使用下标操作；</p>
+<p>  <code>at</code>操作会检查key是不是存在，如果访问一个不存在map的key，会报错<code>std::out_of_range</code></p>
+<p>  如果只是想知道一个关键字是不是在map中，不存在也不想添加元素的时候，是不能用<code>operator []</code>或者<code>at</code>来判断的，可以用<code>find</code>；</p>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">std::map&lt;<span class="type">int</span>, <span class="type">int</span>&gt; m;</span><br><span class="line"><span class="keyword">if</span> (m[<span class="number">1</span>] == <span class="number">1</span>)&#123;   <span class="comment">// will insert (1, 0) to m</span></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;key 1 is in map&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">const</span> std::map</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>erase</strong></p>
+<p>  关联容器的删除有几种不同的形式：</p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">c.<span class="built_in">erase</span>(key);                            <span class="comment">// 删除知道的key值，返回删除的个数，</span></span><br><span class="line">c.<span class="built_in">erase</span>(iterator);                       <span class="comment">// 删除指定迭代器的元素，返回被删元素的下一个元素；</span></span><br><span class="line">c.<span class="built_in">erase</span>(iterator_begin, iterator_end);   <span class="comment">// 删除范围</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>insert</strong></p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">c.<span class="built_in">insert</span>(v);    <span class="comment">// insert key v, different behavior for set/map or multiset/map</span></span><br><span class="line">c.<span class="built_in">insert</span>(p, v); <span class="comment">// insert key v given a hint at iter p</span></span><br><span class="line">c.<span class="built_in">insert</span>(initializer-list);<span class="comment">// for map/set, only insert item not in container; otherwise insert every item</span></span><br></pre></td></tr></table></figure>
+
+<p>  对于set和map，<strong>只有当给定元素不在容器中时才进行插入</strong>；<code>insert</code>的参数是一个<code>value type</code>的<code>pair</code>，返回值是一个<code>pair</code>，<code>pair-&gt;first</code>是一个<code>iterator</code>，<code>pair-&gt;second</code>是一个<code>bool</code>，<code>bool</code>代表是否插入成功：</p>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">pair&lt;iterator, <span class="type">bool</span>&gt; <span class="title">insert</span> <span class="params">(<span class="type">const</span> value_type&amp; val)</span></span>;</span><br></pre></td></tr></table></figure>
+
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> ret = m.<span class="built_in">insert</span>(std::<span class="built_in">make_pair</span>(<span class="string">&quot;1&quot;</span>, <span class="number">1</span>));</span><br><span class="line"><span class="keyword">if</span> (ret.second)&#123;</span><br><span class="line">    <span class="comment">// insert successfully</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>  <code>insert</code>和<code>operator [] assignment</code>有区别，<code>insert</code>如果key存在会失败，但是<code>assignment</code>每次都会覆盖掉之前的值；</p>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">std::map&lt;<span class="type">int</span>, <span class="type">float</span>&gt; m = &#123;&#123;<span class="number">1</span>, <span class="number">0.99</span>&#125;, &#123;<span class="number">0</span>, <span class="number">0.03</span>&#125;&#125;;</span><br><span class="line">m.<span class="built_in">insert</span>(&#123;<span class="number">1</span>, <span class="number">0.88</span>&#125;);      <span class="comment">// not insert, fail</span></span><br><span class="line">m[<span class="number">1</span>] = <span class="number">0.88</span>;              <span class="comment">// ok, not m[1] changed from 0.99 to 0.88</span></span><br></pre></td></tr></table></figure>
+
+<p>  对于multiset和multimap，<strong>总是会插入给定元素</strong>，并返回指向新元素的迭代器</p>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">iterator <span class="title">insert</span> <span class="params">(<span class="type">const</span> value_type&amp; val)</span></span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>lower_bound</strong> and <strong>upper_bound</strong> and <strong>equal_range</strong></p>
+<ul>
+<li><code>lower_bound</code>:  <code>&gt;=</code>，returns an <strong>iterator</strong> to the <strong>first</strong> element <strong>not less than</strong> the given key</li>
+<li><code>upper_bound</code>: <code>&gt;</code>， returns an <strong>iterator</strong> to the <strong>first</strong> element <strong>greater than</strong> the given key</li>
+<li><code>equal_range</code>:   returns a <strong>range</strong> containing <strong>all</strong> elements <strong>equivalent</strong> to <code>value</code> in the range <code>[first, last)</code>.</li>
+</ul>
+<p>  如果元素不在容器中，则<code>lower_bound</code>和<code>upper_bound</code>的<strong>返回值相同</strong>，都指向一个不影响排序的关键字插入顺序</p>
+<p>  因此，使用<code>lower_bound</code>和<code>upper_bound</code>会组成一个迭代器范围，这个range等价于<code>equal_range</code>的返回值</p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// same function with count and find </span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">auto</span> beg=authors.<span class="built_in">lower_bound</span>(search_item), end=authors.<span class="built_in">upper_bound</span>(search_item); beg!=end; beg++)&#123;</span><br><span class="line">    std::cout &lt;&lt; beg-&gt;second &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// equal to</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">auto</span> pos=authors.<span class="built_in">equal_range</span>(search_item); pos.first != pos.second; pos.first++)&#123;</span><br><span class="line">    std::cout &lt;&lt; pos.first.second &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>best practice</strong> <code>std::map::insert</code> </p>
+<p>   suggested by Item 24 of <a target="_blank" rel="noopener" href="https://rads.stackoverflow.com/amzn/click/com/0201749629">Effective STL</a> by <a target="_blank" rel="noopener" href="http://www.aristeia.com/">Scott Meyers</a></p>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> map&lt;<span class="type">int</span>, <span class="type">int</span>&gt; MapType;    <span class="comment">// Your map type may vary, just change the typedef</span></span><br><span class="line"></span><br><span class="line">MapType mymap;</span><br><span class="line"><span class="comment">// Add elements to map here</span></span><br><span class="line"><span class="type">int</span> k = <span class="number">4</span>;   <span class="comment">// assume we&#x27;re searching for keys equal to 4</span></span><br><span class="line"><span class="type">int</span> v = <span class="number">0</span>;   <span class="comment">// assume we want the value 0 associated with the key of 4</span></span><br><span class="line"></span><br><span class="line">MapType::iterator lb = mymap.<span class="built_in">lower_bound</span>(k);		        <span class="comment">// &gt;=</span></span><br><span class="line"><span class="keyword">if</span>(lb != mymap.<span class="built_in">end</span>() &amp;&amp; !(mymap.<span class="built_in">key_comp</span>()(k, lb-&gt;first)))	<span class="comment">// ==</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// key already exists</span></span><br><span class="line">    <span class="comment">// update lb-&gt;second if you care to</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// the key does not exist in the map</span></span><br><span class="line">    <span class="comment">// add it to the map</span></span><br><span class="line">    mymap.<span class="built_in">insert</span>(lb, MapType::<span class="built_in">value_type</span>(k, v));  <span class="comment">// Use lb as a hint to insert,</span></span><br><span class="line">                                                  <span class="comment">// so it can avoid another lookup</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>顺序关联容器算法复杂度</p>
+<blockquote>
+<p><code>std::set</code> is an associative container that contains a sorted set of unique objects of type <code>Key</code>. Sorting is done using the key comparison function <a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/named_req/Compare"><em>Compare</em></a>. <strong>Search</strong>, <strong>removal</strong>, and <strong>insertion</strong> operations have <strong>logarithmic complexity</strong>. Sets are usually <strong>implemented as <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Red%E2%80%93black_tree">red-black trees</a>.</strong></p>
+</blockquote>
+<blockquote>
+<p><code>std::map</code> is a sorted associative container that contains key-value pairs with unique keys. Keys are sorted by using the comparison function <code>Compare</code>. <strong>Search</strong>, <strong>removal</strong>, and <strong>insertion</strong> operations have <strong>logarithmic complexity</strong>. Maps are usually <strong>implemented as <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Red%E2%80%93black_tree">red-black trees</a>.</strong></p>
+</blockquote>
+<blockquote>
+<p><code>std::multiset</code> is an associative container that contains a sorted set of objects of type Key. Unlike set, multiple keys with equivalent values are allowed. Sorting is done using the key comparison function Compare. <strong>Search</strong>, <strong>insertion</strong>, and <strong>removal</strong> operations have <strong>logarithmic complexity</strong>.</p>
+</blockquote>
+<blockquote>
+<p><code>std::multimap</code> is an associative container that contains a sorted list of key-value pairs, while permitting multiple entries with the same key. Sorting is done according to the comparison function <code>Compare</code>, applied to the keys. <strong>Search</strong>, <strong>insertion</strong>, and <strong>removal</strong> operations have <strong>logarithmic complexity.</strong></p>
+</blockquote>
+</li>
+</ul>
+<h3 id="Unordered-Container"><a href="#Unordered-Container" class="headerlink" title="Unordered Container"></a>Unordered Container</h3><ul>
+<li><p>无序容器的基本原理：</p>
+<p>  无序容器在存储上组织为一组桶(bucket)，每个桶保存零个或者多个元素；无序容器需要使用一个hash函数将关键字映射到桶，如果容器允许重复关键字，相同的关键字都在一个桶里面；为了访问一个元素，容器首先会计算关键字的hash值，找到应该搜索的桶，然后在对应的桶中搜索；所以无序容器的性能依赖于hash函数的质量和桶的数量和大小；</p>
+<blockquote>
+<p>Internally, the elements are <strong>not sorted in any particular order</strong>, but organized into <strong>buckets</strong>. Which bucket an element is placed into depends entirely on the <strong>hash of its key</strong>. Keys with the same hash code appear in the same bucket. This allows fast access to individual elements, since once the hash is computed, it refers to the exact bucket the element is placed into.</p>
+</blockquote>
+<p>  <img data-src="/images/blog/chapter11/ch11-unordered_map-data-structure.png" alt="ch11-unordered_map-data-structure"></p>
+</li>
+<li><p>无序容器的算法复杂度</p>
+<blockquote>
+<p><strong>Unordered map</strong> is an associative container that contains key-value pairs with unique keys. <strong>Search</strong>, <strong>insertion</strong>, and <strong>removal</strong> of elements have <strong>average constant-time complexity</strong>.</p>
+</blockquote>
+<blockquote>
+<p><strong>Unordered set</strong> is an associative container that contains a set of unique objects of type Key. <strong>Search</strong>, <strong>insertion</strong>, and <strong>removal</strong> have <strong>average constant-time complexity</strong>.</p>
+</blockquote>
+</li>
+<li><p>无序容器的迭代器失效问题</p>
+<p>  <code>std::unordered_map</code> and <code>std::unordered_set</code>一样</p>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Invalidated</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>All-read-only operations</td>
+<td>Never</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/container/unordered_map/swap">swap</a>, <a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/algorithm/swap">std::swap</a></td>
+<td>Never, swap functions do <strong>not invalidate</strong> any of the <strong>iterators inside the container</strong>, but they do <strong>invalidate</strong> the <strong>iterator marking the end of the swap region</strong>.</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/container/unordered_map/clear">clear</a>, <a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/container/unordered_map/rehash">rehash</a>, <a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/container/unordered_map/reserve">reserve</a>, <a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/container/unordered_map/operator%3D">operator&#x3D;</a></td>
+<td><strong>Always invalidate iterator</strong>, <strong>References and pointers</strong> to data stored in the container are <strong>only invalidated</strong> by <strong>erasing</strong> that element, <strong>even</strong> when the corresponding <strong>iterator is invalidated</strong>.</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/container/unordered_map/insert">insert</a>, <a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/container/unordered_map/emplace">emplace</a>, <a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/container/unordered_map/emplace_hint">emplace_hint</a>, operator[]</td>
+<td><strong>Only invalidate iterator</strong> if causes <strong>rehash</strong>; <strong>References and pointers</strong> to data stored in the container are <strong>only invalidated</strong> by <strong>erasing</strong> that element, <strong>even</strong> when the corresponding <strong>iterator is invalidated</strong>.</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/container/unordered_map/erase">erase</a></td>
+<td>Only to the element erased. <strong>References and pointers</strong> to data stored in the container are <strong>only invalidated</strong> by <strong>erasing</strong> that element, <strong>even</strong> when the corresponding <strong>iterator is invalidated</strong>.</td>
+</tr>
+<tr>
+<td>std::move</td>
+<td>After container <strong>move assignment</strong>, unless elementwise move assignment is forced by incompatible allocators, <strong>references, pointers, and iterators</strong> (other than the end iterator) to moved-from container <strong>remain valid,</strong> but refer to elements that are now in <code>*this</code>.</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>自定义hash函数</p>
+<p>  默认情况下，无序容器使用<code>==</code>运算符来比较元素，他们还使用一个<code>hash&lt;key_type&gt;</code>类型的对象来生成每个元素的哈希值</p>
+<ul>
+<li><p>标准库为<strong>内置类型</strong>和一些<strong>标准库的模版</strong>(比如string)都<strong>已经生成了hash模版</strong>，所以可以直接定义<code>Key</code>为<strong>内置类型</strong>的无序容器</p>
+</li>
+<li><p>不能直接定义<strong>自定义类型</strong>作为无序容器Key的类型，因为这些类型不能直接使用<code>hash</code>模版，<strong>而需要提供自定义类型的hash模版</strong>；当然，我们也可以<strong>不使用默认的hash</strong>，而是<strong>提供函数来代替</strong><code>==</code>运算符和哈希值计算函数；</p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;functional&gt;</span>        <span class="comment">// hash</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unordered_multiset&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// hash: std::hash&lt;key&gt;</span></span><br><span class="line"><span class="function"><span class="type">size_t</span> <span class="title">hasher</span><span class="params">(<span class="type">const</span> Sales_data&amp; sd)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> std::<span class="built_in">hash</span>&lt;std::string&gt;()(sd.<span class="built_in">isbn</span>());</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">equal_op</span><span class="params">(<span class="type">const</span> Sales_data &amp;lhs, <span class="type">const</span> Sales_data &amp;rhs)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> lhs.<span class="built_in">isbn</span>() == rhs.<span class="built_in">isbn</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> SD_multiset = unordered_multiset&lt;Sales_data, <span class="built_in">delctype</span>(hasher)*, <span class="keyword">decltype</span>(equal_op)*&gt;;</span><br><span class="line"><span class="function">SD_multiset <span class="title">book_store</span><span class="params">(<span class="number">42</span>, hansher, equal_op)</span></span>;</span><br><span class="line"><span class="comment">// equivalent</span></span><br><span class="line"><span class="function">std::unordered_multiset&lt;Sales_data, <span class="title">delctype</span><span class="params">(hasher)</span>*, <span class="title">decltype</span><span class="params">(equal_op)</span>*&gt; <span class="title">bookstore</span><span class="params">(<span class="number">42</span>, hasher, equal_op)</span></span>;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>无序容器的桶(<em>bucket</em>)的管理</p>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">c.<span class="built_in">bucket_count</span>();     <span class="comment">// bucket size in use</span></span><br><span class="line">c.<span class="built_in">bucket_size</span>(n);     <span class="comment">// item size in nth bucket</span></span><br><span class="line">c.<span class="built_in">max_bucket_count</span>(); <span class="comment">// bucket capacity</span></span><br><span class="line">c.<span class="built_in">bucket</span>(k);          <span class="comment">// which bucket index the key k exists</span></span><br><span class="line"></span><br><span class="line">c.<span class="built_in">begin</span>(n), c.<span class="built_in">end</span>(n); <span class="comment">// begin and end iterator of bucket n</span></span><br><span class="line"></span><br><span class="line">c.<span class="built_in">load_factor</span>();      <span class="comment">// average keys in bucket</span></span><br><span class="line">c.<span class="built_in">max_load_factor</span>();  <span class="comment">// max load factor, if load_factor &gt; max_load_factor, c will add bucket</span></span><br><span class="line">c.<span class="built_in">rehash</span>();           <span class="comment">// rehash, make bucket_count&gt;=n and bucket_count&gt;size/max_load_factor</span></span><br><span class="line">c.<span class="built_in">reserve</span>();          <span class="comment">// like vector::reserve, not rehash</span></span><br></pre></td></tr></table></figure>
+
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">std::unordered_map&lt;string,string&gt; mymap = &#123;</span><br><span class="line">    &#123;<span class="string">&quot;house&quot;</span>,<span class="string">&quot;maison&quot;</span>&#125;,</span><br><span class="line">    &#123;<span class="string">&quot;apple&quot;</span>,<span class="string">&quot;pomme&quot;</span>&#125;,</span><br><span class="line">    &#123;<span class="string">&quot;tree&quot;</span>,<span class="string">&quot;arbre&quot;</span>&#125;,</span><br><span class="line">    &#123;<span class="string">&quot;book&quot;</span>,<span class="string">&quot;livre&quot;</span>&#125;,</span><br><span class="line">    &#123;<span class="string">&quot;door&quot;</span>,<span class="string">&quot;porte&quot;</span>&#125;,</span><br><span class="line">    &#123;<span class="string">&quot;grapefruit&quot;</span>,<span class="string">&quot;pamplemousse&quot;</span>&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="type">unsigned</span> n = mymap.<span class="built_in">bucket_count</span>();</span><br><span class="line">std::cout &lt;&lt; <span class="string">&quot;mymap has &quot;</span> &lt;&lt; n &lt;&lt; <span class="string">&quot; buckets&quot;</span> &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="type">unsigned</span> i=<span class="number">0</span>; i&lt;n; ++i) &#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;bucket #&quot;</span> &lt;&lt; i &lt;&lt; <span class="string">&quot;&#x27;s size:&quot;</span>&lt;&lt;mymap.<span class="built_in">bucket_size</span>(i)&lt;&lt;<span class="string">&quot; contains: &quot;</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> it = mymap.<span class="built_in">begin</span>(i); it!=mymap.<span class="built_in">end</span>(i); ++it)</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;[&quot;</span> &lt;&lt; it-&gt;first &lt;&lt; <span class="string">&quot;:&quot;</span> &lt;&lt; it-&gt;second &lt;&lt; <span class="string">&quot;] &quot;</span>;</span><br><span class="line">    std::cout &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">std::cout &lt;&lt;<span class="string">&quot;key:&#x27;apple&#x27; is in bucket #&quot;</span> &lt;&lt; mymap.<span class="built_in">bucket</span>(<span class="string">&quot;apple&quot;</span>) &lt;&lt;std::endl;</span><br><span class="line">std::cout &lt;&lt;<span class="string">&quot;key:&#x27;computer&#x27; is in bucket #&quot;</span> &lt;&lt; mymap.<span class="built_in">bucket</span>(<span class="string">&quot;computer&quot;</span>) &lt;&lt;std::endl;</span><br><span class="line"><span class="comment">// reference: https://blog.csdn.net/hk2291976/article/details/51037095</span></span><br></pre></td></tr></table></figure>
+
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">ymap has 7 buckets.</span><br><span class="line">bucket #0&#x27;s size:2 contains: [book:livre] [house:maison]</span><br><span class="line">bucket #1&#x27;s size:0 contains:</span><br><span class="line">bucket #2&#x27;s size:0 contains:</span><br><span class="line">bucket #3&#x27;s size:2 contains: [grapefruit:pamplemousse] [tree:arbre]</span><br><span class="line">bucket #4&#x27;s size:0 contains:</span><br><span class="line">bucket #5&#x27;s size:1 contains: [apple:pomme]</span><br><span class="line">bucket #6&#x27;s size:1 contains: [door:porte]</span><br><span class="line">key:&#x27;apple&#x27; is in bucket #5</span><br><span class="line">key:&#x27;computer&#x27; is in bucket #6</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>PangWong
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://pangwong.github.io/blog/2022/06/cpp-primer-chapter11/" title="Reading Note of CppPrimer-Chapter11">https://pangwong.github.io/blog/2022/06/cpp-primer-chapter11/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/reading-notes/" rel="tag"><i class="fa fa-tag"></i> reading notes</a>
+              <a href="/tags/cpp-primer/" rel="tag"><i class="fa fa-tag"></i> cpp-primer</a>
+              <a href="/tags/associative-container/" rel="tag"><i class="fa fa-tag"></i> associative container</a>
+              <a href="/tags/map/" rel="tag"><i class="fa fa-tag"></i> map</a>
+              <a href="/tags/set/" rel="tag"><i class="fa fa-tag"></i> set</a>
+              <a href="/tags/unordered-map/" rel="tag"><i class="fa fa-tag"></i> unordered_map</a>
+              <a href="/tags/pair/" rel="tag"><i class="fa fa-tag"></i> pair</a>
+              <a href="/tags/lower-bound/" rel="tag"><i class="fa fa-tag"></i> lower_bound</a>
+              <a href="/tags/upper-bound/" rel="tag"><i class="fa fa-tag"></i> upper_bound</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+            </div>
+            <div class="post-nav-item">
+                <a href="/blog/2022/06/cpp-primer-chapter10/" rel="next" title="Reading Note of CppPrimer-Chapter10">
+                  Reading Note of CppPrimer-Chapter10 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">PangWong</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">156k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">2:21</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js" integrity="sha256-EdPgYcPk/IIrw7FYeuJQexva49pVRZNmt3LculEr7zM=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"pangwong","repo":"pangwong.github.io","client_id":"c3a7ca3ecf4f08f74acb","client_secret":"db3623e99a388c18ba10413186f9051a35cb6627","admin_user":"pangwong","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"4c3d2f8a326e09e02a98f10fb7eb726d"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>
