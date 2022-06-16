@@ -2,6 +2,17 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://pangwong.github.io/blog/2022/06/cpp-primer-chapter10/</loc>
+    
+    <lastmod>2022-06-16T06:20:25.485Z</lastmod>
+    
+    <date>1655338223000</date>
+    <title>Reading Note of CppPrimer-Chapter10 | 曰悦鸟</title>
+    
+    <desc>Generic Algorithms</desc>
+  </url>
+  
+  <url>
     <loc>https://pangwong.github.io/blog/2022/06/cpp-primer-chapter8/</loc>
     
     <lastmod>2022-06-15T10:23:46.661Z</lastmod>
