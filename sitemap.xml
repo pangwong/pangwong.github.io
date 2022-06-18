@@ -2,6 +2,17 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://pangwong.github.io/blog/2022/06/cpp-primer-chapter14/</loc>
+    
+    <lastmod>2022-06-18T10:42:04.724Z</lastmod>
+    
+    <date>1655526350000</date>
+    <title>Reading Note of CppPrimer-Chapter14 | 曰悦鸟</title>
+    
+    <desc>Overloaded Operations and Conversions</desc>
+  </url>
+  
+  <url>
     <loc>https://pangwong.github.io/blog/2022/06/cpp-primer-chapter13/</loc>
     
     <lastmod>2022-06-18T05:19:09.332Z</lastmod>
