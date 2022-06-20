@@ -2,6 +2,17 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://pangwong.github.io/blog/2022/06/cpp-primer-chapter16/</loc>
+    
+    <lastmod>2022-06-20T16:59:02.606Z</lastmod>
+    
+    <date>1655717431000</date>
+    <title>Reading Note of CppPrimer-Chapter16 | 曰悦鸟</title>
+    
+    <desc>Template and Generic Programming</desc>
+  </url>
+  
+  <url>
     <loc>https://pangwong.github.io/blog/2022/06/cpp-primer-chapter15/</loc>
     
     <lastmod>2022-06-20T08:59:51.516Z</lastmod>
