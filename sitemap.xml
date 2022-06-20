@@ -2,6 +2,17 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://pangwong.github.io/blog/2022/06/cpp-primer-chapter15/</loc>
+    
+    <lastmod>2022-06-20T08:59:51.516Z</lastmod>
+    
+    <date>1655549265000</date>
+    <title>Reading Note of CppPrimer-Chapter15 | 曰悦鸟</title>
+    
+    <desc>Object Oriented Programming</desc>
+  </url>
+  
+  <url>
     <loc>https://pangwong.github.io/blog/2022/06/cpp-primer-chapter14/</loc>
     
     <lastmod>2022-06-18T10:42:04.724Z</lastmod>
