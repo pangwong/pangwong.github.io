@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
-
 <link rel="preconnect" href="https://fonts.lug.ustc.edu.cn" crossorigin>
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
@@ -17,10 +16,10 @@
 
 <link rel="stylesheet" href="https://fonts.lug.ustc.edu.cn/css?family=Noto+Serif+SC:300,300italic,400,400italic,700,700italic%7CSF+Mono+Regular:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"pangwong.github.io","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"pangwong.github.io","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"right","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"default"},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
     <meta name="description" content="Expressions">
 <meta property="og:type" content="article">
@@ -32,16 +31,10 @@
 <meta property="og:image" content="https://pangwong.github.io/images/blog/chapter4/ch4-precedence-associative.jpg">
 <meta property="og:image" content="https://pangwong.github.io/images/blog/chapter4/ch4-reinterpret_cast.jpg">
 <meta property="article:published_time" content="2022-05-28T07:31:54.000Z">
-<meta property="article:modified_time" content="2022-06-01T13:13:52.156Z">
+<meta property="article:modified_time" content="2024-08-06T10:17:22.939Z">
 <meta property="article:author" content="PangWong">
 <meta property="article:tag" content="reading notes">
 <meta property="article:tag" content="cpp-primer">
-<meta property="article:tag" content="Precedence">
-<meta property="article:tag" content="Associative">
-<meta property="article:tag" content="order of evaluation">
-<meta property="article:tag" content="type conversion">
-<meta property="article:tag" content="implicit conversion">
-<meta property="article:tag" content="explicit conversion">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://pangwong.github.io/images/blog/chapter4/ch4-precedence-associative.jpg">
 
@@ -60,6 +53,9 @@
 
 
 
+
+
+
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
@@ -69,8 +65,8 @@
   <div class="headband"></div>
 
   <main class="main">
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
   <div class="site-nav-toggle">
     <div class="toggle" aria-label="切换导航栏" role="button">
         <span class="toggle-line"></span>
@@ -89,7 +85,7 @@
   </div>
 
   <div class="site-nav-right">
-    <div class="toggle popup-trigger">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
     </div>
   </div>
 </div>
@@ -104,15 +100,9 @@
 
 
 
-</div>
+</header>
         
   
-  <div class="toggle sidebar-toggle" role="button">
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-  </div>
-
   <aside class="sidebar">
 
     <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
@@ -128,18 +118,18 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Expressions"><span class="nav-number">1.</span> <span class="nav-text">Expressions</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Precedence-amp-Associative-amp-Evaluation-Order"><span class="nav-number">1.1.</span> <span class="nav-text">Precedence &amp; Associative &amp; Evaluation Order</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Common-Operators"><span class="nav-number">1.2.</span> <span class="nav-text">Common Operators</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%97%E6%9C%AF%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">1.2.1.</span> <span class="nav-text">算术运算符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E5%85%B3%E7%B3%BB%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">1.2.2.</span> <span class="nav-text">逻辑关系运算符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B5%8B%E5%80%BC%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">1.2.3.</span> <span class="nav-text">赋值运算符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%92%E5%A2%9E%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">1.2.4.</span> <span class="nav-text">递增运算符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%AD%E5%A4%B4-x2F-%E7%82%B9%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">1.2.5.</span> <span class="nav-text">箭头&#x2F;点运算符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B6%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">1.2.6.</span> <span class="nav-text">条件运算符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%8D%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">1.2.7.</span> <span class="nav-text">位运算符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sizeof-%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">1.2.8.</span> <span class="nav-text">sizeof 运算符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%97%E5%8F%B7%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">1.2.9.</span> <span class="nav-text">逗号运算符</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Implicit-Conversion"><span class="nav-number">1.3.</span> <span class="nav-text">Implicit Conversion</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%97%E6%9C%AF%E9%9A%90%E5%BD%A2%E8%BD%AC%E6%8D%A2"><span class="nav-number">1.3.1.</span> <span class="nav-text">算术隐形转换</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%95%B4%E6%95%B0%E6%8F%90%E5%8D%87"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">整数提升</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%97%A0%E7%AC%A6%E5%8F%B7%E7%B1%BB%E5%9E%8B%E7%9A%84%E9%9A%90%E5%BD%A2%E8%BD%AC%E6%8D%A2"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">无符号类型的隐形转换</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E9%9A%90%E5%BD%A2%E8%BD%AC%E6%8D%A2"><span class="nav-number">1.3.2.</span> <span class="nav-text">其他隐形转换</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Explicit-Conversion"><span class="nav-number">1.4.</span> <span class="nav-text">Explicit Conversion</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#static-cast"><span class="nav-number">1.4.1.</span> <span class="nav-text">static_cast</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#dynamic-cast"><span class="nav-number">1.4.2.</span> <span class="nav-text">dynamic_cast</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#const-cast"><span class="nav-number">1.4.3.</span> <span class="nav-text">const_cast</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#reinterpret-cast"><span class="nav-number">1.4.4.</span> <span class="nav-text">reinterpret_cast</span></a></li></ol></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Precedence-amp-Associative-amp-Evaluation-Order"><span class="nav-number">1.</span> <span class="nav-text">Precedence &amp; Associative &amp; Evaluation Order</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Common-Operators"><span class="nav-number">2.</span> <span class="nav-text">Common Operators</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%97%E6%9C%AF%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">2.1.</span> <span class="nav-text">算术运算符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E5%85%B3%E7%B3%BB%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">2.2.</span> <span class="nav-text">逻辑关系运算符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B5%8B%E5%80%BC%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">2.3.</span> <span class="nav-text">赋值运算符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%92%E5%A2%9E%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">2.4.</span> <span class="nav-text">递增运算符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%AD%E5%A4%B4-x2F-%E7%82%B9%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">2.5.</span> <span class="nav-text">箭头 &#x2F; 点运算符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B6%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">2.6.</span> <span class="nav-text">条件运算符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%8D%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">2.7.</span> <span class="nav-text">位运算符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sizeof-%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">2.8.</span> <span class="nav-text">sizeof 运算符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%97%E5%8F%B7%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">2.9.</span> <span class="nav-text">逗号运算符</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Implicit-Conversion"><span class="nav-number">3.</span> <span class="nav-text">Implicit Conversion</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%97%E6%9C%AF%E9%9A%90%E5%BD%A2%E8%BD%AC%E6%8D%A2"><span class="nav-number">3.1.</span> <span class="nav-text">算术隐形转换</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%95%B4%E6%95%B0%E6%8F%90%E5%8D%87"><span class="nav-number">3.1.1.</span> <span class="nav-text">整数提升</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%97%A0%E7%AC%A6%E5%8F%B7%E7%B1%BB%E5%9E%8B%E7%9A%84%E9%9A%90%E5%BD%A2%E8%BD%AC%E6%8D%A2"><span class="nav-number">3.1.2.</span> <span class="nav-text">无符号类型的隐形转换</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E9%9A%90%E5%BD%A2%E8%BD%AC%E6%8D%A2"><span class="nav-number">3.2.</span> <span class="nav-text">其他隐形转换</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Explicit-Conversion"><span class="nav-number">4.</span> <span class="nav-text">Explicit Conversion</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#static-cast"><span class="nav-number">4.1.</span> <span class="nav-text">static_cast</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#dynamic-cast"><span class="nav-number">4.2.</span> <span class="nav-text">dynamic_cast</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#const-cast"><span class="nav-number">4.3.</span> <span class="nav-text">const_cast</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#reinterpret-cast"><span class="nav-number">4.4.</span> <span class="nav-text">reinterpret_cast</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
         <div class="site-overview-wrap sidebar-panel">
-          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <img class="site-author-image" itemprop="image" alt="PangWong"
       src="/images/avatar.png">
   <p class="site-author-name" itemprop="name">PangWong</p>
   <div class="site-description" itemprop="description"></div>
 </div>
-<div class="site-state-wrap site-overview-item animated">
+<div class="site-state-wrap animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
@@ -154,39 +144,26 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">133</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
 </div>
-  <div class="links-of-author site-overview-item animated">
+  <div class="links-of-author animated">
       <span class="links-of-author-item">
-        <a href="https://github.com/pangwong" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;pangwong" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+        <a href="https://github.com/pangwong" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;pangwong" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
       </span>
   </div>
-
-
 
         </div>
       </div>
     </div>
-  </aside>
-  <div class="sidebar-dimmer"></div>
-
-
-    </header>
 
     
-  <div class="back-to-top" role="button" aria-label="返回顶部">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-  <div class="reading-progress-bar"></div>
+  </aside>
 
-<noscript>
-  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
-</noscript>
 
+    </div>
 
     <div class="main-inner post posts-expand">
 
@@ -235,7 +212,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-06-01 21:13:52" itemprop="dateModified" datetime="2022-06-01T21:13:52+08:00">2022-06-01</time>
+      <time title="修改时间：2024-08-06 18:17:22" itemprop="dateModified" datetime="2024-08-06T18:17:22+08:00">2024-08-06</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -278,61 +255,61 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
-        <h2 id="Expressions"><a href="#Expressions" class="headerlink" title="Expressions"></a>Expressions</h2><span id="more"></span>
+    <div class="post-body" itemprop="articleBody"><p>Expressions</p>
+<span id="more"></span>
 
 
 
 <h3 id="Precedence-amp-Associative-amp-Evaluation-Order"><a href="#Precedence-amp-Associative-amp-Evaluation-Order" class="headerlink" title="Precedence &amp; Associative &amp; Evaluation Order"></a>Precedence &amp; Associative &amp; Evaluation Order</h3><ul>
-<li><p><strong>优先级</strong>(<em>Precedence</em>)</p>
+<li><p><strong>优先级</strong> (<em>Precedence</em>)</p>
 <p>  优先级决定了在表达式里面不同的运算符的运算顺序；<strong>高优先级运算符的运算对象</strong>比起<strong>低优先级运算符的运算对象</strong>会<strong>更紧密结合在一起</strong>；</p>
 <p>  <strong>拿不准的时候用括号强制规定运算顺序，括号无视优先级和结合律</strong></p>
 </li>
-<li><p><strong>结合律</strong>(<em>Associative</em>)</p>
-<p>  运算符的结合性是指<strong>相同优先级的运算符</strong>在同一个表达式中，且<strong>没有括号</strong>的时候，<strong>运算符(operator)<strong>和</strong>操作数(operand)<strong>的结合方式，通常有从</strong>左到右</strong>结合和从<strong>右到左</strong>结合两种方式：</p>
+<li><p><strong>结合律</strong> (<em>Associative</em>)</p>
+<p>  运算符的结合性是指<strong>相同优先级的运算符</strong>在同一个表达式中，且<strong>没有括号</strong>的时候，<strong>运算符 (operator) <strong>和</strong>操作数 (operand) <strong>的结合方式，通常有从</strong>左到右</strong>结合和从<strong>右到左</strong>结合两种方式：</p>
 <ul>
 <li>左结合律：Left-to-right</li>
-<li>右结合律：Right-to-left</li>
+<li> 右结合律：Right-to-left</li>
 </ul>
 </li>
-<li><p>常见C++运算符的优先级和结合律</p>
-  <img data-src="/images/blog/chapter4/ch4-precedence-associative.jpg" alt="ch4-precedence-associative" style="zoom:50%;" />
+<li><p> 常见 C++ 运算符的优先级和结合律</p>
+  <img data-src="/images/blog/chapter4/ch4-precedence-associative.jpg" alt="ch4-precedence-associative" style="zoom:50%;">
 </li>
 <li><p>求值顺序：</p>
 <ul>
 <li><p><strong>运算对象的求值顺序和优先级及结合律无关</strong></p>
-  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a = <span class="built_in">f</span>() + <span class="built_in">g</span>() * <span class="built_in">h</span>() + <span class="built_in">j</span>();</span><br></pre></td></tr></table></figure>
+  <figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a = <span class="built_in">f</span>() + <span class="built_in">g</span>() * <span class="built_in">h</span>() + <span class="built_in">j</span>();</span><br></pre></td></tr></tbody></table></figure>
 
 <blockquote>
 <ul>
-<li>优先级决定 g的返回值应该和h的返回值相乘</li>
-<li>结合律决定f的返回值要加上g*h的乘积再加上j的返回值</li>
+<li>优先级决定 g 的返回值应该和 h 的返回值相乘</li>
+<li>结合律决定 f 的返回值要加上 g*h 的乘积再加上 j 的返回值</li>
 <li>对于这些函数的调用顺序却没有规定</li>
 </ul>
 </blockquote>
 </li>
 <li><p>优先级虽然规定了对象的组合方式，但是没有说明对象按照什么顺序求值</p>
 <p>  有四种二元运算符规定了运算顺序，包含 <code>&amp;&amp;</code>、<code>||</code>、<code>?:</code>、<code>，</code></p>
-  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (a &amp;&amp; b)&#123;</span><br><span class="line">    <span class="comment">// if a is false, b will not be evaluated</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (a || b)&#123;</span><br><span class="line">    <span class="comment">// if a is true, b will not be evaluated</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// if a &gt; b, c = a else c = b</span></span><br><span class="line"><span class="type">int</span> c = a &gt; b ? a : b;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">0</span>; i&lt;<span class="number">10</span>; i++,c++)&#123;        <span class="comment">// i++, then discard i, then c++ and return c</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  <figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (a &amp;&amp; b){</span><br><span class="line">    <span class="comment">// if a is false, b will not be evaluated</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (a || b){</span><br><span class="line">    <span class="comment">// if a is true, b will not be evaluated</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">// if a &gt; b, c = a else c = b</span></span><br><span class="line"><span class="type">int</span> c = a &gt; b ? a : b;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">0</span>; i&lt;<span class="number">10</span>; i++,c++){        <span class="comment">// i++, then discard i, then c++ and return c</span></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 </li>
-<li><p><strong>如果一个表达式里面改变了某个对象的值，该表达式的其他地方尽量不要再使用这个对象</strong>，<code>*iter++</code>是例外;</p>
-  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// warning: unsequenced modification and access to &#x27;i&#x27; [-Wunsequenced]</span></span><br><span class="line"><span class="comment">// possible output:</span></span><br><span class="line"><span class="comment">// 0 1</span></span><br><span class="line"><span class="comment">// 1 1</span></span><br><span class="line"><span class="type">int</span> i=<span class="number">0</span>;</span><br><span class="line">std::cout &lt;&lt; i &lt;&lt; i++;     <span class="comment">// undefined behavior until C++17</span></span><br><span class="line">a[i] = i++;                <span class="comment">// undefined behavior until C++17</span></span><br><span class="line">n = ++i + i;               <span class="comment">// undefined behavior</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 只是规定了*运算前f1()和f2()都是执行过的，没有规定是先算f1还是f2；如果f1和f2相关的话，会产生未定义的结果；</span></span><br><span class="line"><span class="type">int</span> x = <span class="built_in">f1</span>() * <span class="built_in">f2</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// warning: unsequenced modification and access to &#x27;a&#x27; [-Wunsequenced]</span></span><br><span class="line"><span class="type">int</span> i = <span class="number">100</span>;</span><br><span class="line">i = ++i + <span class="number">2</span>;       <span class="comment">// undefined behavior until C++11</span></span><br><span class="line">i = i++ + <span class="number">2</span>;       <span class="comment">// undefined behavior until C++17</span></span><br><span class="line"><span class="built_in">f</span>(i = <span class="number">-2</span>, i = <span class="number">-2</span>); <span class="comment">// undefined behavior until C++17</span></span><br><span class="line"><span class="built_in">f</span>(++i, ++i);       <span class="comment">// undefined behavior until C++17, unspecified after C++17</span></span><br><span class="line">i = ++i + i++;     <span class="comment">// undefined behavior</span></span><br></pre></td></tr></table></figure></li>
+<li><p><strong>如果一个表达式里面改变了某个对象的值，该表达式的其他地方尽量不要再使用这个对象</strong>，<code>*iter++</code> 是例外；</p>
+  <figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// warning: unsequenced modification and access to 'i' [-Wunsequenced]</span></span><br><span class="line"><span class="comment">// possible output:</span></span><br><span class="line"><span class="comment">// 0 1</span></span><br><span class="line"><span class="comment">// 1 1</span></span><br><span class="line"><span class="type">int</span> i=<span class="number">0</span>;</span><br><span class="line">std::cout &lt;&lt; i &lt;&lt; i++;     <span class="comment">// undefined behavior until C++17</span></span><br><span class="line">a[i] = i++;                <span class="comment">// undefined behavior until C++17</span></span><br><span class="line">n = ++i + i;               <span class="comment">// undefined behavior</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 只是规定了*运算前f1()和f2()都是执行过的，没有规定是先算f1还是f2；如果f1和f2相关的话，会产生未定义的结果；</span></span><br><span class="line"><span class="type">int</span> x = <span class="built_in">f1</span>() * <span class="built_in">f2</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// warning: unsequenced modification and access to 'a' [-Wunsequenced]</span></span><br><span class="line"><span class="type">int</span> i = <span class="number">100</span>;</span><br><span class="line">i = ++i + <span class="number">2</span>;       <span class="comment">// undefined behavior until C++11</span></span><br><span class="line">i = i++ + <span class="number">2</span>;       <span class="comment">// undefined behavior until C++17</span></span><br><span class="line"><span class="built_in">f</span>(i = <span class="number">-2</span>, i = <span class="number">-2</span>); <span class="comment">// undefined behavior until C++17</span></span><br><span class="line"><span class="built_in">f</span>(++i, ++i);       <span class="comment">// undefined behavior until C++17, unspecified after C++17</span></span><br><span class="line">i = ++i + i++;     <span class="comment">// undefined behavior</span></span><br></pre></td></tr></tbody></table></figure></li>
 </ul>
 </li>
-<li><p>C++11 “<strong>按顺序早于</strong>” 规则(<em>Sequenced-before rules</em> )</p>
+<li><p>C++11 “<strong>按顺序早于</strong>” 规则 (<em>Sequenced-before rules</em> )</p>
 <ul>
 <li><p>表达式的求值主要包含两个部分：</p>
 <ul>
-<li><strong>值计算</strong>(<em>value computations</em>)：主要涉及到决定对象的身份(<em>glvaue evaluation</em>，比如表达式返回了某个对象的引用) 或者读取对象先前被赋的值(<em>prvalue evaluation</em>，比如某个表达式返回了数字或者其他右值)</li>
-<li><strong>副作用</strong>(<em>side effects</em>)：副作用主要涉及到对volatile变量的读写操作、对一般对象的写操作、调用I&#x2F;O库函数、或者是调用了任何执行以上任一操作的函数</li>
+<li><strong>值计算</strong> (<em>value computations</em>)：主要涉及到决定对象的身份 (<em>glvaue evaluation</em>，比如表达式返回了某个对象的引用) 或者读取对象先前被赋的值 (<em>prvalue evaluation</em>，比如某个表达式返回了数字或者其他右值)</li>
+<li><strong> 副作用</strong> (<em>side effects</em>)：副作用主要涉及到对 volatile 变量的读写操作、对一般对象的写操作、调用 I/O 库函数、或者是调用了任何执行以上任一操作的函数</li>
 </ul>
 </li>
 <li><p>顺序的定义：</p>
-<p>  “按顺序早于 (sequenced-before)”是同一线程中的求值之间的非对称的、传递的对偶关系；C++定义了几种顺序：</p>
+<p>  “按顺序早于 (sequenced-before)” 是同一线程中的求值之间的非对称的、传递的对偶关系；C++ 定义了几种顺序：</p>
 <ul>
-<li>若 A <em><strong>按顺序早于</strong></em>(<em>sequenced before</em>) B，则 A 的求值将在 B 的求值开始前完成</li>
-<li>若 A <em><strong>不按顺序早于</strong></em>(<em>not sequenced before</em>) B 而 B <em><strong>按顺序早于</strong></em>(<em>sequenced before</em>)  A，则 B 的求值将在 A 的求值开始前完成。</li>
-<li>若 A <em><strong>不按顺序早于</strong></em>(<em>not sequenced before</em>) B 而 B <em><strong>不按顺序早于</strong></em>(<em>not sequenced before</em>) A，则存在两种可能：<ul>
+<li>若 A <em><strong>按顺序早于</strong></em> (<em>sequenced before</em>) B，则 A 的求值将在 B 的求值开始前完成</li>
+<li>若 A <em><strong>不按顺序早于</strong></em> (<em>not sequenced before</em>) B 而 B <em><strong>按顺序早于</strong></em> (<em>sequenced before</em>)  A，则 B 的求值将在 A 的求值开始前完成。</li>
+<li>若 A <em><strong>不按顺序早于</strong></em> (<em>not sequenced before</em>) B 而 B <em><strong>不按顺序早于</strong></em> (<em>not sequenced before</em>) A，则存在两种可能：<ul>
 <li>A 与 B 的求值是<em><strong>无顺序的</strong></em> (<em><strong>unsequenced</strong></em>) ：它们能以任何顺序进行，并可能重叠（在同一执行线程内，编译器可以将组成 A 与 B 的 CPU 指令交错）</li>
 <li>A 与 B 的求值是<em><strong>顺序不确定的</strong></em> (<em><strong>indeterminately sequenced</strong></em>) ：它们可以任意顺序进行但不可重叠，A 在 B 前完成，或 B 在 A 前完成。下次求值相同表达式时顺序可以相反。</li>
 </ul>
@@ -341,79 +318,79 @@
 </li>
 <li><p>具体规则：</p>
 <ol>
-<li><p>每个<strong>全表达式</strong>(<em>full-expression</em>)的值的计算(value computation)和副作用(side effect)都是按顺序早于另一个<strong>后续的全表达式</strong>的，<strong>全表达式包含</strong>：</p>
+<li><p>每个<strong>全表达式</strong> (<em>full-expression</em>) 的值的计算 (value computation) 和副作用 (side effect) 都是按顺序早于另一个<strong>后续的全表达式</strong>的，<strong>全表达式包含</strong>：</p>
 <ul>
 <li><p>不求值操作数：比如运算符 <a target="_blank" rel="noopener" href="https://zh.cppreference.com/w/cpp/language/typeid"><code>typeid</code></a>、<a target="_blank" rel="noopener" href="https://zh.cppreference.com/w/cpp/language/sizeof"><code>sizeof</code></a>、<a target="_blank" rel="noopener" href="https://zh.cppreference.com/w/cpp/language/noexcept"><code>noexcept</code></a> 和 <a target="_blank" rel="noopener" href="https://zh.cppreference.com/w/cpp/language/decltype"><code>decltype</code></a> 的操作数是不求值表达式，因为这些运算符只会查询它们的操作数的编译期性质；因此，<code>std::size_t n = sizeof(std::cout &lt;&lt; 42);</code> 不进行控制台输出。</p>
 </li>
-<li><p>常量表达式(constexpr)</p>
+<li><p>常量表达式 (constexpr)</p>
 </li>
 <li><p>初始化表达式</p>
 </li>
 <li><p>非临时对象生存期末尾生成的析构函数调用</p>
 </li>
-<li><p>其他非全表达式，包括例如整个表达式语句(分号分隔的表达式)，<code>for/while</code> 循环的控制表达式，<code>if/switch</code> 的条件表达式，<code>return</code> 语句中的表达式等</p>
+<li><p>其他非全表达式，包括例如整个表达式语句 (分号分隔的表达式)，<code>for/while</code> 循环的控制表达式，<code>if/switch</code> 的条件表达式，<code>return</code> 语句中的表达式等</p>
 </li>
 </ul>
 </li>
-<li><p>任何<strong>运算符</strong><code>e.g. +,-,*,/,%</code>的各<strong>操作数</strong>的<strong>值计算</strong>(<em>value computation</em>)(<strong>但非副作用</strong>(<em>but not side effect</em>))均按顺序早于(<em>sequenced before</em>)该<strong>运算符结果</strong>的值计算(但非副作用)</p>
+<li><p>任何<strong>运算符</strong><code>e.g. +,-,*,/,%</code> 的各<strong>操作数</strong>的<strong>值计算</strong> (<em>value computation</em>)(<strong>但非副作用</strong> (<em>but not side effect</em>)) 均按顺序早于 (<em>sequenced before</em>) 该<strong>运算符结果</strong>的值计算 (但非副作用)</p>
 </li>
-<li><p><strong>函数调用</strong>(无论函数是否内联，是否使用显式函数调用语法)时，函数的<strong>实参</strong>以及函数<strong>后缀表达式</strong>相关的<strong>值计算以及副作用</strong>均顺序早于(<em>sequenced before</em>)<strong>函数体里面的表达式</strong></p>
+<li><p><strong>函数调用</strong> (无论函数是否内联，是否使用显式函数调用语法) 时，函数的<strong>实参</strong>以及函数<strong>后缀表达式</strong>相关的<strong>值计算以及副作用</strong>均顺序早于 (<em>sequenced before</em>) <strong>函数体里面的表达式</strong></p>
 </li>
-<li><p><strong>后自增与后自减</strong>(<code>i++, i--</code>)运算符的<strong>值计算</strong>按顺序早于(<em>sequenced before</em>)其<strong>副作用</strong></p>
+<li><p><strong>后自增与后自减</strong> (<code>i++, i--</code>) 运算符的<strong>值计算</strong>按顺序早于 (<em>sequenced before</em>) 其<strong>副作用</strong></p>
 </li>
-<li><p><strong>前自增与前自减</strong>(<code>++i, --i</code>)运算符的<strong>副作用</strong>按顺序早于(<em>sequenced before</em>)其<strong>值计算</strong></p>
+<li><p><strong>前自增与前自减</strong> (<code>++i, --i</code>) 运算符的<strong>副作用</strong>按顺序早于 (<em>sequenced before</em>) 其<strong>值计算</strong></p>
 </li>
-<li><p><strong>逻辑与</strong> (<code>and</code>) 运算符 <code>&amp;&amp;</code> 和内建<strong>逻辑或</strong> (<code>or</code>) 运算符 <code>||</code> 的<strong>左操作数</strong>的<strong>值计算和副作用</strong>，按顺序早于(<em>sequenced before</em>)<strong>右操作数</strong>的<strong>值计算和副作用</strong></p>
+<li><p><strong>逻辑与</strong> (<code>and</code>) 运算符 <code>&amp;&amp;</code> 和内建<strong>逻辑或</strong> (<code>or</code>) 运算符 <code>||</code> 的<strong>左操作数</strong>的<strong>值计算和副作用</strong>，按顺序早于 (<em>sequenced before</em>) <strong>右操作数</strong>的<strong>值计算和副作用</strong></p>
 </li>
-<li><p><strong>条件运算符</strong> <code>?:</code> 中的<strong>第一个表达式</strong>关联的<strong>值计算和副作用</strong>，都按顺序早于(<em>sequenced before</em>)与<strong>第二或第三表达式</strong>关联的<strong>值计算和副作用</strong></p>
+<li><p><strong>条件运算符</strong> <code>?:</code> 中的<strong>第一个表达式</strong>关联的<strong>值计算和副作用</strong>，都按顺序早于 (<em>sequenced before</em>) 与<strong>第二或第三表达式</strong>关联的<strong>值计算和副作用</strong></p>
 </li>
-<li><p><strong>逗号运算符</strong> <code>,</code> 的<strong>左参数</strong>的<strong>值计算和副作用</strong>均按顺序早于(<em>sequenced before</em>)<strong>右参数</strong>的<strong>值计算和副作用</strong></p>
+<li><p><strong>逗号运算符</strong> <code>,</code> 的<strong>左参数</strong>的<strong>值计算和副作用</strong>均按顺序早于 (<em>sequenced before</em>) <strong>右参数</strong>的<strong>值计算和副作用</strong></p>
 </li>
-<li><p><strong>赋值运算符</strong><code>=</code>和<strong>复合赋值运算符</strong><code>e.g. +=, *=</code>的**副作用(即修改左参数)**，均按顺序晚于(<em>sequenced after</em>)<strong>左右参数的值计算</strong>(<strong>但非副作用</strong>)，且按顺序早于(<em>sequenced before</em>)<strong>赋值表达式的值计算</strong>(即早于返回指代被修改对象的引用之时)</p>
+<li><p><strong>赋值运算符</strong><code>=</code> 和<strong>复合赋值运算符</strong><code>e.g. +=, *=</code> 的 ** 副作用 (即修改左参数)**，均按顺序晚于 (<em>sequenced after</em>) <strong>左右参数的值计算</strong> (<strong>但非副作用</strong>)，且按顺序早于 (<em>sequenced before</em>) <strong>赋值表达式的值计算</strong> (即早于返回指代被修改对象的引用之时)</p>
 </li>
-<li><p><strong>列表初始化</strong>中，在大括号中用<strong>逗号分隔的初始化器子句</strong>的<strong>值计算和副作用</strong>都按顺序早于(<em>sequenced before</em>)<strong>逗号后的初始化器子句</strong>的<strong>值计算和副作用</strong>，比如<code>int i=0; std::vector&lt;int&gt; vec = &#123;i++, i++, i++, i++&#125;;</code>是确定的</p>
+<li><p><strong>列表初始化</strong>中，在大括号中用<strong>逗号分隔的初始化器子句</strong>的<strong>值计算和副作用</strong>都按顺序早于 (<em>sequenced before</em>) <strong>逗号后的初始化器子句</strong>的<strong>值计算和副作用</strong>，比如 <code>int i=0; std::vector&lt;int&gt; vec = {i++, i++, i++, i++};</code> 是确定的</p>
 </li>
-<li><p><strong>分配函数</strong><code>operator new</code>的<strong>调用</strong>相对于<code>new</code>表达式中<strong>构造函数参数</strong>的求值来说，C++17 前是<strong>顺序不确定</strong>的(<em>indeterminately sequenced</em>)，C++17 起是<strong>按顺序早于</strong>(<em>sequenced before</em>)它；比如<code>int i=0; int* ptr = new int(i++);</code></p>
+<li><p><strong>分配函数</strong><code>operator new</code> 的<strong>调用</strong>相对于 <code>new</code> 表达式中<strong>构造函数参数</strong>的求值来说，C++17 前是<strong>顺序不确定</strong>的 (<em>indeterminately sequenced</em>)，C++17 起是<strong>按顺序早于</strong> (<em>sequenced before</em>) 它；比如 <code>int i=0; int* ptr = new int(i++);</code></p>
 </li>
-<li><p>C++14起，<strong>函数返回</strong>时，<strong>返回结果的临时量</strong>的<strong>复制初始化</strong>(<em>copy initialization</em>)按顺序早于(<em>sequenced before</em>)在 <code>return</code>语句的<strong>操作数末尾处对所有临时量</strong>的<strong>销毁</strong>，而<strong>这些临时量</strong>的<strong>销毁</strong>进一步按顺序早于(<em>sequenced before</em>)对<code>return</code>语句所在的块(<em>block scope</em>)的<strong>所有局部变量</strong>的<strong>销毁</strong></p>
+<li><p>C++14 起，<strong>函数返回</strong>时，<strong>返回结果的临时量</strong>的<strong>复制初始化</strong> (<em>copy initialization</em>) 按顺序早于 (<em>sequenced before</em>) 在 <code>return</code> 语句的<strong>操作数末尾处对所有临时量</strong>的<strong>销毁</strong>，而<strong>这些临时量</strong>的<strong>销毁</strong>进一步按顺序早于 (<em>sequenced before</em>) 对 <code>return</code> 语句所在的块 (<em>block scope</em>) 的<strong>所有局部变量</strong>的<strong>销毁</strong></p>
 </li>
-<li><p>C++17起，<strong>指明函数的表达式</strong>按顺序早于(<em>sequenced before</em>)<strong>参数表达式</strong>和<strong>默认实参</strong>。比如<code>int i=0; cout &lt;&lt; i &lt;&lt; ++i; </code>在C++17之前是不确定的，但是是C++17后是肯定先输出<code>0</code>再输出<code>1</code></p>
+<li><p>C++17 起，<strong>指明函数的表达式</strong>按顺序早于 (<em>sequenced before</em>) <strong>参数表达式</strong>和<strong>默认实参</strong>。比如 <code>int i=0; cout &lt;&lt; i &lt;&lt; ++i; </code>在 C++17 之前是不确定的，但是是 C++17 后是肯定先输出 <code>0</code> 再输出 <code>1</code></p>
 </li>
-<li><p>C++17起，<strong>函数调用</strong>表达式中，<strong>形参的初始化</strong>的<strong>值计算和副作用</strong>相对于任何<strong>其他形参的初始化</strong>的<strong>值计算和副作用</strong>是顺序不确定的(<em>indeterminately sequenced</em>)，比如<code>void print(int a, int b)&#123;std::cout &lt;&lt; a &lt;&lt; b;&#125;; int i=0; print(++i, ++i); </code>的输出是不确定的，可能输出<code>12</code>也可能输出<code>21</code></p>
+<li><p>C++17 起，<strong>函数调用</strong>表达式中，<strong>形参的初始化</strong>的<strong>值计算和副作用</strong>相对于任何<strong>其他形参的初始化</strong>的<strong>值计算和副作用</strong>是顺序不确定的 (<em>indeterminately sequenced</em>)，比如 <code>void print(int a, int b){std::cout &lt;&lt; a &lt;&lt; b;}; int i=0; print(++i, ++i); </code>的输出是不确定的，可能输出 <code>12</code> 也可能输出 <code>21</code></p>
 </li>
-<li><p>C++17起，用运算符写法进行调用时，<strong>重载的运算符</strong>均<strong>遵循</strong>其所重载的<strong>内建运算符</strong>的<strong>定序规则</strong></p>
+<li><p>C++17 起，用运算符写法进行调用时，<strong>重载的运算符</strong>均<strong>遵循</strong>其所重载的<strong>内建运算符</strong>的<strong>定序规则</strong></p>
 </li>
-<li><p>C++17起，下标表达式 <code>E1[E2]</code> 中，<strong>E1 <strong>的</strong>值计算和副作用</strong>均按顺序早于(<em>sequenced before</em>) E2 的<strong>值计算和副作用</strong>，如<code>a[i++][i++] = 1;</code>在C++17之前可能是<code>a[0][1] = 1</code>也可能是<code>a[1][0]</code>；但是从C++17起是确定的</p>
+<li><p>C++17 起，下标表达式 <code>E1[E2]</code> 中，<strong>E1 <strong>的</strong>值计算和副作用</strong>均按顺序早于 (<em>sequenced before</em>) E2 的<strong>值计算和副作用</strong>，如 <code>a[i++][i++] = 1;</code> 在 C++17 之前可能是 <code>a[0][1] = 1</code> 也可能是 <code>a[1][0]</code>；但是从 C++17 起是确定的</p>
 </li>
-<li><p>C++17起，成员指针表达式 <code>E1.*E2</code> 或 <code>E1-&gt;*E2</code> 中，<strong>E1</strong> 的<strong>值计算和副作用</strong>都按顺序早于(<em>sequenced before</em>)  <strong>E2</strong> 的<strong>值计算和副作用</strong></p>
+<li><p>C++17 起，成员指针表达式 <code>E1.*E2</code> 或 <code>E1-&gt;*E2</code> 中，<strong>E1</strong> 的<strong>值计算和副作用</strong>都按顺序早于 (<em>sequenced before</em>)  <strong>E2</strong> 的<strong>值计算和副作用</strong></p>
 </li>
-<li><p>C++17起，<strong>移位运算符</strong>表达式 <code>E1&lt;&lt;E2</code> 和 <code>E1&gt;&gt;E2</code> 中，<strong>E1</strong> 的<strong>值计算和副作用</strong>都按顺序早于(<em>sequenced before</em>)   <strong>E2</strong> 的<strong>值计算和副作用</strong>，比如<code>i++ &lt;&lt; i</code>;</p>
+<li><p>C++17 起，<strong>移位运算符</strong>表达式 <code>E1&lt;&lt;E2</code> 和 <code>E1&gt;&gt;E2</code> 中，<strong>E1</strong> 的<strong>值计算和副作用</strong>都按顺序早于 (<em>sequenced before</em>)   <strong>E2</strong> 的<strong>值计算和副作用</strong>，比如 <code>i++ &lt;&lt; i</code>;</p>
 </li>
-<li><p>C++17起，<strong>赋值运算符</strong> <code>E1=E2</code> 和<strong>复合赋值运算符</strong> <code>E1@=E2</code> 中，<strong>E2</strong> 的<strong>值计算和副作用</strong>均按顺序早于(<em>sequenced before</em>) <strong>E1</strong> 的<strong>值计算和副作用</strong>，比如<code>i = i++ + 2; </code></p>
+<li><p>C++17 起，<strong>赋值运算符</strong> <code>E1=E2</code> 和<strong>复合赋值运算符</strong> <code>E1@=E2</code> 中，<strong>E2</strong> 的<strong>值计算和副作用</strong>均按顺序早于 (<em>sequenced before</em>) <strong>E1</strong> 的<strong>值计算和副作用</strong>，比如 <code>i = i++ + 2; </code></p>
 </li>
-<li><p><strong>C++17起，带括号的初始化器</strong>中的<strong>逗号分隔的每个表达式</strong>，如同函数调用一般求值，是顺序不确定的(<em>indeterminately sequenced</em>)，比如<code>(i++, i++, i++, i++)</code>是不确定的</p>
+<li><p><strong>C++17 起，带括号的初始化器</strong>中的<strong>逗号分隔的每个表达式</strong>，如同函数调用一般求值，是顺序不确定的 (<em>indeterminately sequenced</em>)，比如 <code>(i++, i++, i++, i++)</code> 是不确定的</p>
 </li>
 </ol>
 </li>
 <li><p>未定义行为</p>
 <blockquote>
 <p>若标量对象上的一项副作用相对于同一标量对象上的另一副作用为无顺序，则其行为未定义</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">i = ++i + <span class="number">2</span>;       <span class="comment">// C++11 前为未定义行为(rule5, 自增先于值计算，rule9，左右参数值计算先于左值副作用)</span></span><br><span class="line">i = i++ + <span class="number">2</span>;       <span class="comment">// C++17 前为未定义行为(rule19, 右值副作用早于左值)</span></span><br><span class="line"><span class="built_in">f</span>(i = <span class="number">-2</span>, i = <span class="number">-2</span>); <span class="comment">// C++17 前为未定义行为(rule14)</span></span><br><span class="line"><span class="built_in">f</span>(++i, ++i);       <span class="comment">// C++17 前为未定义行为，C++17 起为未指明，可以是f(0,1)也可以是f(1,0)(rule14)</span></span><br><span class="line">i = ++i + i++;     <span class="comment">// 未定义行为(rule2, 仅仅规定了操作数和运算结果的关系，没有规定运算数之间的关系)</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">i = ++i + <span class="number">2</span>;       <span class="comment">// C++11 前为未定义行为(rule5, 自增先于值计算，rule9，左右参数值计算先于左值副作用)</span></span><br><span class="line">i = i++ + <span class="number">2</span>;       <span class="comment">// C++17 前为未定义行为(rule19, 右值副作用早于左值)</span></span><br><span class="line"><span class="built_in">f</span>(i = <span class="number">-2</span>, i = <span class="number">-2</span>); <span class="comment">// C++17 前为未定义行为(rule14)</span></span><br><span class="line"><span class="built_in">f</span>(++i, ++i);       <span class="comment">// C++17 前为未定义行为，C++17 起为未指明，可以是f(0,1)也可以是f(1,0)(rule14)</span></span><br><span class="line">i = ++i + i++;     <span class="comment">// 未定义行为(rule2, 仅仅规定了操作数和运算结果的关系，没有规定运算数之间的关系)</span></span><br></pre></td></tr></tbody></table></figure>
 
 <p>若标量对象上的副作用相对于使用同一标量对象的值的值计算为无顺序，则其行为未定义</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cout &lt;&lt; i &lt;&lt; i++; <span class="comment">// C++17 前为未定义行为(rule13)</span></span><br><span class="line">a[i] = i++;       <span class="comment">// C++17 前为未定义行为(rule19)</span></span><br><span class="line">n = ++i + i;      <span class="comment">// 未定义行为(rule2, 仅仅规定了操作数和运算结果的关系，没有规定运算数之间的关系)</span></span><br></pre></td></tr></table></figure></blockquote>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cout &lt;&lt; i &lt;&lt; i++; <span class="comment">// C++17 前为未定义行为(rule13)</span></span><br><span class="line">a[i] = i++;       <span class="comment">// C++17 前为未定义行为(rule19)</span></span><br><span class="line">n = ++i + i;      <span class="comment">// 未定义行为(rule2, 仅仅规定了操作数和运算结果的关系，没有规定运算数之间的关系)</span></span><br></pre></td></tr></tbody></table></figure></blockquote>
 </li>
 </ul>
 </li>
 </ul>
 <h3 id="Common-Operators"><a href="#Common-Operators" class="headerlink" title="Common Operators"></a>Common Operators</h3><ul>
-<li><h4 id="算术运算符"><a href="#算术运算符" class="headerlink" title="算术运算符"></a><strong>算术运算符</strong></h4><p>  算术运算符的结果是<strong>右值</strong>，包含一元<code>+(pos)</code> <code>-(neg)</code>，二元<code>+</code> <code>-</code> <code>*</code>  <code>/</code> <code>%</code>；</p>
+<li><h4 id="算术运算符"><a href="#算术运算符" class="headerlink" title="算术运算符"></a><strong>算术运算符</strong></h4><p>  算术运算符的结果是<strong>右值</strong>，包含一元 <code>+(pos)</code> <code>-(neg)</code>，二元 <code>+</code> <code>-</code> <code>*</code>  <code>/</code> <code>%</code>；</p>
 <ul>
-<li><p>C++11规定商一律向0取整，即丢弃小数；</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">std::cout &lt;&lt; <span class="string">&quot;2/2: &quot;</span> &lt;&lt; <span class="number">2</span>/<span class="number">2</span> &lt;&lt; std::endl;         <span class="comment">// 1</span></span><br><span class="line">std::cout &lt;&lt; <span class="string">&quot;1/2: &quot;</span> &lt;&lt; <span class="number">1</span>/<span class="number">2</span> &lt;&lt; std::endl;         <span class="comment">// 0</span></span><br><span class="line">std::cout &lt;&lt; <span class="string">&quot;-1/2: &quot;</span> &lt;&lt; <span class="number">-1</span>/<span class="number">2</span> &lt;&lt; std::endl;       <span class="comment">// 0</span></span><br><span class="line">std::cout &lt;&lt; <span class="string">&quot;-2/2: &quot;</span> &lt;&lt; <span class="number">-2</span>/<span class="number">2</span> &lt;&lt; std::endl;       <span class="comment">// -1</span></span><br></pre></td></tr></table></figure>
+<li><p>C++11 规定商一律向 0 取整，即丢弃小数；</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">std::cout &lt;&lt; <span class="string">"2/2: "</span> &lt;&lt; <span class="number">2</span>/<span class="number">2</span> &lt;&lt; std::endl;         <span class="comment">// 1</span></span><br><span class="line">std::cout &lt;&lt; <span class="string">"1/2: "</span> &lt;&lt; <span class="number">1</span>/<span class="number">2</span> &lt;&lt; std::endl;         <span class="comment">// 0</span></span><br><span class="line">std::cout &lt;&lt; <span class="string">"-1/2: "</span> &lt;&lt; <span class="number">-1</span>/<span class="number">2</span> &lt;&lt; std::endl;       <span class="comment">// 0</span></span><br><span class="line">std::cout &lt;&lt; <span class="string">"-2/2: "</span> &lt;&lt; <span class="number">-2</span>/<span class="number">2</span> &lt;&lt; std::endl;       <span class="comment">// -1</span></span><br></pre></td></tr></tbody></table></figure>
 </li>
-<li><p>C++11规定<code>取余或者取模</code>运算：<code>m%n</code>，如果m n均为整数且n不为0，则它的符号与m相同</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">21</span> % <span class="number">6</span>;         <span class="comment">// 21-3*6=3</span></span><br><span class="line"><span class="number">21</span> % <span class="number">7</span>;         <span class="comment">// 21-3*7=0</span></span><br><span class="line"><span class="number">-21</span> % <span class="number">8</span>;        <span class="comment">// -21-(-2*8)=-5</span></span><br><span class="line"><span class="number">21</span> % <span class="number">-5</span>;        <span class="comment">// 21-(-5*-4)=1</span></span><br></pre></td></tr></table></figure></li>
+<li><p>C++11 规定<code>取余或者取模</code>运算：<code>m%n</code>，如果 m n 均为整数且 n 不为 0，则它的符号与 m 相同</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">21</span> % <span class="number">6</span>;         <span class="comment">// 21-3*6=3</span></span><br><span class="line"><span class="number">21</span> % <span class="number">7</span>;         <span class="comment">// 21-3*7=0</span></span><br><span class="line"><span class="number">-21</span> % <span class="number">8</span>;        <span class="comment">// -21-(-2*8)=-5</span></span><br><span class="line"><span class="number">21</span> % <span class="number">-5</span>;        <span class="comment">// 21-(-5*-4)=1</span></span><br></pre></td></tr></tbody></table></figure></li>
 </ul>
 </li>
 <li><h4 id="逻辑关系运算符"><a href="#逻辑关系运算符" class="headerlink" title="逻辑关系运算符"></a><strong>逻辑关系运算符</strong></h4><ul>
@@ -431,46 +408,46 @@
 </li>
 <li><h4 id="赋值运算符"><a href="#赋值运算符" class="headerlink" title="赋值运算符"></a><strong>赋值运算符</strong></h4><ul>
 <li><p>赋值运算符返回的是左侧对象，所以可以有多重赋值语句，例如:</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> ival, jval;</span><br><span class="line">ival = jval = <span class="number">1</span>;   <span class="comment">//jval=1将返回jval，于是ival == jval == 1</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> ival, jval;</span><br><span class="line">ival = jval = <span class="number">1</span>;   <span class="comment">//jval=1将返回jval，于是ival == jval == 1</span></span><br></pre></td></tr></tbody></table></figure>
 </li>
 <li><p>赋值运算满足<strong>右结合律</strong></p>
 </li>
 <li><p><strong>赋值运算符优先级较低</strong>，所以通常需要给<strong>赋值部分加上括号</strong>使其符合我们的本意</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> i = <span class="built_in">get_value</span>();</span><br><span class="line"><span class="keyword">while</span> (i != <span class="number">42</span>)&#123;</span><br><span class="line">    i = <span class="built_in">get_value</span>();</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> i = <span class="built_in">get_value</span>();</span><br><span class="line"><span class="keyword">while</span> (i != <span class="number">42</span>){</span><br><span class="line">    i = <span class="built_in">get_value</span>();</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <p>可以简写为:</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> i = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span> ((i=<span class="built_in">get_value</span>()) != <span class="number">42</span>)&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> i = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span> ((i=<span class="built_in">get_value</span>()) != <span class="number">42</span>){</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <p>如果不加括号，就不是我们期望的结果：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> i = <span class="number">0</span>;</span><br><span class="line"><span class="comment">// first calc get_value() != 42, then assign the value to i then return i</span></span><br><span class="line"><span class="comment">// now, i != get_value() but i == true or i == false</span></span><br><span class="line"><span class="keyword">while</span> (i=<span class="built_in">get_value</span>() != <span class="number">42</span>)&#123;    </span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> i = <span class="number">0</span>;</span><br><span class="line"><span class="comment">// first calc get_value() != 42, then assign the value to i then return i</span></span><br><span class="line"><span class="comment">// now, i != get_value() but i == true or i == false</span></span><br><span class="line"><span class="keyword">while</span> (i=<span class="built_in">get_value</span>() != <span class="number">42</span>){    </span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 </li>
-<li><p>cpp11允许使用<strong>花括号括起来的初始值列表</strong>(<strong>initializer-list</strong>)作为赋值语句的右侧运算对象；</p>
-<p>初始值列表<code>&#123;&#125;</code>都可以为空，此时执行值初始化；</p>
-<p>如果左侧运算对象是内置类型，则初始值列表最多包含一个值，且该值即使转换的话其所占空间也不应大于目标类型的空间，即<strong>narrowing-checking，这样的赋值更安全</strong>；</p>
+<li><p>cpp11 允许使用<strong>花括号括起来的初始值列表</strong> (<strong>initializer-list</strong>) 作为赋值语句的右侧运算对象；</p>
+<p>初始值列表 <code>{}</code> 都可以为空，此时执行值初始化；</p>
+<p>如果左侧运算对象是内置类型，则初始值列表最多包含一个值，且该值即使转换的话其所占空间也不应大于目标类型的空间，即 <strong>narrowing-checking，这样的赋值更安全</strong>；</p>
 <p>如果左侧运算对象是类类型，则赋值的细节由类本身的拷贝赋值函数决定；</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> k = <span class="number">0</span>;</span><br><span class="line">k = &#123;<span class="number">3.14</span>&#125;;  <span class="comment">// type &#x27;double&#x27; cannot be narrowed to &#x27;int&#x27; in initializer list [-Wc++11-narrowing]</span></span><br></pre></td></tr></table></figure></li>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> k = <span class="number">0</span>;</span><br><span class="line">k = {<span class="number">3.14</span>};  <span class="comment">// type 'double' cannot be narrowed to 'int' in initializer list [-Wc++11-narrowing]</span></span><br></pre></td></tr></tbody></table></figure></li>
 </ul>
 </li>
 <li><h4 id="递增运算符"><a href="#递增运算符" class="headerlink" title="递增运算符"></a><strong>递增运算符</strong></h4><ul>
-<li><p>前置（++i）首先将运算对象+1，然后返回这个更新后的运算对象的值；</p>
+<li><p>前置（++i）首先将运算对象 + 1，然后返回这个更新后的运算对象的值；</p>
 </li>
-<li><p>后置（i++）将运算对象的值+1，但是求值结果返回的是对象b改变前的副本；</p>
+<li><p>后置（i++）将运算对象的值 + 1，但是求值结果返回的是对象 b 改变前的副本；</p>
 </li>
 <li><p><strong>前置运算</strong>作用于左值对象<strong>返回左值</strong>，但是<strong>后置运算</strong>作用于左值对象<strong>返回右值</strong>；建议养成使用前值运算的习惯；</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> i = <span class="number">1</span>;</span><br><span class="line"><span class="type">int</span> &amp;&amp;ipp = i++;</span><br><span class="line"><span class="type">int</span>&amp; ip = ++i;</span><br></pre></td></tr></table></figure></li>
-<li><p>如果需要使用递增或者递减<strong>之前的值</strong>，则使用<strong>后置递增递减</strong>，如<em>iter++;</em></p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> i = <span class="number">1</span>;</span><br><span class="line"><span class="type">int</span> &amp;&amp;ipp = i++;</span><br><span class="line"><span class="type">int</span>&amp; ip = ++i;</span><br></pre></td></tr></tbody></table></figure></li>
+<li><p>如果需要使用递增或者递减<strong>之前的值</strong>，则使用<strong>后置递增递减</strong>，如 <em>iter++;</em></p>
 </li>
 </ul>
 </li>
-<li><h4 id="箭头-x2F-点运算符"><a href="#箭头-x2F-点运算符" class="headerlink" title="箭头&#x2F;点运算符"></a><strong>箭头&#x2F;点运算符</strong></h4><p>  <strong>箭头运算符</strong>作用于一个指针的类型，结果是<strong>左值</strong>；<strong>点运算符</strong>可能返回<strong>左值</strong>也可能返回<strong>右值</strong>；</p>
-<p>  箭头运算符(<code>-&gt;</code>)，相当于先解引用，然后调用点运算符( <code>.</code> )，即:</p>
-  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ptr-&gt;a;</span><br><span class="line"><span class="comment">// similar to </span></span><br><span class="line">(*ptr).a;</span><br></pre></td></tr></table></figure>
+<li><h4 id="箭头-x2F-点运算符"><a href="#箭头-x2F-点运算符" class="headerlink" title="箭头/点运算符"></a><strong>箭头 / 点运算符</strong></h4><p>  <strong>箭头运算符</strong>作用于一个指针的类型，结果是<strong>左值</strong>；<strong>点运算符</strong>可能返回<strong>左值</strong>也可能返回<strong>右值</strong>；</p>
+<p>  箭头运算符 (<code>-&gt;</code>)，相当于先解引用，然后调用点运算符 ( <code>.</code> )，即:</p>
+  <figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ptr-&gt;a;</span><br><span class="line"><span class="comment">// similar to </span></span><br><span class="line">(*ptr).a;</span><br></pre></td></tr></tbody></table></figure>
 </li>
 <li><h4 id="条件运算符"><a href="#条件运算符" class="headerlink" title="条件运算符"></a><strong>条件运算符</strong></h4><p>  条件运算符的<strong>优先级很低</strong>，在很长的表达式中嵌套条件运算子表达式的时候一般<strong>要加上括号</strong></p>
-  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">std::cout &lt;&lt; ((grade &lt; <span class="number">60</span>) ? : <span class="string">&quot;fail&quot;</span> : <span class="string">&quot;pass&quot;</span>);    <span class="comment">// pass or fail</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// warning: operator &#x27;?:&#x27; has lower precedence than &#x27;&lt;&lt;&#x27;; &#x27;&lt;&lt;&#x27; will be evaluated first [-Wparentheses]</span></span><br><span class="line">std::cout &lt;&lt; (grade &lt; <span class="number">60</span>) ? : <span class="string">&quot;fail&quot;</span> : <span class="string">&quot;pass&quot;</span>;      <span class="comment">// 1 or 0</span></span><br><span class="line"></span><br><span class="line">std::cout &lt;&lt; grade &lt; <span class="number">60</span> ? : <span class="string">&quot;fail&quot;</span> : <span class="string">&quot;pass&quot;</span>;        <span class="comment">// error, compare std::cout with 60</span></span><br></pre></td></tr></table></figure>
+  <figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">std::cout &lt;&lt; ((grade &lt; <span class="number">60</span>) ? : <span class="string">"fail"</span> : <span class="string">"pass"</span>);    <span class="comment">// pass or fail</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// warning: operator '?:' has lower precedence than '&lt;&lt;'; '&lt;&lt;' will be evaluated first [-Wparentheses]</span></span><br><span class="line">std::cout &lt;&lt; (grade &lt; <span class="number">60</span>) ? : <span class="string">"fail"</span> : <span class="string">"pass"</span>;      <span class="comment">// 1 or 0</span></span><br><span class="line"></span><br><span class="line">std::cout &lt;&lt; grade &lt; <span class="number">60</span> ? : <span class="string">"fail"</span> : <span class="string">"pass"</span>;        <span class="comment">// error, compare std::cout with 60</span></span><br></pre></td></tr></tbody></table></figure>
 </li>
 <li><h4 id="位运算符"><a href="#位运算符" class="headerlink" title="位运算符"></a><strong>位运算符</strong></h4><ul>
-<li><p>位运算符作用于整数将整数看作二进制位的集合，所以位运算符同样可以应用于<code>std::bitset</code></p>
+<li><p>位运算符作用于整数将整数看作二进制位的集合，所以位运算符同样可以应用于 <code>std::bitset</code></p>
 </li>
 <li><p>符号位怎么处理没有明确的定义，所以建议只在<strong>无符号整数上使用位运算</strong>；</p>
 </li>
@@ -479,146 +456,146 @@
 <li><p>注意区分位运算符和逻辑运算符，比如 <code>&amp;</code> vs <code>&amp;&amp;</code>;</p>
 </li>
 <li><p>判断一个数是奇数还是偶数，可以通过两种方法来判断；</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (s % <span class="number">2</span> == <span class="number">1</span>)&#123;&#125;;</span><br><span class="line"><span class="comment">// equal to</span></span><br><span class="line"><span class="keyword">if</span> (s &amp; <span class="number">0x01</span>) &#123;&#125;; </span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (s % <span class="number">2</span> == <span class="number">1</span>){};</span><br><span class="line"><span class="comment">// equal to</span></span><br><span class="line"><span class="keyword">if</span> (s &amp; <span class="number">0x01</span>) {}; </span><br></pre></td></tr></tbody></table></figure>
 </li>
 <li><p>数的分类</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">数：实数、虚数；</span><br><span class="line">实数分类：有理数、无理数；</span><br><span class="line">有理数分类：整数、小数；</span><br><span class="line">整数分类：正整数、负整数；</span><br><span class="line">正整数分类：奇数、偶数。 </span><br></pre></td></tr></table></figure></li>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">数：实数、虚数；</span><br><span class="line">实数分类：有理数、无理数；</span><br><span class="line">有理数分类：整数、小数；</span><br><span class="line">整数分类：正整数、负整数；</span><br><span class="line">正整数分类：奇数、偶数。 </span><br></pre></td></tr></tbody></table></figure></li>
 </ul>
 </li>
 <li><h4 id="sizeof-运算符"><a href="#sizeof-运算符" class="headerlink" title="sizeof 运算符"></a><strong>sizeof 运算符</strong></h4><ul>
 <li><p>运算对象有两种形式：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sizeof</span> (type);        <span class="comment">// return byte</span></span><br><span class="line"><span class="built_in">sizeof</span> (expr);        <span class="comment">// 返回表达式结果类型的大小，并不实际计算表达式的值，即使是空指针</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sizeof</span> (type);        <span class="comment">// return byte</span></span><br><span class="line"><span class="built_in">sizeof</span> (expr);        <span class="comment">// 返回表达式结果类型的大小，并不实际计算表达式的值，即使是空指针</span></span><br></pre></td></tr></tbody></table></figure>
 </li>
-<li><p>sizeof运算符的结果：</p>
+<li><p>sizeof 运算符的结果：</p>
 <ul>
-<li>对char或者类型为char的表达式返回1；</li>
-<li>sizeof对引用返回的是引用的对象的大小；</li>
+<li>对 char 或者类型为 char 的表达式返回 1；</li>
+<li>sizeof 对引用返回的是引用的对象的大小；</li>
 <li>对指针返回的是指针的大小；</li>
 <li>对解引用返回的是指针指向的对象的大小，无需指针有效；</li>
-<li>对数组的返回相当于把数组里面的每个元素都执行了sizeof，不会把数组当作指针看待；</li>
+<li>对数组的返回相当于把数组里面的每个元素都执行了 sizeof，不会把数组当作指针看待；</li>
 </ul>
 </li>
-<li><p>sizeof的返回值是constexpr,所以可以用sizeof的结果声明数组的维度；sizeof返回的单位是byte；</p>
-  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sizeof</span>(ia);        <span class="comment">// 数组所占byte数</span></span><br><span class="line"><span class="built_in">sizeof</span>(*ia);       <span class="comment">// 数组第一个成员所占byte数</span></span><br><span class="line"><span class="keyword">constexpr</span> <span class="type">int</span> sz = <span class="built_in">sizeof</span>(ia) / <span class="built_in">sizeof</span>(*ia);     <span class="comment">// return array size</span></span><br></pre></td></tr></table></figure></li>
+<li><p>sizeof 的返回值是 constexpr, 所以可以用 sizeof 的结果声明数组的维度；sizeof 返回的单位是 byte；</p>
+  <figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sizeof</span>(ia);        <span class="comment">// 数组所占byte数</span></span><br><span class="line"><span class="built_in">sizeof</span>(*ia);       <span class="comment">// 数组第一个成员所占byte数</span></span><br><span class="line"><span class="keyword">constexpr</span> <span class="type">int</span> sz = <span class="built_in">sizeof</span>(ia) / <span class="built_in">sizeof</span>(*ia);     <span class="comment">// return array size</span></span><br></pre></td></tr></tbody></table></figure></li>
 </ul>
 </li>
 <li><h4 id="逗号运算符"><a href="#逗号运算符" class="headerlink" title="逗号运算符"></a><strong>逗号运算符</strong></h4><p>  运算顺序理解：首先将左侧的表达式求值，然后将左侧的值舍弃；逗号运算符的返回结果是逗号右侧的值</p>
-  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a = someVale ? —x, —y : ++x, ++y;</span><br></pre></td></tr></table></figure></li>
+  <figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a = someVale ? —x, —y : ++x, ++y;</span><br></pre></td></tr></tbody></table></figure></li>
 </ul>
 <h3 id="Implicit-Conversion"><a href="#Implicit-Conversion" class="headerlink" title="Implicit Conversion"></a>Implicit Conversion</h3><ul>
 <li><h4 id="算术隐形转换"><a href="#算术隐形转换" class="headerlink" title="算术隐形转换"></a>算术隐形转换</h4><ul>
 <li><h5 id="整数提升"><a href="#整数提升" class="headerlink" title="整数提升"></a>整数提升</h5><p>  负责将小类型数据转换为大类型数据</p>
-  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="type">char</span> b = <span class="number">2</span>;</span><br><span class="line"><span class="type">short</span> c = <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">auto</span> d = a + b;            <span class="comment">// integral promotion, char is promoted to int</span></span><br><span class="line"><span class="keyword">auto</span> e = a + c;            <span class="comment">// integral promotion, short is promoted to int</span></span><br></pre></td></tr></table></figure>
+  <figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="type">char</span> b = <span class="number">2</span>;</span><br><span class="line"><span class="type">short</span> c = <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">auto</span> d = a + b;            <span class="comment">// integral promotion, char is promoted to int</span></span><br><span class="line"><span class="keyword">auto</span> e = a + c;            <span class="comment">// integral promotion, short is promoted to int</span></span><br></pre></td></tr></tbody></table></figure>
 </li>
 <li><h5 id="无符号类型的隐形转换"><a href="#无符号类型的隐形转换" class="headerlink" title="无符号类型的隐形转换"></a>无符号类型的隐形转换</h5><ul>
 <li><p>如果两个运算符的运算对象类型不一致，首先进行的就是整数提升；</p>
 </li>
 <li><p>如果运算符的两个运算对象符号不同，无符号类型不小于有符号的，则有符号的转换为无符号的类型</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="type">unsigned</span> b = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">auto</span> c = a + b;            <span class="comment">// c is unsigned, b is implicitly converted to unsigned</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="type">unsigned</span> b = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">auto</span> c = a + b;            <span class="comment">// c is unsigned, b is implicitly converted to unsigned</span></span><br></pre></td></tr></tbody></table></figure>
 </li>
 <li><p>如果有符号的运算符类型更大，此时如果有符号类型可以存的下无符号类型，则无符号转成有符号，反之亦反；</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="type">unsigned</span> <span class="type">char</span> b = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">auto</span> c = a + b;            <span class="comment">// c is int, range of unsigned char is larger than range of int</span></span><br><span class="line"></span><br><span class="line"><span class="type">long</span> d = <span class="number">1</span>;</span><br><span class="line"><span class="type">unsigned</span> <span class="type">int</span> e = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">auto</span> f = d + e;            <span class="comment">// f is long, range of unsigned int is larger than range of long</span></span><br></pre></td></tr></table></figure></li>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="type">unsigned</span> <span class="type">char</span> b = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">auto</span> c = a + b;            <span class="comment">// c is int, range of unsigned char is larger than range of int</span></span><br><span class="line"></span><br><span class="line"><span class="type">long</span> d = <span class="number">1</span>;</span><br><span class="line"><span class="type">unsigned</span> <span class="type">int</span> e = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">auto</span> f = d + e;            <span class="comment">// f is long, range of unsigned int is larger than range of long</span></span><br></pre></td></tr></tbody></table></figure></li>
 </ul>
 </li>
 </ul>
 </li>
 <li><h4 id="其他隐形转换"><a href="#其他隐形转换" class="headerlink" title="其他隐形转换"></a>其他隐形转换</h4><ul>
-<li>数组转换为指针，但是除了decltype、sizeof、typeid、&amp;等运算符</li>
+<li>数组转换为指针，但是除了 decltype、sizeof、typeid、&amp; 等运算符</li>
 <li>指针转换：<ul>
-<li>0 和 nullptr转换成任意指针类型</li>
-<li>任意非常量指针可以转换为void*</li>
-<li>任意非常量指针转换为const void*</li>
+<li>0 和 nullptr 转换成任意指针类型</li>
+<li>任意非常量指针可以转换为 void*</li>
+<li> 任意非常量指针转换为 const void*</li>
 </ul>
 </li>
-<li>布尔类型：算术类型或指针类型自动向布尔类型转换</li>
-<li>常量：任意底层非常量类型可以转换为常量类型(<em>non-const to low level const</em>)</li>
-<li>类类型的转换</li>
+<li> 布尔类型：算术类型或指针类型自动向布尔类型转换</li>
+<li>常量：任意底层非常量类型可以转换为常量类型 (<em>non-const to low level const</em>)</li>
+<li> 类类型的转换</li>
 <li>字符串常量到字符串的转换</li>
 </ul>
 </li>
 </ul>
 <h3 id="Explicit-Conversion"><a href="#Explicit-Conversion" class="headerlink" title="Explicit Conversion"></a>Explicit Conversion</h3><ul>
 <li><p>显式类型转换</p>
-<p>主要包括<code>static_cast</code>， <code>dynamic_cast</code>，<code>const_cast</code>，<code>reinterpret_cast</code>几种类型；</p>
+<p>主要包括 <code>static_cast</code>， <code>dynamic_cast</code>，<code>const_cast</code>，<code>reinterpret_cast</code> 几种类型；</p>
 </li>
-<li><h4 id="static-cast"><a href="#static-cast" class="headerlink" title="static_cast"></a>static_cast</h4><p>任何具有明确定义的类型转化，只要不包含底层const(去掉底层const)，都可以使用static_cast，特别是把一个大的类型转换为小的类型，比如将派生类转换为基类；</p>
-<p>也可以转化编译器无法自动执行的类型转化，比如找回void*地址的值</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> *p = &amp;d; </span><br><span class="line"><span class="type">double</span> *dp = <span class="built_in">static_cast</span>&lt;<span class="type">double</span>*&gt;(p);</span><br></pre></td></tr></table></figure>
+<li><h4 id="static-cast"><a href="#static-cast" class="headerlink" title="static_cast"></a>static_cast</h4><p>任何具有明确定义的类型转化，只要不包含底层 const (去掉底层 const)，都可以使用 static_cast，特别是把一个大的类型转换为小的类型，比如将派生类转换为基类；</p>
+<p>也可以转化编译器无法自动执行的类型转化，比如找回 void * 地址的值</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> *p = &amp;d; </span><br><span class="line"><span class="type">double</span> *dp = <span class="built_in">static_cast</span>&lt;<span class="type">double</span>*&gt;(p);</span><br></pre></td></tr></tbody></table></figure>
 </li>
-<li><h4 id="dynamic-cast"><a href="#dynamic-cast" class="headerlink" title="dynamic_cast"></a>dynamic_cast</h4><p>用于将基类的指针或者引用安全地转换为派生类的指针或引用或者将派生类的指针或者引用安全地转换为基类的指针和引用，后者的功能和static_cast相同；<strong>一般要求基类需要有虚函数</strong>；有以下形式；</p>
+<li><h4 id="dynamic-cast"><a href="#dynamic-cast" class="headerlink" title="dynamic_cast"></a>dynamic_cast</h4><p>用于将基类的指针或者引用安全地转换为派生类的指针或引用或者将派生类的指针或者引用安全地转换为基类的指针和引用，后者的功能和 static_cast 相同；<strong>一般要求基类需要有虚函数</strong>；有以下形式；</p>
 <blockquote>
 <p>因为对于派生类的引用或者指针可以隐式转换为基类的引用和指针，所以在不能使用虚函数的时候（因为虚函数会动态绑定），是存在需求将基类的引用或指针转化为派生类的引用或指针然后调用派生类的方法的；</p>
 </blockquote>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">dynamic_cast</span>&lt;Type *&gt;(e);</span><br><span class="line"><span class="built_in">dynamic_cast</span>&lt;Type &amp;&gt;(e);</span><br><span class="line"><span class="built_in">dynamic_cast</span>&lt;Type &amp;&amp;&gt;(e);</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">dynamic_cast</span>&lt;Type *&gt;(e);</span><br><span class="line"><span class="built_in">dynamic_cast</span>&lt;Type &amp;&gt;(e);</span><br><span class="line"><span class="built_in">dynamic_cast</span>&lt;Type &amp;&amp;&gt;(e);</span><br></pre></td></tr></tbody></table></figure>
 
-<p>e的形式是以下三种情况之一，才会转换成功，否则会转换失败：</p>
+<p>e 的形式是以下三种情况之一，才会转换成功，否则会转换失败：</p>
 <blockquote>
-<p>e是Type的公有派生类</p>
-<p>e是Type的公有基类</p>
-<p>e和Type类型一致</p>
+<p>e 是 Type 的公有派生类</p>
+<p>e 是 Type 的公有基类</p>
+<p>e 和 Type 类型一致</p>
 </blockquote>
-<p>如果<strong>转换指针类型失败</strong>，会返回<code>0</code></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(Derived* dp = <span class="built_in">dynamic_cast</span>&lt;Derived&gt;(base_pt))&#123;   <span class="comment">// 可以确保类型转换和结果检查在一条语句完成</span></span><br><span class="line">    <span class="comment">// use dp as Derived*</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="comment">// use dp as base_pt</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果<strong>转换指针类型失败</strong>，会返回 <code>0</code></p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(Derived* dp = <span class="built_in">dynamic_cast</span>&lt;Derived&gt;(base_pt)){   <span class="comment">// 可以确保类型转换和结果检查在一条语句完成</span></span><br><span class="line">    <span class="comment">// use dp as Derived*</span></span><br><span class="line">}</span><br><span class="line"><span class="keyword">else</span>{</span><br><span class="line">    <span class="comment">// use dp as base_pt</span></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
-<p>如果<strong>转换引用类型失败</strong>，会返回<strong>bad_cast</strong>异常</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">f</span><span class="params">(<span class="type">const</span> Base&amp; b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">        <span class="comment">// use d as Derived&amp;</span></span><br><span class="line">        <span class="type">const</span> Derived&amp; d = <span class="built_in">dynamic_cast</span>&lt;<span class="type">const</span> Derived &amp;&gt;(b);</span><br><span class="line">    &#125;<span class="built_in">catch</span>(std::bad_cast)&#123;</span><br><span class="line">        <span class="comment">// use b as Base</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果<strong>转换引用类型失败</strong>，会返回 <strong>bad_cast</strong> 异常</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">f</span><span class="params">(<span class="type">const</span> Base&amp; b)</span></span>{</span><br><span class="line">    <span class="keyword">try</span>{</span><br><span class="line">        <span class="comment">// use d as Derived&amp;</span></span><br><span class="line">        <span class="type">const</span> Derived&amp; d = <span class="built_in">dynamic_cast</span>&lt;<span class="type">const</span> Derived &amp;&gt;(b);</span><br><span class="line">    }<span class="built_in">catch</span>(std::bad_cast){</span><br><span class="line">        <span class="comment">// use b as Base</span></span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
-<p><strong>dynamic_cast主要用于类层次间的上行转换和下行转换</strong></p>
-<p>在类层次间进行上行转换时，dynamic_cast和static_cast的效果是一样的；在进行下行转换时，dynamic_cast具有类型检查的功能，比static_cast更安全</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Base</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">int</span> m_iNum;</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">foo</span><span class="params">()</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Derived</span>:<span class="keyword">public</span> Base &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">char</span> *m_szName[<span class="number">100</span>];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">func</span><span class="params">(Base *pb)</span></span>&#123;</span><br><span class="line">    Derived *pd1 = <span class="built_in">static_cast</span>&lt;Derived *&gt;(pb);</span><br><span class="line">    Derived *pd2 = <span class="built_in">dynamic_cast</span>&lt;Derived *&gt;(pb);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>dynamic_cast 主要用于类层次间的上行转换和下行转换</strong></p>
+<p>在类层次间进行上行转换时，dynamic_cast 和 static_cast 的效果是一样的；在进行下行转换时，dynamic_cast 具有类型检查的功能，比 static_cast 更安全</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Base</span> {</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">int</span> m_iNum;</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">foo</span><span class="params">()</span></span>;</span><br><span class="line">};</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Derived</span>:<span class="keyword">public</span> Base {</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">char</span> *m_szName[<span class="number">100</span>];</span><br><span class="line">};</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">func</span><span class="params">(Base *pb)</span></span>{</span><br><span class="line">    Derived *pd1 = <span class="built_in">static_cast</span>&lt;Derived *&gt;(pb);</span><br><span class="line">    Derived *pd2 = <span class="built_in">dynamic_cast</span>&lt;Derived *&gt;(pb);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <blockquote>
-<p>在上面的代码段中，<br>如果pb实际指向一个Derived类型的对象，pd1和pd2是一样的，并且对这两个指针执行Derived类型的任何操作都是安全的；<br>如果pb实际指向的是一个Base类型的对象，那么pd1将是一个指向该对象的指针，对它进行Derived类型的操作将是不安全的（如访问m_szName），而pd2将是一个空指针(即0，因为dynamic_cast失败)。</p>
+<p>在上面的代码段中，<br>如果 pb 实际指向一个 Derived 类型的对象，pd1 和 pd2 是一样的，并且对这两个指针执行 Derived 类型的任何操作都是安全的；<br>如果 pb 实际指向的是一个 Base 类型的对象，那么 pd1 将是一个指向该对象的指针，对它进行 Derived 类型的操作将是不安全的（如访问 m_szName），而 pd2 将是一个空指针 (即 0，因为 dynamic_cast 失败)。</p>
 </blockquote>
-<p><strong>dynamic_cast还可以用于类之间的交叉转换</strong>，即可以在继承于同一基类的兄弟派生类间转换（虽然会失败）但是static_cast不可以</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Base</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">int</span> m_iNum;</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">f</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Derived1</span> : <span class="keyword">public</span> Base&#123;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Derived2</span> : <span class="keyword">public</span> Base&#123;</span><br><span class="line">&#125;;</span><br><span class="line">    </span><br><span class="line">Derived1 *pd1 = <span class="keyword">new</span> Drived1;</span><br><span class="line">pd1-&gt;m_iNum = <span class="number">100</span>;</span><br><span class="line"></span><br><span class="line">Derived2 *pd2s = <span class="built_in">static_cast</span>&lt;Derived2 *&gt;(pd1);         <span class="comment">//compile error</span></span><br><span class="line">Derived2 *pd2d = <span class="built_in">dynamic_cast</span>&lt;Derived2 *&gt;(pd1);        <span class="comment">//pd2d is NULL 0x0</span></span><br></pre></td></tr></table></figure>
+<p><strong>dynamic_cast 还可以用于类之间的交叉转换</strong>，即可以在继承于同一基类的兄弟派生类间转换（虽然会失败）但是 static_cast 不可以</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Base</span> {</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">int</span> m_iNum;</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">f</span><span class="params">()</span></span>{}</span><br><span class="line">};</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Derived1</span> : <span class="keyword">public</span> Base{</span><br><span class="line">};</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Derived2</span> : <span class="keyword">public</span> Base{</span><br><span class="line">};</span><br><span class="line">    </span><br><span class="line">Derived1 *pd1 = <span class="keyword">new</span> Drived1;</span><br><span class="line">pd1-&gt;m_iNum = <span class="number">100</span>;</span><br><span class="line"></span><br><span class="line">Derived2 *pd2s = <span class="built_in">static_cast</span>&lt;Derived2 *&gt;(pd1);         <span class="comment">//compile error</span></span><br><span class="line">Derived2 *pd2d = <span class="built_in">dynamic_cast</span>&lt;Derived2 *&gt;(pd1);        <span class="comment">//pd2d is NULL 0x0</span></span><br></pre></td></tr></tbody></table></figure>
 
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">static_cast from &#x27;Derived1 *&#x27; to &#x27;Derived2 *&#x27;, which are not related by inheritance, is not allowed</span><br><span class="line">Derived2 *pd2s = static_cast&lt;Derived2 *&gt;(pd1);              //compile error</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">static_cast from 'Derived1 *' to 'Derived2 *', which are not related by inheritance, is not allowed</span><br><span class="line">Derived2 *pd2s = static_cast&lt;Derived2 *&gt;(pd1);              //compile error</span><br></pre></td></tr></tbody></table></figure>
 
-<p><strong>dynamic_cast在派生类和基类之间转化，需要基类有虚函数</strong></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Base</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">int</span> m_iNum;</span><br><span class="line">    <span class="comment">//virtual void foo();        // no virtual func</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Derived *pd2 = <span class="built_in">dynamic_cast</span>&lt;Derived *&gt;(pb);</span><br></pre></td></tr></table></figure>
+<p><strong>dynamic_cast 在派生类和基类之间转化，需要基类有虚函数</strong></p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Base</span> {</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">int</span> m_iNum;</span><br><span class="line">    <span class="comment">//virtual void foo();        // no virtual func</span></span><br><span class="line">};</span><br><span class="line"></span><br><span class="line">Derived *pd2 = <span class="built_in">dynamic_cast</span>&lt;Derived *&gt;(pb);</span><br></pre></td></tr></tbody></table></figure>
 
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">error: &#x27;Base&#x27; is not polymorphic</span><br><span class="line">Derived *pd2 = dynamic_cast&lt;Derived *&gt;(pb);</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">error: 'Base' is not polymorphic</span><br><span class="line">Derived *pd2 = dynamic_cast&lt;Derived *&gt;(pb);</span><br></pre></td></tr></tbody></table></figure>
 
 <blockquote>
-<p>Base要有虚函数，否则会编译出错；static_cast则没有这个限制。</p>
-<p>这是由于运行时类型检查需要运行时类型信息，而这个信息存储在类的虚函数表（关于虚函数表的概念，详细可见&lt;Inside c++ object model&gt;）中，只有定义了虚函数的类才有虚函数表，没有定义虚函数的类是没有虚函数表的。</p>
+<p>Base 要有虚函数，否则会编译出错；static_cast 则没有这个限制。</p>
+<p>这是由于运行时类型检查需要运行时类型信息，而这个信息存储在类的虚函数表（关于虚函数表的概念，详细可见 &lt;Inside c++ object model&gt;）中，只有定义了虚函数的类才有虚函数表，没有定义虚函数的类是没有虚函数表的。</p>
 </blockquote>
 </li>
-<li><h4 id="const-cast"><a href="#const-cast" class="headerlink" title="const_cast"></a>const_cast</h4><p>const_cast只能改变运算对象的<code>底层const</code>，即改变指向的对象是不是可以修改这个属性</p>
-<p>如果指针或者引用指向的对象本身不是常量，const_cast才是合法的；</p>
+<li><h4 id="const-cast"><a href="#const-cast" class="headerlink" title="const_cast"></a>const_cast</h4><p>const_cast 只能改变运算对象的<code>底层const</code>，即改变指向的对象是不是可以修改这个属性</p>
+<p>如果指针或者引用指向的对象本身不是常量，const_cast 才是合法的；</p>
 <p>或者他们<strong>本身是常量，但转换后不对这个变量作写操作，那么这也是合法的</strong>，比如下面第二条，则是未定义的行为；</p>
-<p>比如一个变量本身是non-const，通过中间加上const关键字，此时再从const转为non-const就可以使用const_cast;</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> value = <span class="number">1024</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> &amp;value_ref = value;          <span class="comment">// 引用, 不可改变value的值</span></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> *value_pointer = &amp;value;     <span class="comment">// 指针, 不可改变value的值</span></span><br><span class="line"><span class="type">int</span> * <span class="type">const</span> value_pointer1 = &amp;value;</span><br><span class="line"></span><br><span class="line"><span class="keyword">auto</span> r = <span class="built_in">const_cast</span>&lt;<span class="type">int</span> &amp;&gt;(value_ref);         <span class="comment">// 将value_ref从const int &amp;转换成int &amp;</span></span><br><span class="line"><span class="keyword">auto</span> p = <span class="built_in">const_cast</span>&lt;<span class="type">int</span> *&gt;(value_pointer);     <span class="comment">// 将value_ref从const int *转换成int *</span></span><br><span class="line"><span class="keyword">auto</span> p1 = <span class="built_in">const_cast</span>&lt;<span class="type">int</span> *&gt;(value_pointer1);</span><br><span class="line"></span><br><span class="line">r = <span class="number">666</span>;                <span class="comment">// valid</span></span><br><span class="line">std::cout &lt;&lt; value &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">*p = <span class="number">233</span>;               <span class="comment">// valid</span></span><br><span class="line">std::cout &lt;&lt; value &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">*p1 = <span class="number">111</span>;              <span class="comment">// valid</span></span><br><span class="line">std::cout &lt;&lt; value &lt;&lt; std::endl;</span><br></pre></td></tr></table></figure>
+<p>比如一个变量本身是 non-const，通过中间加上 const 关键字，此时再从 const 转为 non-const 就可以使用 const_cast;</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> value = <span class="number">1024</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> &amp;value_ref = value;          <span class="comment">// 引用, 不可改变value的值</span></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> *value_pointer = &amp;value;     <span class="comment">// 指针, 不可改变value的值</span></span><br><span class="line"><span class="type">int</span> * <span class="type">const</span> value_pointer1 = &amp;value;</span><br><span class="line"></span><br><span class="line"><span class="keyword">auto</span> r = <span class="built_in">const_cast</span>&lt;<span class="type">int</span> &amp;&gt;(value_ref);         <span class="comment">// 将value_ref从const int &amp;转换成int &amp;</span></span><br><span class="line"><span class="keyword">auto</span> p = <span class="built_in">const_cast</span>&lt;<span class="type">int</span> *&gt;(value_pointer);     <span class="comment">// 将value_ref从const int *转换成int *</span></span><br><span class="line"><span class="keyword">auto</span> p1 = <span class="built_in">const_cast</span>&lt;<span class="type">int</span> *&gt;(value_pointer1);</span><br><span class="line"></span><br><span class="line">r = <span class="number">666</span>;                <span class="comment">// valid</span></span><br><span class="line">std::cout &lt;&lt; value &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">*p = <span class="number">233</span>;               <span class="comment">// valid</span></span><br><span class="line">std::cout &lt;&lt; value &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">*p1 = <span class="number">111</span>;              <span class="comment">// valid</span></span><br><span class="line">std::cout &lt;&lt; value &lt;&lt; std::endl;</span><br></pre></td></tr></tbody></table></figure>
 
-<p>比如调用了一个参数不是const的函数，而我们要传进去的实际参数确实const的，但是我们知道<strong>这个函数是不会对参数做修改</strong>的，比如调用了别人的库</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// third party library</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Printer</span> <span class="params">(<span class="type">int</span>* val, std::string seperator = <span class="string">&quot;\n&quot;</span>)</span> </span>&#123;</span><br><span class="line">    std::cout &lt;&lt; val&lt;&lt; seperator &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">void</span>)</span> </span>&#123;    </span><br><span class="line">    <span class="type">const</span> <span class="type">int</span> consatant = <span class="number">20</span>;</span><br><span class="line">    <span class="comment">//Printer(consatant);       //Error: invalid conversion from &#x27;int&#x27; to &#x27;int*&#x27;</span></span><br><span class="line">    <span class="built_in">Printer</span>(<span class="built_in">const_cast</span>&lt;<span class="type">int</span> *&gt;(&amp;consatant));</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>比如调用了一个参数不是 const 的函数，而我们要传进去的实际参数确实 const 的，但是我们知道<strong>这个函数是不会对参数做修改</strong>的，比如调用了别人的库</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// third party library</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Printer</span> <span class="params">(<span class="type">int</span>* val, std::string seperator = <span class="string">"\n"</span>)</span> </span>{</span><br><span class="line">    std::cout &lt;&lt; val&lt;&lt; seperator &lt;&lt; std::endl;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">void</span>)</span> </span>{    </span><br><span class="line">    <span class="type">const</span> <span class="type">int</span> consatant = <span class="number">20</span>;</span><br><span class="line">    <span class="comment">//Printer(consatant);       //Error: invalid conversion from 'int' to 'int*'</span></span><br><span class="line">    <span class="built_in">Printer</span>(<span class="built_in">const_cast</span>&lt;<span class="type">int</span> *&gt;(&amp;consatant));</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
-<p>再比如类的const member function，对外是const的，但是保不齐内部需要修改自己的啥值，这时候可以把this指针转换为non-const的</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">type</span> &#123;</span><br><span class="line">    <span class="type">int</span> i;</span><br><span class="line"> </span><br><span class="line">    <span class="built_in">type</span>(): <span class="built_in">i</span>(<span class="number">3</span>) &#123;&#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">f</span><span class="params">(<span class="type">int</span> v)</span> <span class="type">const</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">// this-&gt;i = v;                 // compile error: this is a pointer to const</span></span><br><span class="line">        <span class="built_in">const_cast</span>&lt;type*&gt;(<span class="keyword">this</span>)-&gt;i = v; <span class="comment">// OK as long as the type object isn&#x27;t const</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>再比如类的 const member function，对外是 const 的，但是保不齐内部需要修改自己的啥值，这时候可以把 this 指针转换为 non-const 的</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">type</span> {</span><br><span class="line">    <span class="type">int</span> i;</span><br><span class="line"> </span><br><span class="line">    <span class="built_in">type</span>(): <span class="built_in">i</span>(<span class="number">3</span>) {}</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">f</span><span class="params">(<span class="type">int</span> v)</span> <span class="type">const</span></span></span><br><span class="line"><span class="function">    </span>{</span><br><span class="line">        <span class="comment">// this-&gt;i = v;                 // compile error: this is a pointer to const</span></span><br><span class="line">        <span class="built_in">const_cast</span>&lt;type*&gt;(<span class="keyword">this</span>)-&gt;i = v; <span class="comment">// OK as long as the type object isn't const</span></span><br><span class="line">    }</span><br><span class="line">};</span><br></pre></td></tr></tbody></table></figure>
 
 <p>如果他们指向的对象本身就是常量，且需要<strong>对转换后的变量作写操作</strong>，虽然编译可能会通过，但是<strong>结果未定义</strong>；</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">int</span> value = <span class="number">1024</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> &amp;value_ref = value;      <span class="comment">// 引用, 不可改变value的值</span></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> *value_pointer = &amp;value; <span class="comment">// 指针, 不可改变value的值</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">auto</span> r = <span class="built_in">const_cast</span>&lt;<span class="type">int</span> &amp;&gt;(value_ref);     <span class="comment">// 将value_ref从const int &amp;转换成int &amp;</span></span><br><span class="line"><span class="keyword">auto</span> p = <span class="built_in">const_cast</span>&lt;<span class="type">int</span> *&gt;(value_pointer); <span class="comment">// 将value_ref从const int *转换成int *</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// r = 666; // 未定义行为</span></span><br><span class="line"><span class="comment">// *p = 233; // 未定义行为</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">int</span> value = <span class="number">1024</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> &amp;value_ref = value;      <span class="comment">// 引用, 不可改变value的值</span></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> *value_pointer = &amp;value; <span class="comment">// 指针, 不可改变value的值</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">auto</span> r = <span class="built_in">const_cast</span>&lt;<span class="type">int</span> &amp;&gt;(value_ref);     <span class="comment">// 将value_ref从const int &amp;转换成int &amp;</span></span><br><span class="line"><span class="keyword">auto</span> p = <span class="built_in">const_cast</span>&lt;<span class="type">int</span> *&gt;(value_pointer); <span class="comment">// 将value_ref从const int *转换成int *</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// r = 666; // 未定义行为</span></span><br><span class="line"><span class="comment">// *p = 233; // 未定义行为</span></span><br></pre></td></tr></tbody></table></figure>
 </li>
 <li><h4 id="reinterpret-cast"><a href="#reinterpret-cast" class="headerlink" title="reinterpret_cast"></a>reinterpret_cast</h4><blockquote>
-<p>首先从英文字面的意思理解，interpret是“解释，诠释”的意思，加上前缀“re”，就是“重新诠释”的意思；cast在这里可以翻译成“转型”（在侯捷大大翻译的《深度探索C++对象模型》、《Effective C++（第三版）》中，cast都被翻译成了转型），这样整个词顺下来就是“重新诠释的转型”。我们知道变量在内存中是以“…0101…”二进制格式存储的，一个int型变量一般占用32个位（bit)</p>
+<p>首先从英文字面的意思理解，interpret 是 “解释，诠释” 的意思，加上前缀 “re”，就是 “重新诠释” 的意思；cast 在这里可以翻译成 “转型”（在侯捷大大翻译的《深度探索 C++ 对象模型》、《Effective C++（第三版）》中，cast 都被翻译成了转型），这样整个词顺下来就是 “重新诠释的转型”。我们知道变量在内存中是以 “…0101…” 二进制格式存储的，一个 int 型变量一般占用 32 个位（bit)</p>
 </blockquote>
 <p>参考下面的代码</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span>** argv)</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> num = <span class="number">0x00636261</span>;   <span class="comment">//用16进制表示32位int，0x61是字符&#x27;a&#x27;的ASCII码</span></span><br><span class="line">    <span class="type">int</span> * pnum = &amp;num;</span><br><span class="line">    <span class="type">char</span> * pstr = <span class="built_in">reinterpret_cast</span>&lt;<span class="type">char</span> *&gt;(pnum);</span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;pnum指针的值: &quot;</span>&lt;&lt;pnum&lt;&lt;endl;</span><br><span class="line">    <span class="comment">//直接输出pstr会输出其指向的字符串，这里的类型转换是为了保证输出pstr的值</span></span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;pstr指针的值: &quot;</span>&lt;&lt;<span class="built_in">static_cast</span>&lt;<span class="type">void</span> *&gt;(pstr)&lt;&lt;endl;</span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;pnum指向的内容: &quot;</span>&lt;&lt;hex&lt;&lt;*pnum&lt;&lt;endl;</span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;pstr指向的内容: &quot;</span>&lt;&lt;pstr&lt;&lt;endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// output</span></span><br><span class="line">pnum指针的值: <span class="number">0x7ff7b790f6fc</span></span><br><span class="line">pstr指针的值: <span class="number">0x7ff7b790f6fc</span></span><br><span class="line">pnum指向的内容: <span class="number">636261</span></span><br><span class="line">pstr指向的内容: abc</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span>** argv)</span></span>{</span><br><span class="line">    <span class="type">int</span> num = <span class="number">0x00636261</span>;   <span class="comment">//用16进制表示32位int，0x61是字符'a'的ASCII码</span></span><br><span class="line">    <span class="type">int</span> * pnum = &amp;num;</span><br><span class="line">    <span class="type">char</span> * pstr = <span class="built_in">reinterpret_cast</span>&lt;<span class="type">char</span> *&gt;(pnum);</span><br><span class="line">    cout&lt;&lt;<span class="string">"pnum指针的值: "</span>&lt;&lt;pnum&lt;&lt;endl;</span><br><span class="line">    <span class="comment">//直接输出pstr会输出其指向的字符串，这里的类型转换是为了保证输出pstr的值</span></span><br><span class="line">    cout&lt;&lt;<span class="string">"pstr指针的值: "</span>&lt;&lt;<span class="built_in">static_cast</span>&lt;<span class="type">void</span> *&gt;(pstr)&lt;&lt;endl;</span><br><span class="line">    cout&lt;&lt;<span class="string">"pnum指向的内容: "</span>&lt;&lt;hex&lt;&lt;*pnum&lt;&lt;endl;</span><br><span class="line">    cout&lt;&lt;<span class="string">"pstr指向的内容: "</span>&lt;&lt;pstr&lt;&lt;endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">// output</span></span><br><span class="line">pnum指针的值: <span class="number">0x7ff7b790f6fc</span></span><br><span class="line">pstr指针的值: <span class="number">0x7ff7b790f6fc</span></span><br><span class="line">pnum指向的内容: <span class="number">636261</span></span><br><span class="line">pstr指向的内容: abc</span><br></pre></td></tr></tbody></table></figure>
 
 <blockquote>
-<p>将pnum和pstr两个指针的值输出，对比发现，两个指针的值是完全相同的，这是因为<strong>“reinterpret_cast 运算符并不会改变括号中运算对象的值，而是对该对象从位模式上进行重新解释”</strong>。如何理解位模式上的重新解释呢？通过推敲代码11行和12行的输出内容，就可见一斑。</p>
-<p>很显然，按照十六进制输出pnum指向的内容，得到636261；但是输出pstr指向的内容，为什么会得到”abc”呢？</p>
-<p>在回答这个问题之前，先套用《深度探索C++对象模型》中的一段话，“一个指向字符串的指针是如何地与一个指向整数的指针或一个指向其他自定义类型对象的指针有所不同呢？从内存需求的观点来说，没有什么不同！它们三个都需要足够的内存（并且是相同大小的内存）来放置一个机器地址。指向不同类型之各指针间的差异，既不在其指针表示法不同，也不在其内容（代表一个地址）不同，而是在其所寻址出来的对象类型不同。也就是说，指针类型会教导编译器如何解释某个特定地址中的内存内容及其大小。”参考这段话和下面的内存示意图，答案已经呼之欲出了。</p>
-<img data-src="/images/blog/chapter4/ch4-reinterpret_cast.jpg" alt="ch4-reinterpret_cast" style="zoom: 33%;" />
+<p>将 pnum 和 pstr 两个指针的值输出，对比发现，两个指针的值是完全相同的，这是因为 <strong>“reinterpret_cast 运算符并不会改变括号中运算对象的值，而是对该对象从位模式上进行重新解释”</strong>。如何理解位模式上的重新解释呢？通过推敲代码 11 行和 12 行的输出内容，就可见一斑。</p>
+<p>很显然，按照十六进制输出 pnum 指向的内容，得到 636261；但是输出 pstr 指向的内容，为什么会得到”abc” 呢？</p>
+<p>在回答这个问题之前，先套用《深度探索 C++ 对象模型》中的一段话，“一个指向字符串的指针是如何地与一个指向整数的指针或一个指向其他自定义类型对象的指针有所不同呢？从内存需求的观点来说，没有什么不同！它们三个都需要足够的内存（并且是相同大小的内存）来放置一个机器地址。指向不同类型之各指针间的差异，既不在其指针表示法不同，也不在其内容（代表一个地址）不同，而是在其所寻址出来的对象类型不同。也就是说，指针类型会教导编译器如何解释某个特定地址中的内存内容及其大小。” 参考这段话和下面的内存示意图，答案已经呼之欲出了。</p>
+<img data-src="/images/blog/chapter4/ch4-reinterpret_cast.jpg" alt="ch4-reinterpret_cast" style="zoom: 33%;">
 
-<p>使用reinterpret_cast运算符把pnum从int<em>转变成char</em>类型并用于初始化pstr后，pstr也指向num的内存区域，但是由于pstr是char<em>类型的，通过pstr读写num内存区域将不再按照整型变量的规则，而是按照char型变量规则。一个char型变量占用一个Byte，对pstr解引用得到的将是一个字符，也就是’a’。而在使用输出流输出pstr时，将输出pstr指向的内存区域的字符，那pstr指向的是一个的字符，那为什么输出三个字符呢？这是由于在输出char</em>指针时，输出流会把它当做输出一个字符串来处理，直至遇到’\0’才表示字符串结束。对代码稍做改动，就会得到不一样的输出结果，例如将num的值改为0x63006261,输出的字符串就变为”ab”。</p>
+<p>使用 reinterpret_cast 运算符把 pnum 从 int <em>转变成 char</em> 类型并用于初始化 pstr 后，pstr 也指向 num 的内存区域，但是由于 pstr 是 char <em>类型的，通过 pstr 读写 num 内存区域将不再按照整型变量的规则，而是按照 char 型变量规则。一个 char 型变量占用一个 Byte，对 pstr 解引用得到的将是一个字符，也就是’a’。而在使用输出流输出 pstr 时，将输出 pstr 指向的内存区域的字符，那 pstr 指向的是一个的字符，那为什么输出三个字符呢？这是由于在输出 char</em> 指针时，输出流会把它当做输出一个字符串来处理，直至遇到’\0’才表示字符串结束。对代码稍做改动，就会得到不一样的输出结果，例如将 num 的值改为 0x63006261, 输出的字符串就变为”ab”。</p>
 <p>reference: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/33040213">https://zhuanlan.zhihu.com/p/33040213</a></p>
 </blockquote>
 </li>
-<li><p>强制类型转换干扰了正常的类型检查，因此不建议频繁使用，除非你真的知道你在做什么，尤其是reinterpret_cast，改变了底层表示的类型；</p>
+<li><p> 强制类型转换干扰了正常的类型检查，因此不建议频繁使用，除非你真的知道你在做什么，尤其是 reinterpret_cast，改变了底层表示的类型；</p>
 </li>
-<li><p>decltype作用于表达式的时候，对于左值右值有区别：</p>
+<li><p>decltype 作用于表达式的时候，对于左值右值有区别：</p>
 <pre><code>- 如果表达式的结果是左值，decltype作用于该表达式，得到的是引用类型，如假定int* p; 则decltype(*p)的类型为int&amp;；
 
 - 当表达式结果是右值的时候，得到的是指针，如假定int* p，则decltype(&amp;p)的类型为int **;
@@ -631,8 +608,6 @@
     
     
     
-      
-
 
     <footer class="post-footer">
           
@@ -647,7 +622,7 @@
       <a href="https://pangwong.github.io/blog/2022/05/cpp-primer-chapter4/" title="Reading Note of CppPrimer-Chapter4">https://pangwong.github.io/blog/2022/05/cpp-primer-chapter4/</a>
   </li>
   <li class="post-copyright-license">
-    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
   </li>
 </ul>
 </div>
@@ -655,12 +630,6 @@
           <div class="post-tags">
               <a href="/tags/reading-notes/" rel="tag"><i class="fa fa-tag"></i> reading notes</a>
               <a href="/tags/cpp-primer/" rel="tag"><i class="fa fa-tag"></i> cpp-primer</a>
-              <a href="/tags/Precedence/" rel="tag"><i class="fa fa-tag"></i> Precedence</a>
-              <a href="/tags/Associative/" rel="tag"><i class="fa fa-tag"></i> Associative</a>
-              <a href="/tags/order-of-evaluation/" rel="tag"><i class="fa fa-tag"></i> order of evaluation</a>
-              <a href="/tags/type-conversion/" rel="tag"><i class="fa fa-tag"></i> type conversion</a>
-              <a href="/tags/implicit-conversion/" rel="tag"><i class="fa fa-tag"></i> implicit conversion</a>
-              <a href="/tags/explicit-conversion/" rel="tag"><i class="fa fa-tag"></i> explicit conversion</a>
           </div>
 
         
@@ -668,12 +637,12 @@
           <div class="post-nav">
             <div class="post-nav-item">
                 <a href="/blog/2022/05/cpp-primer-chapter5/" rel="prev" title="Reading Note of CppPrimer-Chapter5">
-                  <i class="fa fa-chevron-left"></i> Reading Note of CppPrimer-Chapter5
+                  <i class="fa fa-angle-left"></i> Reading Note of CppPrimer-Chapter5
                 </a>
             </div>
             <div class="post-nav-item">
                 <a href="/blog/2022/05/cpp-primer-chapter3/" rel="next" title="Reading Note of CppPrimer-Chapter3">
-                  Reading Note of CppPrimer-Chapter3 <i class="fa fa-chevron-right"></i>
+                  Reading Note of CppPrimer-Chapter3 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>
@@ -686,22 +655,20 @@
 
 
 
-    <div class="comments gitalk-container"></div>
 </div>
   </main>
 
   <footer class="footer">
     <div class="footer-inner">
 
-
-<div class="copyright">
-  &copy; 
-  <span itemprop="copyrightYear">2022</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">PangWong</span>
-</div>
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">PangWong</span>
+  </div>
 <div class="wordcount">
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
@@ -741,13 +708,32 @@
   </footer>
 
   
-  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js" integrity="sha256-EdPgYcPk/IIrw7FYeuJQexva49pVRZNmt3LculEr7zM=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
-<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
 
   
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
 
 
 
@@ -759,10 +745,6 @@
 
 
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
-
-<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"pangwong","repo":"pangwong.github.io","client_id":"c3a7ca3ecf4f08f74acb","client_secret":"db3623e99a388c18ba10413186f9051a35cb6627","admin_user":"pangwong","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"548ccb410844af0e45f5efeee6538e88"}</script>
-<script src="/js/third-party/comments/gitalk.js"></script>
 
 </body>
 </html>

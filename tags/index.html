@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
-
 <link rel="preconnect" href="https://fonts.lug.ustc.edu.cn" crossorigin>
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
@@ -17,10 +16,10 @@
 
 <link rel="stylesheet" href="https://fonts.lug.ustc.edu.cn/css?family=Noto+Serif+SC:300,300italic,400,400italic,700,700italic%7CSF+Mono+Regular:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"pangwong.github.io","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"pangwong.github.io","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"right","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"default"},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
     <meta property="og:type" content="website">
 <meta property="og:title" content="tags">
@@ -28,7 +27,7 @@
 <meta property="og:site_name" content="曰悦鸟">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-05-21T08:36:27.000Z">
-<meta property="article:modified_time" content="2022-05-28T09:53:35.849Z">
+<meta property="article:modified_time" content="2022-05-28T09:53:35.000Z">
 <meta property="article:author" content="PangWong">
 <meta name="twitter:card" content="summary">
 
@@ -48,6 +47,9 @@
 
 
 
+
+
+
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
@@ -57,8 +59,8 @@
   <div class="headband"></div>
 
   <main class="main">
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
   <div class="site-nav-toggle">
     <div class="toggle" aria-label="切换导航栏" role="button">
         <span class="toggle-line"></span>
@@ -77,7 +79,7 @@
   </div>
 
   <div class="site-nav-right">
-    <div class="toggle popup-trigger">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
     </div>
   </div>
 </div>
@@ -92,15 +94,9 @@
 
 
 
-</div>
+</header>
         
   
-  <div class="toggle sidebar-toggle" role="button">
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-  </div>
-
   <aside class="sidebar">
 
     <div class="sidebar-inner sidebar-overview-active">
@@ -120,13 +116,13 @@
         <!--/noindex-->
 
         <div class="site-overview-wrap sidebar-panel">
-          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <img class="site-author-image" itemprop="image" alt="PangWong"
       src="/images/avatar.png">
   <p class="site-author-name" itemprop="name">PangWong</p>
   <div class="site-description" itemprop="description"></div>
 </div>
-<div class="site-state-wrap site-overview-item animated">
+<div class="site-state-wrap animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
@@ -141,39 +137,26 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">133</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
 </div>
-  <div class="links-of-author site-overview-item animated">
+  <div class="links-of-author animated">
       <span class="links-of-author-item">
-        <a href="https://github.com/pangwong" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;pangwong" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+        <a href="https://github.com/pangwong" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;pangwong" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
       </span>
   </div>
-
-
 
         </div>
       </div>
     </div>
-  </aside>
-  <div class="sidebar-dimmer"></div>
-
-
-    </header>
 
     
-  <div class="back-to-top" role="button" aria-label="返回顶部">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-  <div class="reading-progress-bar"></div>
+  </aside>
 
-<noscript>
-  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
-</noscript>
 
+    </div>
 
     <div class="main-inner page posts-expand">
 
@@ -193,12 +176,13 @@
 
       
       
+      
       <div class="post-body"><div class="tag-cloud">
   <div class="tag-cloud-title">
-    目前共计 133 个标签
+    目前共计 2 个标签
   </div>
   <div class="tag-cloud-tags">
-    <a href="/tags/Associative/" style="font-size: 12px;" class="tag-cloud-0">Associative</a> <a href="/tags/Precedence/" style="font-size: 12px;" class="tag-cloud-0">Precedence</a> <a href="/tags/abstract-base-class/" style="font-size: 12px;" class="tag-cloud-0">abstract base class</a> <a href="/tags/aggrerate-class/" style="font-size: 12px;" class="tag-cloud-0">aggrerate class</a> <a href="/tags/allocator/" style="font-size: 12px;" class="tag-cloud-0">allocator</a> <a href="/tags/argument/" style="font-size: 12px;" class="tag-cloud-0">argument</a> <a href="/tags/arithmetic-operators/" style="font-size: 12px;" class="tag-cloud-0">arithmetic operators</a> <a href="/tags/array/" style="font-size: 21px;" class="tag-cloud-5">array</a> <a href="/tags/assert/" style="font-size: 12px;" class="tag-cloud-0">assert</a> <a href="/tags/assignment-operators/" style="font-size: 12px;" class="tag-cloud-0">assignment operators</a> <a href="/tags/associative-container/" style="font-size: 12px;" class="tag-cloud-0">associative container</a> <a href="/tags/base-class/" style="font-size: 12px;" class="tag-cloud-0">base class</a> <a href="/tags/c-style-string/" style="font-size: 12px;" class="tag-cloud-0">c-style string</a> <a href="/tags/class-scope/" style="font-size: 12px;" class="tag-cloud-0">class scope</a> <a href="/tags/class-static-member/" style="font-size: 12px;" class="tag-cloud-0">class static member</a> <a href="/tags/class-template/" style="font-size: 12px;" class="tag-cloud-0">class template</a> <a href="/tags/condition/" style="font-size: 12px;" class="tag-cloud-0">condition</a> <a href="/tags/const/" style="font-size: 12px;" class="tag-cloud-0">const</a> <a href="/tags/const-member/" style="font-size: 12px;" class="tag-cloud-0">const member</a> <a href="/tags/constexpr-class/" style="font-size: 12px;" class="tag-cloud-0">constexpr class</a> <a href="/tags/container-iterator/" style="font-size: 12px;" class="tag-cloud-0">container iterator</a> <a href="/tags/conversion-operators/" style="font-size: 12px;" class="tag-cloud-0">conversion operators</a> <a href="/tags/converting-constructor/" style="font-size: 12px;" class="tag-cloud-0">converting constructor</a> <a href="/tags/copy-assignment-operator/" style="font-size: 12px;" class="tag-cloud-0">copy assignment operator</a> <a href="/tags/copy-constructor/" style="font-size: 12px;" class="tag-cloud-0">copy constructor</a> <a href="/tags/copy-control/" style="font-size: 12px;" class="tag-cloud-0">copy control</a> <a href="/tags/cpp-primer/" style="font-size: 30px;" class="tag-cloud-10">cpp-primer</a> <a href="/tags/declaration/" style="font-size: 12px;" class="tag-cloud-0">declaration</a> <a href="/tags/default/" style="font-size: 12px;" class="tag-cloud-0">default</a> <a href="/tags/default-constructor/" style="font-size: 12px;" class="tag-cloud-0">default constructor</a> <a href="/tags/defination/" style="font-size: 12px;" class="tag-cloud-0">defination</a> <a href="/tags/delegating-constructor/" style="font-size: 12px;" class="tag-cloud-0">delegating constructor</a> <a href="/tags/delete/" style="font-size: 21px;" class="tag-cloud-5">delete</a> <a href="/tags/delete-array/" style="font-size: 12px;" class="tag-cloud-0">delete array</a> <a href="/tags/derived-class/" style="font-size: 12px;" class="tag-cloud-0">derived class</a> <a href="/tags/destructor/" style="font-size: 12px;" class="tag-cloud-0">destructor</a> <a href="/tags/dynamic-binding/" style="font-size: 12px;" class="tag-cloud-0">dynamic binding</a> <a href="/tags/explicit/" style="font-size: 12px;" class="tag-cloud-0">explicit</a> <a href="/tags/explicit-conversion/" style="font-size: 12px;" class="tag-cloud-0">explicit conversion</a> <a href="/tags/explicit-instantiation/" style="font-size: 12px;" class="tag-cloud-0">explicit instantiation</a> <a href="/tags/final/" style="font-size: 12px;" class="tag-cloud-0">final</a> <a href="/tags/forward-list/" style="font-size: 12px;" class="tag-cloud-0">forward_list</a> <a href="/tags/friend/" style="font-size: 12px;" class="tag-cloud-0">friend</a> <a href="/tags/fstream/" style="font-size: 12px;" class="tag-cloud-0">fstream</a> <a href="/tags/function-call-operators/" style="font-size: 12px;" class="tag-cloud-0">function call operators</a> <a href="/tags/function-template/" style="font-size: 12px;" class="tag-cloud-0">function template</a> <a href="/tags/function-matching/" style="font-size: 12px;" class="tag-cloud-0">function-matching</a> <a href="/tags/function-pointer/" style="font-size: 12px;" class="tag-cloud-0">function-pointer</a> <a href="/tags/generic-algorithm/" style="font-size: 12px;" class="tag-cloud-0">generic algorithm</a> <a href="/tags/implicit-conversion/" style="font-size: 12px;" class="tag-cloud-0">implicit conversion</a> <a href="/tags/incomplete-type/" style="font-size: 12px;" class="tag-cloud-0">incomplete-type</a> <a href="/tags/increment-decrement-operators/" style="font-size: 12px;" class="tag-cloud-0">increment/decrement operators</a> <a href="/tags/inheritance/" style="font-size: 12px;" class="tag-cloud-0">inheritance</a> <a href="/tags/initialization/" style="font-size: 12px;" class="tag-cloud-0">initialization</a> <a href="/tags/input-output-operator/" style="font-size: 12px;" class="tag-cloud-0">input/output operator</a> <a href="/tags/insert-iterator/" style="font-size: 12px;" class="tag-cloud-0">insert_iterator</a> <a href="/tags/iostream/" style="font-size: 12px;" class="tag-cloud-0">iostream</a> <a href="/tags/iterator/" style="font-size: 12px;" class="tag-cloud-0">iterator</a> <a href="/tags/iterator-invalidation/" style="font-size: 12px;" class="tag-cloud-0">iterator invalidation</a> <a href="/tags/lambda/" style="font-size: 12px;" class="tag-cloud-0">lambda</a> <a href="/tags/linkage/" style="font-size: 12px;" class="tag-cloud-0">linkage</a> <a href="/tags/list/" style="font-size: 12px;" class="tag-cloud-0">list</a> <a href="/tags/literal-string/" style="font-size: 12px;" class="tag-cloud-0">literal string</a> <a href="/tags/loop/" style="font-size: 12px;" class="tag-cloud-0">loop</a> <a href="/tags/lower-bound/" style="font-size: 12px;" class="tag-cloud-0">lower_bound</a> <a href="/tags/lvalue/" style="font-size: 12px;" class="tag-cloud-0">lvalue</a> <a href="/tags/lvalue-reference/" style="font-size: 12px;" class="tag-cloud-0">lvalue reference</a> <a href="/tags/map/" style="font-size: 12px;" class="tag-cloud-0">map</a> <a href="/tags/member-access-operators/" style="font-size: 12px;" class="tag-cloud-0">member access operators</a> <a href="/tags/member-hidden/" style="font-size: 12px;" class="tag-cloud-0">member hidden</a> <a href="/tags/member-template/" style="font-size: 12px;" class="tag-cloud-0">member template</a> <a href="/tags/move-assignment-operatppr/" style="font-size: 12px;" class="tag-cloud-0">move assignment operatppr</a> <a href="/tags/move-constructor/" style="font-size: 12px;" class="tag-cloud-0">move constructor</a> <a href="/tags/multi-dim-array/" style="font-size: 12px;" class="tag-cloud-0">multi-dim array</a> <a href="/tags/mutable/" style="font-size: 12px;" class="tag-cloud-0">mutable</a> <a href="/tags/new/" style="font-size: 12px;" class="tag-cloud-0">new</a> <a href="/tags/new-array/" style="font-size: 12px;" class="tag-cloud-0">new array</a> <a href="/tags/order-of-evaluation/" style="font-size: 12px;" class="tag-cloud-0">order of evaluation</a> <a href="/tags/overload/" style="font-size: 12px;" class="tag-cloud-0">overload</a> <a href="/tags/overload-operators/" style="font-size: 12px;" class="tag-cloud-0">overload operators</a> <a href="/tags/override/" style="font-size: 12px;" class="tag-cloud-0">override</a> <a href="/tags/pack-expansion/" style="font-size: 12px;" class="tag-cloud-0">pack expansion</a> <a href="/tags/pair/" style="font-size: 12px;" class="tag-cloud-0">pair</a> <a href="/tags/parameter/" style="font-size: 12px;" class="tag-cloud-0">parameter</a> <a href="/tags/placement-new/" style="font-size: 12px;" class="tag-cloud-0">placement new</a> <a href="/tags/predicate/" style="font-size: 12px;" class="tag-cloud-0">predicate</a> <a href="/tags/priority-queue/" style="font-size: 12px;" class="tag-cloud-0">priority_queue</a> <a href="/tags/public-protected-private/" style="font-size: 12px;" class="tag-cloud-0">public/protected/private</a> <a href="/tags/pure-virtual-function/" style="font-size: 12px;" class="tag-cloud-0">pure virtual function</a> <a href="/tags/queue/" style="font-size: 12px;" class="tag-cloud-0">queue</a> <a href="/tags/range-for/" style="font-size: 12px;" class="tag-cloud-0">range-for</a> <a href="/tags/reading-notes/" style="font-size: 30px;" class="tag-cloud-10">reading notes</a> <a href="/tags/reference/" style="font-size: 12px;" class="tag-cloud-0">reference</a> <a href="/tags/reference-collapsing/" style="font-size: 12px;" class="tag-cloud-0">reference collapsing</a> <a href="/tags/reference-qualifier/" style="font-size: 12px;" class="tag-cloud-0">reference qualifier</a> <a href="/tags/relational-operators/" style="font-size: 12px;" class="tag-cloud-0">relational operators</a> <a href="/tags/reverse-iterator/" style="font-size: 12px;" class="tag-cloud-0">reverse_iterator</a> <a href="/tags/rules-of-five/" style="font-size: 12px;" class="tag-cloud-0">rules of five</a> <a href="/tags/rvalue/" style="font-size: 12px;" class="tag-cloud-0">rvalue</a> <a href="/tags/rvalue-reference/" style="font-size: 12px;" class="tag-cloud-0">rvalue reference</a> <a href="/tags/scope/" style="font-size: 12px;" class="tag-cloud-0">scope</a> <a href="/tags/sequential-container/" style="font-size: 12px;" class="tag-cloud-0">sequential container</a> <a href="/tags/set/" style="font-size: 12px;" class="tag-cloud-0">set</a> <a href="/tags/shared-ptr/" style="font-size: 12px;" class="tag-cloud-0">shared_ptr</a> <a href="/tags/slice-down/" style="font-size: 12px;" class="tag-cloud-0">slice down</a> <a href="/tags/sstream/" style="font-size: 12px;" class="tag-cloud-0">sstream</a> <a href="/tags/stack/" style="font-size: 12px;" class="tag-cloud-0">stack</a> <a href="/tags/statement/" style="font-size: 12px;" class="tag-cloud-0">statement</a> <a href="/tags/static-assert/" style="font-size: 12px;" class="tag-cloud-0">static_assert</a> <a href="/tags/std-bind/" style="font-size: 12px;" class="tag-cloud-0">std::bind</a> <a href="/tags/std-forward/" style="font-size: 12px;" class="tag-cloud-0">std::forward</a> <a href="/tags/std-function/" style="font-size: 12px;" class="tag-cloud-0">std::function</a> <a href="/tags/std-move/" style="font-size: 12px;" class="tag-cloud-0">std::move</a> <a href="/tags/stream-iterator/" style="font-size: 12px;" class="tag-cloud-0">stream_iterator</a> <a href="/tags/strict-weak-ordering/" style="font-size: 12px;" class="tag-cloud-0">strict weak ordering</a> <a href="/tags/string/" style="font-size: 21px;" class="tag-cloud-5">string</a> <a href="/tags/subscript-operators/" style="font-size: 12px;" class="tag-cloud-0">subscript operators</a> <a href="/tags/switch/" style="font-size: 12px;" class="tag-cloud-0">switch</a> <a href="/tags/template/" style="font-size: 12px;" class="tag-cloud-0">template</a> <a href="/tags/template-full-specialization/" style="font-size: 12px;" class="tag-cloud-0">template full specialization</a> <a href="/tags/template-partial-specialization/" style="font-size: 12px;" class="tag-cloud-0">template partial specialization</a> <a href="/tags/trailing-return-type/" style="font-size: 12px;" class="tag-cloud-0">trailing-return-type</a> <a href="/tags/try-catch/" style="font-size: 12px;" class="tag-cloud-0">try-catch</a> <a href="/tags/type-conversion/" style="font-size: 12px;" class="tag-cloud-0">type conversion</a> <a href="/tags/typename/" style="font-size: 12px;" class="tag-cloud-0">typename</a> <a href="/tags/unique-ptr/" style="font-size: 12px;" class="tag-cloud-0">unique_ptr</a> <a href="/tags/unordered-map/" style="font-size: 12px;" class="tag-cloud-0">unordered_map</a> <a href="/tags/upper-bound/" style="font-size: 12px;" class="tag-cloud-0">upper_bound</a> <a href="/tags/value-category/" style="font-size: 12px;" class="tag-cloud-0">value category</a> <a href="/tags/variadic-template/" style="font-size: 12px;" class="tag-cloud-0">variadic template</a> <a href="/tags/vector/" style="font-size: 21px;" class="tag-cloud-5">vector</a> <a href="/tags/virtual-function/" style="font-size: 12px;" class="tag-cloud-0">virtual function</a> <a href="/tags/weak-ptr/" style="font-size: 12px;" class="tag-cloud-0">weak_ptr</a>
+    <a href="/tags/cpp-primer/" style="font-size: 12px;" class="tag-cloud-0">cpp-primer</a> <a href="/tags/reading-notes/" style="font-size: 12px;" class="tag-cloud-0">reading notes</a>
   </div>
 </div>
 
@@ -212,22 +196,20 @@
     
 
 
-    <div class="comments gitalk-container"></div>
 </div>
   </main>
 
   <footer class="footer">
     <div class="footer-inner">
 
-
-<div class="copyright">
-  &copy; 
-  <span itemprop="copyrightYear">2022</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">PangWong</span>
-</div>
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">PangWong</span>
+  </div>
 <div class="wordcount">
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
@@ -267,13 +249,32 @@
   </footer>
 
   
-  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js" integrity="sha256-EdPgYcPk/IIrw7FYeuJQexva49pVRZNmt3LculEr7zM=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
-<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
 
   
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
 
 
 
@@ -285,10 +286,6 @@
 
 
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
-
-<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"pangwong","repo":"pangwong.github.io","client_id":"c3a7ca3ecf4f08f74acb","client_secret":"db3623e99a388c18ba10413186f9051a35cb6627","admin_user":"pangwong","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"f47af1d1eda4d807b02bba32be15120b"}</script>
-<script src="/js/third-party/comments/gitalk.js"></script>
 
 </body>
 </html>
